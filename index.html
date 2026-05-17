@@ -55,7 +55,7 @@
         .btn-download-app:hover { background: rgba(56, 189, 248, 0.2); border-color: var(--neon-seguridad); }
 
         /* Barra de Pestañas Animada */
-        .tabs-container { max-width: 1400px; width: 100%; margin: 20px auto 0; padding: 0 20px; display: flex; gap: 10px; flex-wrap: wrap; }
+        .tabs-container { max-width: 1400px; width: 100%; margin: 25px auto 0; padding: 0 20px; display: flex; gap: 10px; flex-wrap: wrap; }
         .tab-button { 
             background: #0f172a; 
             color: var(--texto-secundario); 
@@ -77,7 +77,7 @@
         }
 
         /* Estructura Rejilla de Tarjetas Grid Premium */
-        .wrapper { max-width: 1400px; width: 100%; margin: 15px auto; padding: 0 20px; }
+        .wrapper { max-width: 1400px; width: 100%; margin: 25px auto; padding: 0 20px; }
         .tab-content { display: none; grid-template-columns: repeat(auto-fill, minmax(430px, 1fr)); gap: 20px; width: 100%; }
         @media (max-width: 500px) { .tab-content { grid-template-columns: 1fr; } }
         .tab-content.active { display: grid; }
@@ -367,7 +367,7 @@
                 <div class="card-header" onclick="toggleCard(this)">
                     <div class="card-header-left">
                         <h2>🌧️ Audio de Enfoque Relajante</h2>
-                        <p class="desc-corta">Bloquea distracciones externas con sonido ambiental sintético.</p>
+                        <p class="desc-corta">Bloquea distractions externas con sonido ambiental sintético.</p>
                     </div>
                     <span class="arrow-icon">▼</span>
                 </div>
@@ -589,11 +589,7 @@
                     <label>Duración total del video (en segundos):</label>
                     <input type="number" id="split-video-seconds" value="145">
                     <label>Dividir en bloques de (segundos):</label>
-                    <select id="split-platform-time">
-                        <option value="15">15 Segundos (Historias Cortas)</option>
-                        <option value="30">30 Segundos (WhatsApp/Reels)</option>
-                        <option value="60">60 Segundos (TikTok Standard)</option>
-                    </select>
+                    <input type="number" id="split-platform-time" value="30">
                     <button onclick="calcularCortesVideo()" style="width:100%;">🎬 Calcular Fragmentos</button>
                     <div id="video-split-output" class="output-box" style="color:var(--neon-negocios)"></div>
                 </div>
@@ -828,7 +824,7 @@
             <section class="card cat-utilidades">
                 <div class="card-header" onclick="toggleCard(this)">
                     <div class="card-header-left">
-                        <h2>📱 Alerta de Límites y Contador de Texto</h2>
+                        <h2><h2>📱 Alerta de Límites y Contador de Texto</h2>
                         <p class="desc-corta">Redacta descripciones cuidando no exceder el tope de TikTok o Instagram.</p>
                     </div>
                     <span class="arrow-icon">▼</span>
@@ -924,7 +920,7 @@
                 <div class="card-header" onclick="toggleCard(this)">
                     <div class="card-header-left">
                         <h2>💰 Calculadora de Descuentos Directos</h2>
-                        <p class="desc-corta">Deduce deducciones porcentuales rápidamente de un precio base.</p>
+                        <p class="desc-corta">Deduce deductions porcentuales rápidamente de un precio base.</p>
                     </div>
                     <span class="arrow-icon">▼</span>
                 </div>
@@ -965,7 +961,7 @@
     </div>
 
     <a href="#" class="btn-float-donate" id="donate-float-trigger" onclick="abrirModal('modal-donacion')">
-        ☕ Apoyar Portal ($1 USD)
+        <span>☕ Apoyar Portal ($1 USD)</span>
     </a>
 
     <div id="modal-donacion" class="modal-overlay" onclick="cerrarModalFondo(event, 'modal-donacion')">
@@ -984,7 +980,6 @@
             <ul class="founders-list">
                 <li>✨ ¡Tu nombre puede ir aquí en la próxima actualización!</li>
                 <li>✨ Colaborador Anónimo (Cali, CO)</li>
-                <li>✨ Patrocinador VIP - Proyecto Cookie Cup</li>
             </ul>
             
             <button onclick="cerrarModal('modal-donacion')" style="width: 100%; background: var(--neon-utilidades); color: #000; margin-top: 15px;">Entendido / Cerrar</button>
@@ -996,6 +991,7 @@
         const firebaseConfig = {
             apiKey: "AIzaSyDlR_zbwalC2bpzZ5XWePMKzh1gGWo3cjI",
             authDomain: "herramientas-6ae51.firebaseapp.com",
+            databaseURL: "https://herramientas-6ae51-default-rtdb.firebaseio.com",
             projectId: "herramientas-6ae51",
             storageBucket: "herramientas-6ae51.firebasestorage.app",
             messagingSenderId: "755323788523",
@@ -1350,6 +1346,224 @@
             const backup = localStorage.getItem('local_notes_backup');
             if(backup && !currentUser) document.getElementById('cloud-notes-area').value = backup;
         };
-    </script>
+   <style>
+/* Contenedor flotante de la mascota (abajo a la derecha) */
+#contenedor-mascota-fundador {
+    display: none; /* Oculto por defecto hasta que se canjee un código */
+    position: fixed;
+    bottom: 85px;
+    right: 20px;
+    background: rgba(15, 23, 42, 0.95);
+    border: 2px solid var(--neon-productividad);
+    border-radius: 16px;
+    padding: 12px 18px;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(245, 158, 11, 0.25);
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    width: 140px;
+    user-select: none;
+    animation: aparecerMascota 0.4s ease-out;
+}
+
+@keyframes aparecerMascota {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.mascota-animada {
+    font-size: 42px;
+    margin: 6px 0;
+    transition: transform 0.2s ease;
+    cursor: pointer;
+}
+
+.mascota-animada:hover {
+    transform: scale(1.2) rotate(10deg);
+}
+
+.barra-xp-bg {
+    width: 100%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    margin: 8px 0 4px 0;
+    overflow: hidden;
+}
+
+.barra-xp-llenado {
+    height: 100%;
+    background: linear-gradient(90deg, var(--neon-productividad), #fbbf24);
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+#texto-nivel-mascota {
+    font-size: 11px;
+    color: var(--neon-productividad);
+    font-weight: bold;
+}
+
+/* Estilos de la sección de canje dentro del modal */
+.caja-canje-codigo {
+    margin-top: 15px;
+    padding: 12px;
+    background: rgba(16, 185, 129, 0.05);
+    border: 1px dashed var(--neon-utilidades);
+    border-radius: 10px;
+    text-align: left;
+}
+</style>
+
+<div id="contenedor-mascota-fundador">
+    <div style="font-size: 9px; color: var(--texto-secundario); font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px;">Mascota Fundador</div>
+    <div id="emoji-mascota" class="mascota-animada">🥚</div>
+    <div class="barra-xp-bg">
+        <div id="llenado-xp-mascota" class="barra-xp-llenado"></div>
+    </div>
+    <div id="texto-nivel-mascota">Nivel 1</div>
+</div>
+
+<script>
+(function() {
+    // Lista estricta de códigos de un solo uso proporcionada por ti
+    const codigosValidos = [
+        "FUNDADOR-A19X", "FUNDADOR-B28M", "FUNDADOR-C37K", "FUNDADOR-D46W", "FUNDADOR-E55V",
+        "FUNDADOR-F64Z", "FUNDADOR-G73P", "FUNDADOR-H82Q", "FUNDADOR-J91R", "FUNDADOR-K10S",
+        "FUNDADOR-L21T", "FUNDADOR-M32N", "FUNDADOR-N43H", "FUNDADOR-P54J", "FUNDADOR-Q65F",
+        "FUNDADOR-R76D", "FUNDADOR-S87C", "FUNDADOR-T98B", "FUNDADOR-U09A", "FUNDADOR-V11Y"
+    ];
+
+    // Fases de evolución de la mascota según su nivel
+    const fasesEvolucion = {
+        1: '🥚', // Huevo
+        2: '🐣', // Saliendo del cascarón
+        3: '🐥', // Pollito bebé
+        4: '🐤', // Pollito creciendo
+        5: '🐓', // Gallo Guardián
+        6: '🦅', // Águila de Fundador
+        7: '🐉'  // Dragón Legendario Supremo
+    };
+
+    // Cargar datos persistentes de localStorage
+    let esFundadorActivo = localStorage.getItem('esFundador') === 'true';
+    let xpActualMascota = parseInt(localStorage.getItem('xpMascota') || '0');
+    let nivelActualMascota = parseInt(localStorage.getItem('nivelMascota') || '1');
+
+    // Inyectar dinámicamente la interfaz de canje en el Muro de Fundadores
+    window.addEventListener('load', function() {
+        const listaFundadores = document.querySelector('.founders-list');
+        if (listaFundadores) {
+            const contenedorCanje = document.createElement('div');
+            contenedorCanje.className = 'caja-canje-codigo';
+            contenedorCanje.innerHTML = `
+                <label style="color: var(--neon-utilidades); font-weight: bold; margin-bottom: 6px;">💎 Canjear Código de Fundador:</label>
+                <div style="display: flex; gap: 8px;">
+                    <input type="text" id="txt-codigo-fundador" placeholder="FUNDADOR-XXXX" style="margin-bottom: 0; text-transform: uppercase; font-family: monospace;">
+                    <button id="btn-validar-fundador" style="background: var(--neon-utilidades); color: #000; padding: 0 14px; white-space: nowrap; font-weight: bold;">Canjear</button>
+                </div>
+                <p id="feedback-canje" style="font-size: 11px; margin-top: 6px; display: none; font-weight: bold;"></p>
+            `;
+            // Colocarlo justo debajo de la lista de fundadores sin alterarla
+            listaFundadores.parentNode.insertBefore(contenedorCanje, listaFundadores.nextSibling);
+
+            // Escuchar el evento de clic del botón de canje
+            document.getElementById('btn-validar-fundador').addEventListener('click', procesarCanjeCodigo);
+        }
+
+        // Inicializar el estado visual de la mascota si ya es fundador
+        actualizarMascotaVisual();
+
+        // Detectar de forma segura cuando se elimina una tarea del contenedor
+        const contenedorTareas = document.getElementById('todo-container');
+        if (contenedorTareas) {
+            contenedorTareas.addEventListener('click', function(evento) {
+                // Si hacen clic en el botón "X" para remover/completar la tarea
+                if (evento.target && evento.target.tagName === 'BUTTON' && evento.target.innerText === 'X') {
+                    if (esFundadorActivo) {
+                        agregarXPMascota();
+                    }
+                }
+            });
+        }
+    });
+
+    // Función para validar y quemar el código de un solo uso en el navegador
+    function procesarCanjeCodigo() {
+        const inputCodigo = document.getElementById('txt-codigo-fundador').value.trim().toUpperCase();
+        const feedback = document.getElementById('feedback-canje');
+        feedback.style.display = 'block';
+
+        if (esFundadorActivo) {
+            feedback.style.color = 'var(--neon-productividad)';
+            feedback.innerText = '¡Ya eres miembro Fundador! Revisa tu mascota abajo a la derecha.';
+            return;
+        }
+
+        if (codigosValidos.includes(inputCodigo)) {
+            // Verificar si este código específico ya fue usado localmente
+            let codigosQuemados = JSON.parse(localStorage.getItem('codigosQuemados') || '[]');
+            if (codigosQuemados.includes(inputCodigo)) {
+                feedback.style.color = 'var(--color-alerta)';
+                feedback.innerText = 'Este código de un solo uso ya ha sido canjeado.';
+                return;
+            }
+
+            // Activar membresía de fundador y guardar el código quemado
+            esFundadorActivo = true;
+            codigosQuemados.push(inputCodigo);
+            localStorage.setItem('esFundador', 'true');
+            localStorage.setItem('codigosQuemados', JSON.stringify(codigosQuemados));
+
+            feedback.style.color = 'var(--neon-utilidades)';
+            feedback.innerText = '¡Felicidades! Código aceptado. Beneficios de fundador activados.';
+            
+            actualizarMascotaVisual();
+        } else {
+            feedback.style.color = 'var(--color-alerta)';
+            feedback.innerText = 'Código inválido. Asegúrate de escribirlo correctamente.';
+        }
+    }
+
+    // Incrementar la experiencia al realizar las tareas del bloc de notas
+    function agregarXPMascota() {
+        if (nivelActualMascota >= 7) return; // Máximo nivel alcanzado (Dragón)
+
+        xpActualMascota += 25; // Sube un 25% por cada tarea completada (4 tareas para subir de nivel)
+        if (xpActualMascota >= 100) {
+            xpActualMascota = 0;
+            nivelActualMascota++;
+            alert(`✨ ¡Increíble! Tu mascota de fundador ha evolucionado. Ahora está en el Nivel ${nivelActualMascota}.`);
+        }
+
+        localStorage.setItem('xpMascota', xpActualMascota);
+        localStorage.setItem('nivelMascota', nivelActualMascota);
+        actualizarMascotaVisual();
+    }
+
+    // Actualizar la interfaz gráfica de la mascota
+    function actualizarMascotaVisual() {
+        const widgetMascota = document.getElementById('contenedor-mascota-fundador');
+        if (esFundadorActivo) {
+            widgetMascota.style.display = 'block';
+            
+            const emojiActual = fasesEvolucion[nivelActualMascota] || '🐉';
+            document.getElementById('emoji-mascota').innerText = emojiActual;
+
+            if (nivelActualMascota >= 7) {
+                document.getElementById('texto-nivel-mascota').innerText = 'Nivel MÁX 🐉';
+                document.getElementById('llenado-xp-mascota').style.width = '100%';
+                document.getElementById('llenado-xp-mascota').style.background = 'var(--neon-seguridad)';
+            } else {
+                document.getElementById('texto-nivel-mascota').innerText = `Nivel ${nivelActualMascota}`;
+                document.getElementById('llenado-xp-mascota').style.width = `${xpActualMascota}%`;
+            }
+        } else {
+            widgetMascota.style.display = 'none';
+        }
+    }
+})();
+</script> </script>
 </body>
 </html>
