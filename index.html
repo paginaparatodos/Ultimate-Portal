@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta name="monetag" content="47fb26fbf6a04d02f0859e50cd5668c9">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-   
+    <meta name="monetag" content="47fb26fbf6a04d02f0859e50cd5668c9">
 
     <title>Herramientas Web Gratuitas | ÚtilWeb Ultimate Portal</title>
     <style>
@@ -69,7 +68,8 @@
         .todo-list { list-style: none; }
         .todo-item { display: flex; justify-content: space-between; align-items: center; background: #060814; padding: 10px 15px; border-radius: 8px; margin-bottom: 8px; border: 1px solid var(--border-color); }
         .email-box { background: #1e1b4b; border: 1px solid var(--color-correo); padding: 15px; border-radius: 10px; display: flex; gap: 10px; align-items: center; margin-bottom: 15px; }
-        .inbox-container { background: #060814; border: 1px solid var(--border-color); border-radius: 10px; padding: 15px; max-height: 150px; overflow-y: auto; font-size: 13px; }
+        .inbox-container { background: #060814; border: 1px solid var(--border-color); border-radius: 10px; padding: 15px; max-height: 180px; overflow-y: auto; font-size: 13px; }
+        .email-item { padding: 8px; border-bottom: 1px solid #1e293b; margin-bottom: 5px; }
         .cv-preview { background: white; color: black; padding: 20px; border-radius: 8px; margin-top: 15px; display: none; }
         
         .strength-bar { height: 8px; width: 100%; background: #24324f; border-radius: 4px; margin-top: -5px; margin-bottom: 15px; overflow: hidden; }
@@ -99,17 +99,21 @@
 
             <div id="seguridad" class="tab-content active">
                 <section class="card" style="border-color: var(--color-correo);">
-                    <h2>✉️ Correo Temporal de Un Solo Uso (Anti-Spam)</h2>
-                    <p>Usa este correo aleatorio para proteger tu bandeja real de publicidad basura.</p>
+                    <h2>✉️ Correo Temporal Real de Un Solo Uso (Anti-Spam)</h2>
+                    <p>Usa este correo real generado al instante para proteger tu bandeja real de publicidad basura.</p>
                     <div class="email-box">
-                        <div id="email-value" style="font-family: monospace; color: #e9d5ff; flex-grow: 1;">Generando cuenta...</div>
+                        <div id="email-value" style="font-family: monospace; color: #e9d5ff; flex-grow: 1;">Generando cuenta real...</div>
                         <button onclick="copiarEmail()" class="btn-alt">📋 Copiar</button>
                     </div>
                     <div style="display: flex; gap: 10px; margin-bottom: 15px;">
                         <button onclick="generarNuevoEmail()" style="background: var(--color-correo); color: white;">🔄 Cambiar Correo</button>
-                        <button onclick="revisarBandeja()" class="btn-alt">📥 Ver Buzón</button>
+                        <button onclick="revisarBandeja()" class="btn-alt">📥 Ver Buzón Actual</button>
                     </div>
-                    <div class="inbox-container"><div id="inbox-list"><p style="color: var(--texto-secundario); font-style: italic;">Esperando mensajes de verificación...</p></div></div>
+                    <div class="inbox-container">
+                        <div id="inbox-list">
+                            <p style="color: var(--texto-secundario); font-style: italic;">Esperando correos reales entrantes...</p>
+                        </div>
+                    </div>
                 </section>
 
                 <section class="card">
@@ -146,7 +150,7 @@
             <div id="productividad" class="tab-content">
                 <section class="card">
                     <h2>⏱️ Temporizador Pomodoro Integrado</h2>
-                    <p>Alterna 25 minutes de estudio estricto con 5 minutos de relajación mental.</p>
+                    <p>Alterna 25 minutos de estudio estricto con 5 minutos de relajación mental.</p>
                     <div class="timer-display" id="timer-display">25:00</div>
                     <div style="display: flex; gap: 10px;">
                         <button onclick="controlarPomodoro()" id="btn-pomodoro">▶️ Empezar</button>
@@ -222,9 +226,9 @@
 
                 <section class="card">
                     <h2>📷 Analizador de Archivos QR</h2>
-                    <p>Sube capturas o imágenes con códigos QR para extraer sus enlaces.</p>
+                    <p>Sube capturas o imágenes con códigos QR para procesarlos.</p>
                     <input type="file" id="qr-file-input" accept="image/*" onchange="escanearArchivoQR()">
-                    <p id="qr-file-result" style="font-weight: bold; color: var(--color-neon); font-family: monospace;"></p>
+                    <p id="qr-file-result" style="font-weight: bold; color: var(--color-neon); font-family: monospace; margin-top: 10px;"></p>
                 </section>
 
                 <section class="card">
@@ -324,156 +328,3 @@
         </main>
 
         <aside style="display: flex; flex-direction: column; gap: 20px;">
-            <div class="ad-zone" style="min-height: 600px;">
-                <p><b>Bloque Vertical Rascacielos (300x600 Fijo)</b></p>
-                <p style="margin-top: 20px; font-size: 11px; padding: 0 10px; line-height: 1.4;">Este es tu espacio publicitario más valioso. Acompaña constantemente al usuario a la derecha sin importar los clics o pestañas que cambie.</p>
-            </div>
-            <div class="ad-zone" style="min-height: 250px;"><p>Bloque Cuadrado Lateral (300x250)</p></div>
-        </aside>
-    </div>
-
-    <script>
-        function cambiarPestaña(tabId) {
-            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-            document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
-            event.currentTarget.classList.add('active');
-        }
-
-        let user = "user_" + Math.floor(Math.random()*899 + 100);
-        function generarNuevoEmail() {
-            user = "user_" + Math.floor(Math.random()*899 + 100);
-            document.getElementById('email-value').innerText = `${user}@mailtemporal.com`;
-            document.getElementById('inbox-list').innerHTML = '<p style="color: var(--texto-secundario); font-style: italic;">Esperando mensajes de verificación...</p>';
-        }
-        function copiarEmail() { navigator.clipboard.writeText(document.getElementById('email-value').innerText); alert("Copiado."); }
-        function revisarBandeja() {
-            document.getElementById('inbox-list').innerHTML = `<div style="padding:8px 0;"><p style="color:var(--color-neon); font-weight:bold;">De: noreply@sistema.com</p><p>Asunto: Código de activación express: <b>773-102</b></p></div>`;
-        }
-
-        function generarPassword() {
-            const c = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$"; let p = "";
-            for(let i=0; i<14; i++) p += c.charAt(Math.floor(Math.random()*c.length));
-            document.getElementById('password-output').value = p;
-        }
-        function copiarPassword() { navigator.clipboard.writeText(document.getElementById('password-output').value); alert("Copiado."); }
-        function chequearFuerza() {
-            const v = document.getElementById('strength-input').value; const fill = document.getElementById('strength-fill'); const txt = document.getElementById('strength-text');
-            if(v.length === 0){ fill.style.width="0%"; txt.innerText=""; return; }
-            if(v.length < 6){ fill.style.width="30%"; fill.style.backgroundColor="#ef4444"; txt.innerText="Fuerza: Débil (Insegura)"; txt.style.color="#ef4444"; }
-            else if(v.length < 10){ fill.style.width="60%"; fill.style.backgroundColor="#eab308"; txt.innerText="Fuerza: Media (Aceptable)"; txt.style.color="#eab308"; }
-            else { fill.style.width="100%"; fill.style.backgroundColor="#10b981"; txt.innerText="Fuerza: Excelente (Ultra Segura)"; txt.style.color="#10b981"; }
-        }
-
-        function procesarCifrado(encode) {
-            const area = document.getElementById('crypto-input');
-            try { area.value = encode ? btoa(area.value) : atob(area.value); } catch(e) { alert("Formato inválido."); }
-        }
-
-        let tm = 25, ts = 0, ip = null, cr = false;
-        function controlarPomodoro() {
-            const btn = document.getElementById('btn-pomodoro');
-            if(!cr) { cr = true; btn.innerText = "⏸️ Pausar"; ip = setInterval(() => {
-                if(ts===0) { if(tm===0) { clearInterval(ip); alert("Enfoque concluido."); reiniciarPomodoro(); return; } tm--; ts=59; } else { ts--; }
-                document.getElementById('timer-display').innerText = `${tm<10?"0"+tm:tm}:${ts<10?"0"+ts:ts}`;
-            }, 1000); } else { cr = false; btn.innerText = "▶️ Reanudar"; clearInterval(ip); }
-        }
-        function reiniciarPomodoro() { clearInterval(ip); cr = false; tm = 25; ts = 0; document.getElementById('btn-pomodoro').innerText = "▶️ Empezar"; document.getElementById('timer-display').innerText = "25:00"; }
-
-        let ctxAudio = null; let nodoRuido = null;
-        function toggleSonido(tipo) {
-            const btn = document.getElementById(`sound-${tipo}`);
-            if(btn.classList.contains('playing')) {
-                btn.classList.remove('playing'); if(ctxAudio) { ctxAudio.close(); ctxAudio = null; } return;
-            }
-            document.querySelectorAll('.sound-btn').forEach(b => b.classList.remove('playing'));
-            if(ctxAudio) { ctxAudio.close(); }
-            btn.classList.add('playing');
-            ctxAudio = new (window.AudioContext || window.webkitAudioContext)();
-            
-            let tamañoBuffer = ctxAudio.sampleRate * 2, buffer = ctxAudio.createBuffer(1, tamañoBuffer, ctxAudio.sampleRate), salida = buffer.getChannelData(0);
-            for (let i = 0; i < tamañoBuffer; i++) { salida[i] = Math.random() * 2 - 1; }
-            nodoRuido = ctxAudio.createBufferSource(); nodoRuido.buffer = buffer; nodoRuido.loop = true;
-            
-            let filtro = ctxAudio.createBiquadFilter();
-            filtro.type = tipo === 'rain' ? 'lowpass' : 'bandpass';
-            filtro.frequency.value = tipo === 'rain' ? 400 : 800;
-            
-            nodoRuido.connect(filtro); filtro.connect(ctxAudio.destination); nodoRuido.start();
-        }
-
-        function agregarTarea() {
-            const i = document.getElementById('todo-input'); if(!i.value.trim()) return;
-            const li = document.createElement('li'); li.className = 'todo-item';
-            li.innerHTML = `<span>${i.value}</span><button onclick="this.parentElement.remove()" style="background:#ef4444; color:white; padding:4px 8px; font-size:11px; border:none; border-radius:4px; cursor:pointer;">X</button>`;
-            document.getElementById('todo-container').appendChild(li); i.value = "";
-        }
-
-        function girarRuleta() {
-            const opciones = document.getElementById('ruleta-options').value.split(',');
-            const output = document.getElementById('ruleta-output');
-            output.innerText = "Girando ruleta...";
-            setTimeout(() => {
-                const elegida = opciones[Math.floor(Math.random() * opciones.length)].trim();
-                output.innerText = `🎯 Opción elegida: ${elegida}`;
-            }, 800);
-        }
-
-        function calcularPromedio() {
-            const notas = document.getElementById('promedio-input').value.split(/\s+/).map(Number).filter(n => !isNaN(n) && n > 0);
-            if(notas.length === 0) return;
-            const prom = notas.reduce((a,b)=>a+b, 0) / notas.length;
-            document.getElementById('promedio-output').innerText = `Nota Promedio: ${prom.toFixed(2)}`;
-        }
-
-        function generarCV() {
-            const b = document.getElementById('cv-block'); b.style.display="block";
-            b.innerHTML = `<h3>👤 ${document.getElementById('cv-nombre').value}</h3><p><b>Perfil Técnico:</b> ${document.getElementById('cv-perfil').value}</p><p><b>Estudios:</b> ${document.getElementById('cv-exp').value}</p>`;
-        }
-
-        function generarQR() { document.getElementById('qrcode').innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=130x130&data=${encodeURIComponent(document.getElementById('qr-text').value)}">`; }
-        function escanearArchivoQR() { document.getElementById('qr-file-result').innerText = "Enlace extraído con éxito: https://misitio-redireccion.com"; }
-
-        function generarLinkWA() {
-            const n = document.getElementById('wa-num').value.replace(/\s+/g,''); const m = encodeURIComponent(document.getElementById('wa-msg').value);
-            document.getElementById('wa-output').value = `https://wa.me/${n}?text=${m}`;
-        }
-
-        function generarHashtags() {
-            const k = document.getElementById('tag-keyword').value.trim().toLowerCase();
-            document.getElementById('tag-output').value = `#${k} #${k}viral #${k}tips #foryou #parati #fyp #tendencia`;
-        }
-
-        function construirTarjetaDigital() {
-            const preview = document.getElementById('card-preview'); preview.style.display = "block";
-            preview.innerHTML = `<h3 style="color:var(--color-neon);">${document.getElementById('card-name').value}</h3><p style="font-size:13px; color:var(--texto-secundario);">${document.getElementById('card-role').value}</p>`;
-        }
-
-        function contar() {
-            const t = document.getElementById('counter-text').value;
-            document.getElementById('caracteres').innerText = t.length;
-            document.getElementById('palabras').innerText = t.trim().split(/\s+/).filter(i => i).length;
-        }
-        function reemplazarPalabras() {
-            const area = document.getElementById('search-text-area'); const s = document.getElementById('word-search').value; const r = document.getElementById('word-replace').value;
-            area.value = area.value.split(s).join(r);
-        }
-        function limpiarTexto() { const t = document.getElementById('cleaner-text'); t.value = t.value.replace(/\s+/g, ' ').trim(); }
-        function convertirCase(toUpper) { const t = document.getElementById('case-text'); t.value = toUpper ? t.value.toUpperCase() : t.value.toLowerCase(); }
-        function hablar() { const m = new SpeechSynthesisUtterance(document.getElementById('voice-text').value); m.lang='es-ES'; window.speechSynthesis.speak(m); }
-        function calcularDescuento() {
-            const p = parseFloat(document.getElementById('precio-original').value); const d = parseFloat(document.getElementById('porcentaje-descuento').value);
-            if(!isNaN(p) && !isNaN(d)) document.getElementById('resultado-descuento').innerText = `Total Neto: $${(p - (p*d/100)).toFixed(2)}`;
-        }
-        function convertirUnidades() {
-            const kg = parseFloat(document.getElementById('kg-input').value);
-            if(!isNaN(kg)) document.getElementById('unidades-output').innerText = `${kg} KG equivalen a ${(kg * 2.20462).toFixed(2)} Libras`;
-        }
-        function generarLorem() {
-            document.getElementById('lorem-output').value = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin elementum sed ex at pretium. Mauris vulputate justo vitae mi feugiat, non luctus purus accumsan.";
-        }
-
-        generarNuevoEmail();
-    </script>
-</body>
-</html>
