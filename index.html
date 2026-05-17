@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="monetag" content="47fb26fbf6a04d02f0859e50cd5668c9">
+
     <title>Herramientas Web Gratuitas | ÚtilWeb Ultimate Portal</title>
     <style>
         :root {
@@ -68,7 +71,6 @@
         .inbox-container { background: #060814; border: 1px solid var(--border-color); border-radius: 10px; padding: 15px; max-height: 150px; overflow-y: auto; font-size: 13px; }
         .cv-preview { background: white; color: black; padding: 20px; border-radius: 8px; margin-top: 15px; display: none; }
         
-        /* Nuevos Estilos Ruleta, Sonidos y Password Strength */
         .strength-bar { height: 8px; width: 100%; background: #24324f; border-radius: 4px; margin-top: -5px; margin-bottom: 15px; overflow: hidden; }
         .strength-fill { height: 100%; width: 0%; transition: 0.3s; }
         .sound-btn { background: #1e293b; color: white; border: 1px solid var(--border-color); padding: 10px; border-radius: 8px; cursor: pointer; flex: 1; text-align: center; }
@@ -78,13 +80,11 @@
 </head>
 <body>
 
-    <!-- Navbar Informativo -->
     <nav>
         <h1>⚡ ÚtilWeb Ultimate Portal</h1>
         <div class="estudiante-tag">🎓 Usando este portal financias directamente mis estudios profesionales y técnicos. ¡Mil gracias por el apoyo!</div>
     </nav>
 
-    <!-- Barra de Pestañas Categorizadas -->
     <div class="tabs-container">
         <button class="tab-button active" onclick="cambiarPestaña('seguridad')">🔐 Seguridad y Privacidad</button>
         <button class="tab-button" onclick="cambiarPestaña('productividad')">⏱️ Estudio y Organización</button>
@@ -96,9 +96,7 @@
         <main class="main-content">
             <div class="ad-zone" style="min-height: 90px;">Banner Horizontal Superior Global (728x90)</div>
 
-            <!-- ================= PESTAÑA 1: SEGURIDAD ================= -->
             <div id="seguridad" class="tab-content active">
-                <!-- H1: CORREO TEMPORAL -->
                 <section class="card" style="border-color: var(--color-correo);">
                     <h2>✉️ Correo Temporal de Un Solo Uso (Anti-Spam)</h2>
                     <p>Usa este correo aleatorio para proteger tu bandeja real de publicidad basura.</p>
@@ -113,7 +111,6 @@
                     <div class="inbox-container"><div id="inbox-list"><p style="color: var(--texto-secundario); font-style: italic;">Esperando mensajes de verificación...</p></div></div>
                 </section>
 
-                <!-- H2: GENERADOR DE PASSWORDS -->
                 <section class="card">
                     <h2>🔒 Generador de Contraseñas Seguras</h2>
                     <p>Crea contraseñas criptográficas complejas e instantáneas.</p>
@@ -124,7 +121,6 @@
                     <button onclick="generarPassword()">Generar Clave Aleatoria</button>
                 </section>
 
-                <!-- H3: VERIFICADOR DE FUERZA DE CLAVES -->
                 <section class="card">
                     <h2>📊 Medidor de Fuerza de Contraseñas</h2>
                     <p>Escribe una clave para analizar qué tan rápido podría ser vulnerada.</p>
@@ -133,7 +129,6 @@
                     <p id="strength-text" style="font-size:13px; font-weight:bold;"></p>
                 </section>
 
-                <!-- H4: ENCRIPTADOR MORSE / BASE64 -->
                 <section class="card">
                     <h2>🕵️ Encriptador de Mensajes Secretos (Base64)</h2>
                     <p>Codifica o decodifica textos para enviar mensajes cifrados privados.</p>
@@ -147,12 +142,10 @@
                 <div class="ad-zone" style="min-height: 100px;">Anuncio Premium Especial - Categoría Seguridad</div>
             </div>
 
-            <!-- ================= PESTAÑA 2: PRODUCTIVIDAD ================= -->
             <div id="productividad" class="tab-content">
-                <!-- H5: POMODORO -->
                 <section class="card">
                     <h2>⏱️ Temporizador Pomodoro Integrado</h2>
-                    <p>Alterna 25 minutos de estudio estricto con 5 minutos de relajación mental.</p>
+                    <p>Alterna 25 minutes de estudio estricto con 5 minutos de relajación mental.</p>
                     <div class="timer-display" id="timer-display">25:00</div>
                     <div style="display: flex; gap: 10px;">
                         <button onclick="controlarPomodoro()" id="btn-pomodoro">▶️ Empezar</button>
@@ -160,7 +153,6 @@
                     </div>
                 </section>
 
-                <!-- H6: AUDIO AMBIENTAL DE ENFOQUE -->
                 <section class="card">
                     <h2>🌧️ Sonidos de Fondo para Concentración</h2>
                     <p>Sonidos ambientales artificiales en bucle para bloquear ruidos molestos en tu habitación.</p>
@@ -170,7 +162,6 @@
                     </div>
                 </section>
 
-                <!-- H7: LISTA DE TAREAS -->
                 <section class="card">
                     <h2>✅ Lista de Pendientes Activos (To-Do)</h2>
                     <p>Registra tus compromisos y elimínalos a medida que los completes.</p>
@@ -181,7 +172,6 @@
                     <ul class="todo-list" id="todo-container"></ul>
                 </section>
 
-                <!-- H8: RULETA DE DECISIONES ALEATORIAS -->
                 <section class="card">
                     <h2>🎰 Ruleta Tomadora de Decisiones</h2>
                     <p>¿No sabes qué actividad priorizar? Agrégalas separadas por comas y deja que el azar elija por ti.</p>
@@ -190,7 +180,6 @@
                     <div class="ruleta-result" id="ruleta-output"></div>
                 </section>
 
-                <!-- H9: CALCULADORA DE PROMEDIOS -->
                 <section class="card">
                     <h2>📊 Calculadora de Promedio de Notas</h2>
                     <p>Ingresa tus calificaciones finales separadas por espacios para promediarlas.</p>
@@ -199,7 +188,6 @@
                     <p id="promedio-output" style="margin-top:15px; font-weight:bold; color:var(--color-neon);"></p>
                 </section>
 
-                <!-- H10: GENERADOR HOJA DE VIDA -->
                 <section class="card">
                     <h2>📄 Redactor de Hoja de Vida Express</h2>
                     <p>Genera una estructura de currículum limpia para copiarla en un procesador externo.</p>
@@ -213,9 +201,7 @@
                 <div class="ad-zone" style="min-height: 100px;">Anuncio Intermedio In-Feed de Alta Conversión</div>
             </div>
 
-            <!-- ================= PESTAÑA 3: NEGOCIOS ================= -->
             <div id="negocios" class="tab-content">
-                <!-- H11: QR GENERATOR -->
                 <section class="card">
                     <h2>📱 Generador de Códigos QR Directos</h2>
                     <p>Convierte enlaces de proyectos o redes en códigos gráficos descargables.</p>
@@ -224,7 +210,6 @@
                     <div id="qrcode"></div>
                 </section>
 
-                <!-- H12: LINK WHATSAPP -->
                 <section class="card">
                     <h2>💬 Enlaces Directos de WhatsApp</h2>
                     <p>Genera links de mensajería con texto precargado para clientes rápidos.</p>
@@ -234,7 +219,6 @@
                     <input type="text" id="wa-output" readonly style="margin-top:15px; font-family: monospace; color: var(--color-neon);">
                 </section>
 
-                <!-- H13: ESCÁNER QR DE IMAGEN -->
                 <section class="card">
                     <h2>📷 Analizador de Archivos QR</h2>
                     <p>Sube capturas o imágenes con códigos QR para extraer sus enlaces.</p>
@@ -242,7 +226,6 @@
                     <p id="qr-file-result" style="font-weight: bold; color: var(--color-neon); font-family: monospace;"></p>
                 </section>
 
-                <!-- H14: LINK DE PAGO -->
                 <section class="card">
                     <h2>💳 Validador de Enlaces de Recaudo</h2>
                     <p>Verifica y limpia enlaces comerciales de pasarelas de pago o cobro.</p>
@@ -250,16 +233,14 @@
                     <button onclick="alert('Enlace estructurado de forma segura')">Validar Enlace</button>
                 </section>
 
-                <!-- H15: GENERADOR DE HASHTAGS VIRALES -->
                 <section class="card">
                     <h2>🚀 Extractor de Hashtags de Tendencia</h2>
                     <p>Ingresa una palabra clave temática para obtener tags recomendados para tus videos.</p>
-                    <input type="text" id="tag-keyword" placeholder="Ej: emprendimiento, postres, tecnologia">
+                    <input type="text" id="tag-keyword" placeholder="Ej: de todo un poco, postres, tecnologia">
                     <button onclick="generarHashtags()">Generar Combinación Viral</button>
                     <textarea id="tag-output" rows="2" style="margin-top:15px; font-family:monospace; color:var(--color-exito);" readonly></textarea>
                 </section>
 
-                <!-- H16: TARJETA DIGITAL SIMULADA -->
                 <section class="card">
                     <h2>📇 Constructor de Tarjeta Digital Breve</h2>
                     <p>Escribe tu nombre y cargo para visualizar un formato de presentación digital.</p>
@@ -270,9 +251,7 @@
                 </section>
             </div>
 
-            <!-- ================= PESTAÑA 4: UTILIDADES ================= -->
             <div id="utilidades" class="tab-content">
-                <!-- H17: CONTADOR PALABRAS -->
                 <section class="card">
                     <h2>✍️ Contador de Palabras y Caracteres</h2>
                     <textarea id="counter-text" rows="3" placeholder="Pega tu documento aquí..." oninput="contar()"></textarea>
@@ -282,7 +261,6 @@
                     </div>
                 </section>
 
-                <!-- H18: REEMPLAZADOR DE PALABRAS -->
                 <section class="card">
                     <h2>🔍 Buscador y Reemplazador Dinámico</h2>
                     <p>Busca palabras repetidas en un párrafo entero y cámbialas por otras simultáneamente.</p>
@@ -294,14 +272,12 @@
                     <button onclick="reemplazarPalabras()">Ejecutar Reemplazo Completo</button>
                 </section>
 
-                <!-- H19: LIMPIADOR ESPACIOS -->
                 <section class="card">
                     <h2>🧹 Depurador de Espacios y Saltos Vacíos</h2>
                     <textarea id="cleaner-text" rows="2" placeholder="Pega textos desordenados aquí..."></textarea>
                     <button onclick="limpiarTexto()">Corregir Formato</button>
                 </section>
 
-                <!-- H20: MAYÚSCULAS/MINÚSCULAS -->
                 <section class="card">
                     <h2>🔠 Conversor de Caja de Letras</h2>
                     <textarea id="case-text" rows="2" placeholder="Pega el texto a transformar..."></textarea>
@@ -311,14 +287,12 @@
                     </div>
                 </section>
 
-                <!-- H21: TEXTO A VOZ -->
                 <section class="card">
                     <h2>🗣️ Transcriptor de Lectura por Voz</h2>
                     <textarea id="voice-text" rows="2" placeholder="Escribe el bloque de lectura..."></textarea>
                     <button onclick="hablar()">▶️ Activar Audio</button>
                 </section>
 
-                <!-- H22: CALCULADORA DESCUENTOS -->
                 <section class="card">
                     <h2>💰 Calculadora de Descuentos Comerciales</h2>
                     <div style="display: flex; gap: 10px;">
@@ -329,7 +303,6 @@
                     <p id="resultado-descuento" style="margin-top: 15px; color: var(--color-neon); font-weight: bold;"></p>
                 </section>
 
-                <!-- H23: CONVERSOR DE UNIDADES -->
                 <section class="card">
                     <h2>⚖️ Conversor de Medidas Métricas</h2>
                     <p>Convierte Kilogramos a Libras comerciales de forma directa.</p>
@@ -338,7 +311,6 @@
                     <p id="unidades-output" style="margin-top:15px; color:var(--color-neon); font-weight:bold;"></p>
                 </section>
 
-                <!-- H24: TEXTO LOREM IPSUM -->
                 <section class="card">
                     <h2>📰 Generador de Texto de Relleno (Lorem Ipsum)</h2>
                     <p>Crea párrafos estándar de diseño para maquetar tus guías o sitios web.</p>
@@ -350,7 +322,6 @@
             <div class="ad-zone" style="min-height: 90px;">Banner Horizontal Inferior de Cierre (728x90)</div>
         </main>
 
-        <!-- Barra Lateral Fija de Monetización Masiva -->
         <aside style="display: flex; flex-direction: column; gap: 20px;">
             <div class="ad-zone" style="min-height: 600px;">
                 <p><b>Bloque Vertical Rascacielos (300x600 Fijo)</b></p>
@@ -360,9 +331,7 @@
         </aside>
     </div>
 
-    <!-- Motores Lógicos Interactivos en JavaScript -->
     <script>
-        // Pestañas
         function cambiarPestaña(tabId) {
             document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
             document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
@@ -370,7 +339,6 @@
             event.currentTarget.classList.add('active');
         }
 
-        // Correo Temporal
         let user = "user_" + Math.floor(Math.random()*899 + 100);
         function generarNuevoEmail() {
             user = "user_" + Math.floor(Math.random()*899 + 100);
@@ -382,7 +350,6 @@
             document.getElementById('inbox-list').innerHTML = `<div style="padding:8px 0;"><p style="color:var(--color-neon); font-weight:bold;">De: noreply@sistema.com</p><p>Asunto: Código de activación express: <b>773-102</b></p></div>`;
         }
 
-        // Passwords y Medidor de Fuerza
         function generarPassword() {
             const c = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$"; let p = "";
             for(let i=0; i<14; i++) p += c.charAt(Math.floor(Math.random()*c.length));
@@ -397,13 +364,11 @@
             else { fill.style.width="100%"; fill.style.backgroundColor="#10b981"; txt.innerText="Fuerza: Excelente (Ultra Segura)"; txt.style.color="#10b981"; }
         }
 
-        // Morse/Base64 Coder
         function procesarCifrado(encode) {
             const area = document.getElementById('crypto-input');
-            try { area.value = encode ? btoa(area.value) : atob(area.value); } catch(e) { alert("Formato de descifrado inválido."); }
+            try { area.value = encode ? btoa(area.value) : atob(area.value); } catch(e) { alert("Formato inválido."); }
         }
 
-        // Pomodoro
         let tm = 25, ts = 0, ip = null, cr = false;
         function controlarPomodoro() {
             const btn = document.getElementById('btn-pomodoro');
@@ -414,7 +379,6 @@
         }
         function reiniciarPomodoro() { clearInterval(ip); cr = false; tm = 25; ts = 0; document.getElementById('btn-pomodoro').innerText = "▶️ Empezar"; document.getElementById('timer-display').innerText = "25:00"; }
 
-        // Sonidos Artificiales con Web Audio API (No requiere archivos locales)
         let ctxAudio = null; let nodoRuido = null;
         function toggleSonido(tipo) {
             const btn = document.getElementById(`sound-${tipo}`);
@@ -426,7 +390,6 @@
             btn.classList.add('playing');
             ctxAudio = new (window.AudioContext || window.webkitAudioContext)();
             
-            // Generador de Ruido Blanco sintético
             let tamañoBuffer = ctxAudio.sampleRate * 2, buffer = ctxAudio.createBuffer(1, tamañoBuffer, ctxAudio.sampleRate), salida = buffer.getChannelData(0);
             for (let i = 0; i < tamañoBuffer; i++) { salida[i] = Math.random() * 2 - 1; }
             nodoRuido = ctxAudio.createBufferSource(); nodoRuido.buffer = buffer; nodoRuido.loop = true;
@@ -438,7 +401,6 @@
             nodoRuido.connect(filtro); filtro.connect(ctxAudio.destination); nodoRuido.start();
         }
 
-        // To-Do
         function agregarTarea() {
             const i = document.getElementById('todo-input'); if(!i.value.trim()) return;
             const li = document.createElement('li'); li.className = 'todo-item';
@@ -446,7 +408,6 @@
             document.getElementById('todo-container').appendChild(li); i.value = "";
         }
 
-        // Ruleta
         function girarRuleta() {
             const opciones = document.getElementById('ruleta-options').value.split(',');
             const output = document.getElementById('ruleta-output');
@@ -457,7 +418,6 @@
             }, 800);
         }
 
-        // Calculadora Promedios
         function calcularPromedio() {
             const notas = document.getElementById('promedio-input').value.split(/\s+/).map(Number).filter(n => !isNaN(n) && n > 0);
             if(notas.length === 0) return;
@@ -465,35 +425,29 @@
             document.getElementById('promedio-output').innerText = `Nota Promedio: ${prom.toFixed(2)}`;
         }
 
-        // CV Maker
         function generarCV() {
             const b = document.getElementById('cv-block'); b.style.display="block";
             b.innerHTML = `<h3>👤 ${document.getElementById('cv-nombre').value}</h3><p><b>Perfil Técnico:</b> ${document.getElementById('cv-perfil').value}</p><p><b>Estudios:</b> ${document.getElementById('cv-exp').value}</p>`;
         }
 
-        // QR e Img QR
         function generarQR() { document.getElementById('qrcode').innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=130x130&data=${encodeURIComponent(document.getElementById('qr-text').value)}">`; }
         function escanearArchivoQR() { document.getElementById('qr-file-result').innerText = "Enlace extraído con éxito: https://misitio-redireccion.com"; }
 
-        // WhatsApp
         function generarLinkWA() {
             const n = document.getElementById('wa-num').value.replace(/\s+/g,''); const m = encodeURIComponent(document.getElementById('wa-msg').value);
             document.getElementById('wa-output').value = `https://wa.me/${n}?text=${m}`;
         }
 
-        // Hashtags
         function generarHashtags() {
             const k = document.getElementById('tag-keyword').value.trim().toLowerCase();
-            document.getElementById('tag-output').value = `#${k} #${k}viral #${k}tips #foryou #parati #crecimiento #fyp #tendencia2026`;
+            document.getElementById('tag-output').value = `#${k} #${k}viral #${k}tips #foryou #parati #fyp #tendencia`;
         }
 
-        // Tarjeta Digital
         function construirTarjetaDigital() {
             const preview = document.getElementById('card-preview'); preview.style.display = "block";
-            preview.innerHTML = `<h3 style="color:var(--color-neon);">${document.getElementById('card-name').value}</h3><p style="font-size:13px; color:var(--texto-secundario);">${document.getElementById('card-role').value}</p><p style="font-size:11px; margin-top:10px; color:var(--color-exito);">✓ Tarjeta de contacto activa</p>`;
+            preview.innerHTML = `<h3 style="color:var(--color-neon);">${document.getElementById('card-name').value}</h3><p style="font-size:13px; color:var(--texto-secundario);">${document.getElementById('card-role').value}</p>`;
         }
 
-        // Utilidades de Textos y Contadores
         function contar() {
             const t = document.getElementById('counter-text').value;
             document.getElementById('caracteres').innerText = t.length;
@@ -518,7 +472,6 @@
             document.getElementById('lorem-output').value = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin elementum sed ex at pretium. Mauris vulputate justo vitae mi feugiat, non luctus purus accumsan.";
         }
 
-        // Inicialización
         generarNuevoEmail();
     </script>
 </body>
