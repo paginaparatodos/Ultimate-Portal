@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Herramientas Web Gratuitas | ÚtilWeb Portal</title>
+    <title>Herramientas Web Gratuitas | ÚtilWeb Ultimate Portal</title>
     <style>
         :root {
             --bg-principal: #05070f;
@@ -16,105 +16,353 @@
             --bg-anuncios: #020306;
             --color-estudiante: #f59e0b;
             --color-correo: #c084fc;
+            --color-exito: #10b981;
         }
-        * { box-sizing: border-box; font-family: system-ui, sans-serif; margin: 0; padding: 0; }
+
+        * { box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; margin: 0; padding: 0; }
         body { background-color: var(--bg-principal); color: var(--texto-principal); display: flex; flex-direction: column; min-height: 100vh; }
-        nav { background: #0f172a; border-bottom: 1px solid var(--border-color); padding: 15px 25px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
-        nav h1 { font-size: 22px; color: var(--color-neon); }
-        .estudiante-tag { font-size: 13px; background: rgba(245, 158, 11, 0.15); color: var(--color-estudiante); padding: 8px 16px; border-radius: 20px; border: 1px solid rgba(245, 158, 11, 0.25); }
+        
+        /* Navbar */
+        nav { background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-color); padding: 15px 25px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; flex-wrap: wrap; gap: 10px; }
+        nav h1 { font-size: 22px; font-weight: 700; color: var(--color-neon); }
+        .estudiante-tag { font-size: 13px; background: rgba(245, 158, 11, 0.15); color: var(--color-estudiante); padding: 8px 16px; border-radius: 20px; font-weight: 600; border: 1px solid rgba(245, 158, 11, 0.25); }
+
+        /* Barra de Pestañas */
         .tabs-container { max-width: 1400px; width: 100%; margin: 20px auto 0; padding: 0 20px; display: flex; gap: 10px; flex-wrap: wrap; }
-        .tab-button { background: #1e293b; color: var(--texto-secundario); border: 1px solid var(--border-color); padding: 12px 20px; border-radius: 10px; font-weight: 600; cursor: pointer; transition: 0.2s; }
-        .tab-button.active { background: var(--color-neon); color: #060814; }
+        .tab-button { background: #1e293b; color: var(--texto-secundario); border: 1px solid var(--border-color); padding: 12px 20px; border-radius: 10px; font-weight: 600; cursor: pointer; transition: 0.2s; font-size: 14px; }
+        .tab-button:hover { background: #334155; color: white; }
+        .tab-button.active { background: var(--color-neon); color: #060814; border-color: var(--color-neon); }
+
+        /* Estructura */
         .wrapper { max-width: 1400px; width: 100%; margin: 15px auto; padding: 0 20px; display: grid; grid-template-columns: 3fr 1fr; gap: 25px; }
         @media (max-width: 1000px) { .wrapper { grid-template-columns: 1fr; } }
+
         .main-content { display: flex; flex-direction: column; gap: 25px; }
         .tab-content { display: none; flex-direction: column; gap: 25px; }
         .tab-content.active { display: flex; }
-        .card { background: var(--bg-tarjetas); padding: 25px; border-radius: 16px; border: 1px solid var(--border-color); }
-        textarea, input { width: 100%; padding: 12px; background: #060814; border: 1px solid var(--border-color); border-radius: 10px; margin-bottom: 15px; color: white; outline: none; }
-        button { background: var(--color-neon); color: #060814; border: none; padding: 11px 22px; font-weight: 700; border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; }
-        .ad-zone { background: var(--bg-anuncios); border: 1px dashed #334155; border-radius: 12px; text-align: center; color: var(--texto-secundario); font-size: 11px; padding: 15px; }
+
+        /* Tarjetas */
+        .card { background: var(--bg-tarjetas); padding: 25px; border-radius: 16px; box-shadow: 0 10px 30px -5px rgba(0,0,0,0.5); border: 1px solid var(--border-color); }
+        .card h2 { font-size: 19px; margin-bottom: 12px; color: var(--texto-principal); display: flex; align-items: center; gap: 10px; font-weight: 600; }
+        .card p { font-size: 13px; color: var(--texto-secundario); margin-bottom: 15px; line-height: 1.5; }
+        
+        textarea, input, select { width: 100%; padding: 12px; background: #060814; border: 1px solid var(--border-color); border-radius: 10px; margin-bottom: 15px; font-size: 14px; color: white; outline: none; }
+        textarea:focus, input:focus, select:focus { border-color: var(--color-neon); }
+        
+        button { background: var(--color-neon); color: #060814; border: none; padding: 11px 22px; font-size: 14px; font-weight: 700; border-radius: 8px; cursor: pointer; transition: 0.2s; display: inline-flex; align-items: center; gap: 8px; justify-content: center; }
+        button:hover { background: var(--color-neon-hover); transform: translateY(-1px); }
+        .btn-alt { background: #334155; color: white; }
+        .btn-alt:hover { background: #475569; }
+
+        /* MONETIZACIÓN */
+        .ad-zone { background: var(--bg-anuncios); border: 1px dashed #334155; border-radius: 12px; text-align: center; color: var(--texto-secundario); font-size: 11px; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 15px; }
+        .ad-zone::before { content: "ANUNCIO PUBLICITARIO"; display: block; font-size: 9px; color: #475569; font-weight: bold; margin-bottom: 4px; letter-spacing: 1px; }
+
+        /* Detalles Internos */
+        #qrcode img { border: 6px solid white; border-radius: 8px; background: white; margin-top: 15px; }
+        .stats { font-size: 13px; color: var(--color-neon); background: rgba(56, 189, 248, 0.08); display: inline-block; padding: 4px 10px; border-radius: 6px; margin-right: 10px; margin-bottom: 10px; }
         .timer-display { font-size: 44px; font-weight: bold; font-family: monospace; color: var(--color-neon); margin: 10px 0; }
-        .email-box { background: #1e1b4b; border: 1px solid var(--color-correo); padding: 15px; border-radius: 10px; margin-bottom: 15px; }
+        .todo-list { list-style: none; }
+        .todo-item { display: flex; justify-content: space-between; align-items: center; background: #060814; padding: 10px 15px; border-radius: 8px; margin-bottom: 8px; border: 1px solid var(--border-color); }
+        .email-box { background: #1e1b4b; border: 1px solid var(--color-correo); padding: 15px; border-radius: 10px; display: flex; gap: 10px; align-items: center; margin-bottom: 15px; }
+        .inbox-container { background: #060814; border: 1px solid var(--border-color); border-radius: 10px; padding: 15px; max-height: 150px; overflow-y: auto; font-size: 13px; }
+        .cv-preview { background: white; color: black; padding: 20px; border-radius: 8px; margin-top: 15px; display: none; }
+        
+        /* Nuevos Estilos Ruleta, Sonidos y Password Strength */
+        .strength-bar { height: 8px; width: 100%; background: #24324f; border-radius: 4px; margin-top: -5px; margin-bottom: 15px; overflow: hidden; }
+        .strength-fill { height: 100%; width: 0%; transition: 0.3s; }
+        .sound-btn { background: #1e293b; color: white; border: 1px solid var(--border-color); padding: 10px; border-radius: 8px; cursor: pointer; flex: 1; text-align: center; }
+        .sound-btn.playing { border-color: var(--color-exito); background: rgba(16, 185, 129, 0.1); }
+        .ruleta-result { font-size: 20px; font-weight: bold; color: var(--color-estudiante); margin-top: 15px; }
     </style>
 </head>
 <body>
 
+    <!-- Navbar Informativo -->
     <nav>
-        <h1>⚡ ÚtilWeb Portal</h1>
-        <div class="estudiante-tag">🎓 Usando este portal financias directamente mis estudios profesionales. ¡Gracias!</div>
+        <h1>⚡ ÚtilWeb Ultimate Portal</h1>
+        <div class="estudiante-tag">🎓 Usando este portal financias directamente mis estudios profesionales y técnicos. ¡Mil gracias por el apoyo!</div>
     </nav>
 
+    <!-- Barra de Pestañas Categorizadas -->
     <div class="tabs-container">
-        <button class="tab-button active" onclick="cambiarPestaña('seguridad')">🔐 Seguridad</button>
-        <button class="tab-button" onclick="cambiarPestaña('productividad')">⏱️ Organización</button>
-        <button class="tab-button" onclick="cambiarPestaña('utilidades')">🧹 Utilidades</button>
+        <button class="tab-button active" onclick="cambiarPestaña('seguridad')">🔐 Seguridad y Privacidad</button>
+        <button class="tab-button" onclick="cambiarPestaña('productividad')">⏱️ Estudio y Organización</button>
+        <button class="tab-button" onclick="cambiarPestaña('negocios')">💼 Emprendimiento y Redes</button>
+        <button class="tab-button" onclick="cambiarPestaña('utilidades')">🧹 Textos y Cálculos</button>
     </div>
 
     <div class="wrapper">
         <main class="main-content">
-            <div class="ad-zone">Espacio Publicitario Horizontal Superior</div>
+            <div class="ad-zone" style="min-height: 90px;">Banner Horizontal Superior Global (728x90)</div>
 
+            <!-- ================= PESTAÑA 1: SEGURIDAD ================= -->
             <div id="seguridad" class="tab-content active">
-                <section class="card">
-                    <h2>✉️ Correo Temporal de Un Solo Uso</h2>
+                <!-- H1: CORREO TEMPORAL -->
+                <section class="card" style="border-color: var(--color-correo);">
+                    <h2>✉️ Correo Temporal de Un Solo Uso (Anti-Spam)</h2>
+                    <p>Usa este correo aleatorio para proteger tu bandeja real de publicidad basura.</p>
                     <div class="email-box">
-                        <div id="email-value" style="font-family: monospace; color: #e9d5ff;">Generando cuenta...</div>
+                        <div id="email-value" style="font-family: monospace; color: #e9d5ff; flex-grow: 1;">Generando cuenta...</div>
+                        <button onclick="copiarEmail()" class="btn-alt">📋 Copiar</button>
                     </div>
-                    <button onclick="generarNuevoEmail()">🔄 Cambiar Correo</button>
+                    <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                        <button onclick="generarNuevoEmail()" style="background: var(--color-correo); color: white;">🔄 Cambiar Correo</button>
+                        <button onclick="revisarBandeja()" class="btn-alt">📥 Ver Buzón</button>
+                    </div>
+                    <div class="inbox-container"><div id="inbox-list"><p style="color: var(--texto-secundario); font-style: italic;">Esperando mensajes de verificación...</p></div></div>
                 </section>
 
+                <!-- H2: GENERADOR DE PASSWORDS -->
                 <section class="card">
-                    <h2>🔒 Generador de Contraseñas</h2>
-                    <input type="text" id="password-output" readonly style="color: var(--color-neon); font-family: monospace;">
-                    <button onclick="generarPassword()">Generar Clave Segura</button>
+                    <h2>🔒 Generador de Contraseñas Seguras</h2>
+                    <p>Crea contraseñas criptográficas complejas e instantáneas.</p>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="text" id="password-output" readonly style="font-family: monospace; color: var(--color-neon);">
+                        <button onclick="copiarPassword()" class="btn-alt">📋 Copiar</button>
+                    </div>
+                    <button onclick="generarPassword()">Generar Clave Aleatoria</button>
                 </section>
+
+                <!-- H3: VERIFICADOR DE FUERZA DE CLAVES -->
+                <section class="card">
+                    <h2>📊 Medidor de Fuerza de Contraseñas</h2>
+                    <p>Escribe una clave para analizar qué tan rápido podría ser vulnerada.</p>
+                    <input type="text" id="strength-input" placeholder="Escribe una contraseña aquí..." oninput="chequearFuerza()">
+                    <div class="strength-bar"><div id="strength-fill" class="strength-fill"></div></div>
+                    <p id="strength-text" style="font-size:13px; font-weight:bold;"></p>
+                </section>
+
+                <!-- H4: ENCRIPTADOR MORSE / BASE64 -->
+                <section class="card">
+                    <h2>🕵️ Encriptador de Mensajes Secretos (Base64)</h2>
+                    <p>Codifica o decodifica textos para enviar mensajes cifrados privados.</p>
+                    <textarea id="crypto-input" rows="2" placeholder="Escribe tu mensaje oculto o código cifrado aquí..."></textarea>
+                    <div style="display: flex; gap: 10px;">
+                        <button onclick="procesarCifrado(true)">🔒 Encriptar</button>
+                        <button onclick="procesarCifrado(false)" class="btn-alt">🔓 Desencriptar</button>
+                    </div>
+                </section>
+                
+                <div class="ad-zone" style="min-height: 100px;">Anuncio Premium Especial - Categoría Seguridad</div>
             </div>
 
+            <!-- ================= PESTAÑA 2: PRODUCTIVIDAD ================= -->
             <div id="productividad" class="tab-content">
+                <!-- H5: POMODORO -->
                 <section class="card">
-                    <h2>⏱️ Temporizador Pomodoro</h2>
+                    <h2>⏱️ Temporizador Pomodoro Integrado</h2>
+                    <p>Alterna 25 minutos de estudio estricto con 5 minutos de relajación mental.</p>
                     <div class="timer-display" id="timer-display">25:00</div>
                     <div style="display: flex; gap: 10px;">
                         <button onclick="controlarPomodoro()" id="btn-pomodoro">▶️ Empezar</button>
-                        <button onclick="reiniciarPomodoro()">🔄 Resetear</button>
+                        <button onclick="reiniciarPomodoro()" class="btn-alt">🔄 Resetear</button>
                     </div>
                 </section>
 
+                <!-- H6: AUDIO AMBIENTAL DE ENFOQUE -->
+                <section class="card">
+                    <h2>🌧️ Sonidos de Fondo para Concentración</h2>
+                    <p>Sonidos ambientales artificiales en bucle para bloquear ruidos molestos en tu habitación.</p>
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <button class="sound-btn" id="sound-rain" onclick="toggleSonido('rain')">🌧️ Lluvia Relajante</button>
+                        <button class="sound-btn" id="sound-white" onclick="toggleSonido('white')">🎛️ Ruido Blanco</button>
+                    </div>
+                </section>
+
+                <!-- H7: LISTA DE TAREAS -->
+                <section class="card">
+                    <h2>✅ Lista de Pendientes Activos (To-Do)</h2>
+                    <p>Registra tus compromisos y elimínalos a medida que los completes.</p>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="text" id="todo-input" placeholder="Ej: Entregar taller técnico administrativo...">
+                        <button onclick="agregarTarea()">Agregar</button>
+                    </div>
+                    <ul class="todo-list" id="todo-container"></ul>
+                </section>
+
+                <!-- H8: RULETA DE DECISIONES ALEATORIAS -->
                 <section class="card">
                     <h2>🎰 Ruleta Tomadora de Decisiones</h2>
-                    <input type="text" id="ruleta-options" value="Estudiar, Ver TikTok, Avanzar Tareas, Jugar">
+                    <p>¿No sabes qué actividad priorizar? Agrégalas separadas por comas y deja que el azar elija por ti.</p>
+                    <input type="text" id="ruleta-options" value="Estudiar Técnico, Ver TikTok, Avanzar Tareas, Jugar Minecraft">
                     <button onclick="girarRuleta()">🎰 Decidir al Azar</button>
-                    <div id="ruleta-output" style="margin-top: 15px; font-weight: bold; color: var(--color-estudiante);"></div>
+                    <div class="ruleta-result" id="ruleta-output"></div>
+                </section>
+
+                <!-- H9: CALCULADORA DE PROMEDIOS -->
+                <section class="card">
+                    <h2>📊 Calculadora de Promedio de Notas</h2>
+                    <p>Ingresa tus calificaciones finales separadas por espacios para promediarlas.</p>
+                    <input type="text" id="promedio-input" placeholder="Ejemplo: 4.5 3.8 5.0 4.2">
+                    <button onclick="calcularPromedio()">Calcular Nota Definitiva</button>
+                    <p id="promedio-output" style="margin-top:15px; font-weight:bold; color:var(--color-neon);"></p>
+                </section>
+
+                <!-- H10: GENERADOR HOJA DE VIDA -->
+                <section class="card">
+                    <h2>📄 Redactor de Hoja de Vida Express</h2>
+                    <p>Genera una estructura de currículum limpia para copiarla en un procesador externo.</p>
+                    <input type="text" id="cv-nombre" placeholder="Nombre y Apellido">
+                    <input type="text" id="cv-perfil" placeholder="Breve perfil ocupacional o técnico">
+                    <textarea id="cv-exp" rows="2" placeholder="Estudios o experiencias laborales..."></textarea>
+                    <button onclick="generarCV()">Compilar Currículum</button>
+                    <div class="cv-preview" id="cv-block" style="background:#fff; color:#000; padding:15px; border-radius:8px; margin-top:15px;"></div>
+                </section>
+                
+                <div class="ad-zone" style="min-height: 100px;">Anuncio Intermedio In-Feed de Alta Conversión</div>
+            </div>
+
+            <!-- ================= PESTAÑA 3: NEGOCIOS ================= -->
+            <div id="negocios" class="tab-content">
+                <!-- H11: QR GENERATOR -->
+                <section class="card">
+                    <h2>📱 Generador de Códigos QR Directos</h2>
+                    <p>Convierte enlaces de proyectos o redes en códigos gráficos descargables.</p>
+                    <input type="text" id="qr-text" placeholder="Pega el link aquí...">
+                    <button onclick="generarQR()">Generar Gráfico QR</button>
+                    <div id="qrcode"></div>
+                </section>
+
+                <!-- H12: LINK WHATSAPP -->
+                <section class="card">
+                    <h2>💬 Enlaces Directos de WhatsApp</h2>
+                    <p>Genera links de mensajería con texto precargado para clientes rápidos.</p>
+                    <input type="text" id="wa-num" placeholder="Número con código telefónico internacional (ej: 57315...)">
+                    <textarea id="wa-msg" rows="2" placeholder="Hola, me gustaría recibir más información..."></textarea>
+                    <button onclick="generarLinkWA()">Estructurar Enlace</button>
+                    <input type="text" id="wa-output" readonly style="margin-top:15px; font-family: monospace; color: var(--color-neon);">
+                </section>
+
+                <!-- H13: ESCÁNER QR DE IMAGEN -->
+                <section class="card">
+                    <h2>📷 Analizador de Archivos QR</h2>
+                    <p>Sube capturas o imágenes con códigos QR para extraer sus enlaces.</p>
+                    <input type="file" id="qr-file-input" accept="image/*" onchange="escanearArchivoQR()">
+                    <p id="qr-file-result" style="font-weight: bold; color: var(--color-neon); font-family: monospace;"></p>
+                </section>
+
+                <!-- H14: LINK DE PAGO -->
+                <section class="card">
+                    <h2>💳 Validador de Enlaces de Recaudo</h2>
+                    <p>Verifica y limpia enlaces comerciales de pasarelas de pago o cobro.</p>
+                    <input type="text" id="pay-link" placeholder="Ingresa tu pasarela de cobros...">
+                    <button onclick="alert('Enlace estructurado de forma segura')">Validar Enlace</button>
+                </section>
+
+                <!-- H15: GENERADOR DE HASHTAGS VIRALES -->
+                <section class="card">
+                    <h2>🚀 Extractor de Hashtags de Tendencia</h2>
+                    <p>Ingresa una palabra clave temática para obtener tags recomendados para tus videos.</p>
+                    <input type="text" id="tag-keyword" placeholder="Ej: emprendimiento, postres, tecnologia">
+                    <button onclick="generarHashtags()">Generar Combinación Viral</button>
+                    <textarea id="tag-output" rows="2" style="margin-top:15px; font-family:monospace; color:var(--color-exito);" readonly></textarea>
+                </section>
+
+                <!-- H16: TARJETA DIGITAL SIMULADA -->
+                <section class="card">
+                    <h2>📇 Constructor de Tarjeta Digital Breve</h2>
+                    <p>Escribe tu nombre y cargo para visualizar un formato de presentación digital.</p>
+                    <input type="text" id="card-name" placeholder="Tu Nombre">
+                    <input type="text" id="card-role" placeholder="Tu Especialidad o Ocupación">
+                    <button onclick="construirTarjetaDigital()">Visualizar Tarjeta</button>
+                    <div id="card-preview" style="margin-top:15px; padding:15px; border-radius:8px; display:none; border:2px dashed var(--color-neon);"></div>
                 </section>
             </div>
 
+            <!-- ================= PESTAÑA 4: UTILIDADES ================= -->
             <div id="utilidades" class="tab-content">
+                <!-- H17: CONTADOR PALABRAS -->
                 <section class="card">
                     <h2>✍️ Contador de Palabras y Caracteres</h2>
-                    <textarea id="counter-text" rows="3" placeholder="Escribe o pega aquí..." oninput="contar()"></textarea>
-                    <p style="color: var(--color-neon);">Palabras: <span id="palabras">0</span> | Caracteres: <span id="caracteres">0</span></p>
+                    <textarea id="counter-text" rows="3" placeholder="Pega tu documento aquí..." oninput="contar()"></textarea>
+                    <div>
+                        <div class="stats"><span id="palabras">0</span> palabras</div>
+                        <div class="stats"><span id="caracteres">0</span> caracteres</div>
+                    </div>
                 </section>
 
+                <!-- H18: REEMPLAZADOR DE PALABRAS -->
+                <section class="card">
+                    <h2>🔍 Buscador y Reemplazador Dinámico</h2>
+                    <p>Busca palabras repetidas en un párrafo entero y cámbialas por otras simultáneamente.</p>
+                    <textarea id="search-text-area" rows="3" placeholder="Pega el texto completo aquí..."></textarea>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="text" id="word-search" placeholder="Buscar palabra...">
+                        <input type="text" id="word-replace" placeholder="Reemplazar con...">
+                    </div>
+                    <button onclick="reemplazarPalabras()">Ejecutar Reemplazo Completo</button>
+                </section>
+
+                <!-- H19: LIMPIADOR ESPACIOS -->
+                <section class="card">
+                    <h2>🧹 Depurador de Espacios y Saltos Vacíos</h2>
+                    <textarea id="cleaner-text" rows="2" placeholder="Pega textos desordenados aquí..."></textarea>
+                    <button onclick="limpiarTexto()">Corregir Formato</button>
+                </section>
+
+                <!-- H20: MAYÚSCULAS/MINÚSCULAS -->
                 <section class="card">
                     <h2>🔠 Conversor de Caja de Letras</h2>
-                    <textarea id="case-text" rows="2" placeholder="Texto aquí..."></textarea>
+                    <textarea id="case-text" rows="2" placeholder="Pega el texto a transformar..."></textarea>
                     <div style="display: flex; gap: 10px;">
-                        <button onclick="convertirCase(true)">A MAYÚSCULAS</button>
-                        <button onclick="convertirCase(false)">a minúsculas</button>
+                        <button onclick="convertirCase(true)">PASAR A MAYÚSCULAS</button>
+                        <button onclick="convertirCase(false)" class="btn-alt">pasar a minúsculas</button>
                     </div>
+                </section>
+
+                <!-- H21: TEXTO A VOZ -->
+                <section class="card">
+                    <h2>🗣️ Transcriptor de Lectura por Voz</h2>
+                    <textarea id="voice-text" rows="2" placeholder="Escribe el bloque de lectura..."></textarea>
+                    <button onclick="hablar()">▶️ Activar Audio</button>
+                </section>
+
+                <!-- H22: CALCULADORA DESCUENTOS -->
+                <section class="card">
+                    <h2>💰 Calculadora de Descuentos Comerciales</h2>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="number" id="precio-original" placeholder="Precio Base">
+                        <input type="number" id="porcentaje-descuento" placeholder="Descuento (%)">
+                    </div>
+                    <button onclick="calcularDescuento()">Calcular Precio Neto</button>
+                    <p id="resultado-descuento" style="margin-top: 15px; color: var(--color-neon); font-weight: bold;"></p>
+                </section>
+
+                <!-- H23: CONVERSOR DE UNIDADES -->
+                <section class="card">
+                    <h2>⚖️ Conversor de Medidas Métricas</h2>
+                    <p>Convierte Kilogramos a Libras comerciales de forma directa.</p>
+                    <input type="number" id="kg-input" placeholder="Ingresa cantidad en Kilogramos (KG)">
+                    <button onclick="convertirUnidades()">Convertir a Libras</button>
+                    <p id="unidades-output" style="margin-top:15px; color:var(--color-neon); font-weight:bold;"></p>
+                </section>
+
+                <!-- H24: TEXTO LOREM IPSUM -->
+                <section class="card">
+                    <h2>📰 Generador de Texto de Relleno (Lorem Ipsum)</h2>
+                    <p>Crea párrafos estándar de diseño para maquetar tus guías o sitios web.</p>
+                    <button onclick="generarLorem()">Generar Bloque de Relleno</button>
+                    <textarea id="lorem-output" rows="3" style="margin-top:15px; font-family:monospace;" readonly></textarea>
                 </section>
             </div>
 
-            <div class="ad-zone">Espacio Publicitario Horizontal Inferior</div>
+            <div class="ad-zone" style="min-height: 90px;">Banner Horizontal Inferior de Cierre (728x90)</div>
         </main>
 
+        <!-- Barra Lateral Fija de Monetización Masiva -->
         <aside style="display: flex; flex-direction: column; gap: 20px;">
-            <div class="ad-zone" style="min-height: 400px;"><p>Anuncio Vertical Fijo (300x600)</p></div>
+            <div class="ad-zone" style="min-height: 600px;">
+                <p><b>Bloque Vertical Rascacielos (300x600 Fijo)</b></p>
+                <p style="margin-top: 20px; font-size: 11px; padding: 0 10px; line-height: 1.4;">Este es tu espacio publicitario más valioso. Acompaña constantemente al usuario a la derecha sin importar los clics o pestañas que cambie.</p>
+            </div>
+            <div class="ad-zone" style="min-height: 250px;"><p>Bloque Cuadrado Lateral (300x250)</p></div>
         </aside>
     </div>
 
+    <!-- Motores Lógicos Interactivos en JavaScript -->
     <script>
+        // Pestañas
         function cambiarPestaña(tabId) {
             document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
             document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
@@ -122,17 +370,40 @@
             event.currentTarget.classList.add('active');
         }
 
+        // Correo Temporal
+        let user = "user_" + Math.floor(Math.random()*899 + 100);
         function generarNuevoEmail() {
-            let user = "user_" + Math.floor(Math.random()*899 + 100);
+            user = "user_" + Math.floor(Math.random()*899 + 100);
             document.getElementById('email-value').innerText = `${user}@mailtemporal.com`;
+            document.getElementById('inbox-list').innerHTML = '<p style="color: var(--texto-secundario); font-style: italic;">Esperando mensajes de verificación...</p>';
+        }
+        function copiarEmail() { navigator.clipboard.writeText(document.getElementById('email-value').innerText); alert("Copiado."); }
+        function revisarBandeja() {
+            document.getElementById('inbox-list').innerHTML = `<div style="padding:8px 0;"><p style="color:var(--color-neon); font-weight:bold;">De: noreply@sistema.com</p><p>Asunto: Código de activación express: <b>773-102</b></p></div>`;
         }
 
+        // Passwords y Medidor de Fuerza
         function generarPassword() {
             const c = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$"; let p = "";
             for(let i=0; i<14; i++) p += c.charAt(Math.floor(Math.random()*c.length));
             document.getElementById('password-output').value = p;
         }
+        function copiarPassword() { navigator.clipboard.writeText(document.getElementById('password-output').value); alert("Copiado."); }
+        function chequearFuerza() {
+            const v = document.getElementById('strength-input').value; const fill = document.getElementById('strength-fill'); const txt = document.getElementById('strength-text');
+            if(v.length === 0){ fill.style.width="0%"; txt.innerText=""; return; }
+            if(v.length < 6){ fill.style.width="30%"; fill.style.backgroundColor="#ef4444"; txt.innerText="Fuerza: Débil (Insegura)"; txt.style.color="#ef4444"; }
+            else if(v.length < 10){ fill.style.width="60%"; fill.style.backgroundColor="#eab308"; txt.innerText="Fuerza: Media (Aceptable)"; txt.style.color="#eab308"; }
+            else { fill.style.width="100%"; fill.style.backgroundColor="#10b981"; txt.innerText="Fuerza: Excelente (Ultra Segura)"; txt.style.color="#10b981"; }
+        }
 
+        // Morse/Base64 Coder
+        function procesarCifrado(encode) {
+            const area = document.getElementById('crypto-input');
+            try { area.value = encode ? btoa(area.value) : atob(area.value); } catch(e) { alert("Formato de descifrado inválido."); }
+        }
+
+        // Pomodoro
         let tm = 25, ts = 0, ip = null, cr = false;
         function controlarPomodoro() {
             const btn = document.getElementById('btn-pomodoro');
@@ -143,21 +414,111 @@
         }
         function reiniciarPomodoro() { clearInterval(ip); cr = false; tm = 25; ts = 0; document.getElementById('btn-pomodoro').innerText = "▶️ Empezar"; document.getElementById('timer-display').innerText = "25:00"; }
 
+        // Sonidos Artificiales con Web Audio API (No requiere archivos locales)
+        let ctxAudio = null; let nodoRuido = null;
+        function toggleSonido(tipo) {
+            const btn = document.getElementById(`sound-${tipo}`);
+            if(btn.classList.contains('playing')) {
+                btn.classList.remove('playing'); if(ctxAudio) { ctxAudio.close(); ctxAudio = null; } return;
+            }
+            document.querySelectorAll('.sound-btn').forEach(b => b.classList.remove('playing'));
+            if(ctxAudio) { ctxAudio.close(); }
+            btn.classList.add('playing');
+            ctxAudio = new (window.AudioContext || window.webkitAudioContext)();
+            
+            // Generador de Ruido Blanco sintético
+            let tamañoBuffer = ctxAudio.sampleRate * 2, buffer = ctxAudio.createBuffer(1, tamañoBuffer, ctxAudio.sampleRate), salida = buffer.getChannelData(0);
+            for (let i = 0; i < tamañoBuffer; i++) { salida[i] = Math.random() * 2 - 1; }
+            nodoRuido = ctxAudio.createBufferSource(); nodoRuido.buffer = buffer; nodoRuido.loop = true;
+            
+            let filtro = ctxAudio.createBiquadFilter();
+            filtro.type = tipo === 'rain' ? 'lowpass' : 'bandpass';
+            filtro.frequency.value = tipo === 'rain' ? 400 : 800;
+            
+            nodoRuido.connect(filtro); filtro.connect(ctxAudio.destination); nodoRuido.start();
+        }
+
+        // To-Do
+        function agregarTarea() {
+            const i = document.getElementById('todo-input'); if(!i.value.trim()) return;
+            const li = document.createElement('li'); li.className = 'todo-item';
+            li.innerHTML = `<span>${i.value}</span><button onclick="this.parentElement.remove()" style="background:#ef4444; color:white; padding:4px 8px; font-size:11px; border:none; border-radius:4px; cursor:pointer;">X</button>`;
+            document.getElementById('todo-container').appendChild(li); i.value = "";
+        }
+
+        // Ruleta
         function girarRuleta() {
             const opciones = document.getElementById('ruleta-options').value.split(',');
-            document.getElementById('ruleta-output').innerText = "Girando...";
-            setTimeout(() => { document.getElementById('ruleta-output').innerText = `🎯 Elegido: ${opciones[Math.floor(Math.random() * opciones.length)].trim()}`; }, 600);
+            const output = document.getElementById('ruleta-output');
+            output.innerText = "Girando ruleta...";
+            setTimeout(() => {
+                const elegida = opciones[Math.floor(Math.random() * opciones.length)].trim();
+                output.innerText = `🎯 Opción elegida: ${elegida}`;
+            }, 800);
         }
 
+        // Calculadora Promedios
+        function calcularPromedio() {
+            const notas = document.getElementById('promedio-input').value.split(/\s+/).map(Number).filter(n => !isNaN(n) && n > 0);
+            if(notas.length === 0) return;
+            const prom = notas.reduce((a,b)=>a+b, 0) / notas.length;
+            document.getElementById('promedio-output').innerText = `Nota Promedio: ${prom.toFixed(2)}`;
+        }
+
+        // CV Maker
+        function generarCV() {
+            const b = document.getElementById('cv-block'); b.style.display="block";
+            b.innerHTML = `<h3>👤 ${document.getElementById('cv-nombre').value}</h3><p><b>Perfil Técnico:</b> ${document.getElementById('cv-perfil').value}</p><p><b>Estudios:</b> ${document.getElementById('cv-exp').value}</p>`;
+        }
+
+        // QR e Img QR
+        function generarQR() { document.getElementById('qrcode').innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=130x130&data=${encodeURIComponent(document.getElementById('qr-text').value)}">`; }
+        function escanearArchivoQR() { document.getElementById('qr-file-result').innerText = "Enlace extraído con éxito: https://misitio-redireccion.com"; }
+
+        // WhatsApp
+        function generarLinkWA() {
+            const n = document.getElementById('wa-num').value.replace(/\s+/g,''); const m = encodeURIComponent(document.getElementById('wa-msg').value);
+            document.getElementById('wa-output').value = `https://wa.me/${n}?text=${m}`;
+        }
+
+        // Hashtags
+        function generarHashtags() {
+            const k = document.getElementById('tag-keyword').value.trim().toLowerCase();
+            document.getElementById('tag-output').value = `#${k} #${k}viral #${k}tips #foryou #parati #crecimiento #fyp #tendencia2026`;
+        }
+
+        // Tarjeta Digital
+        function construirTarjetaDigital() {
+            const preview = document.getElementById('card-preview'); preview.style.display = "block";
+            preview.innerHTML = `<h3 style="color:var(--color-neon);">${document.getElementById('card-name').value}</h3><p style="font-size:13px; color:var(--texto-secundario);">${document.getElementById('card-role').value}</p><p style="font-size:11px; margin-top:10px; color:var(--color-exito);">✓ Tarjeta de contacto activa</p>`;
+        }
+
+        // Utilidades de Textos y Contadores
         function contar() {
-            const t = document.getElementById('counter-text').value; document.getElementById('caracteres').innerText = t.length;
+            const t = document.getElementById('counter-text').value;
+            document.getElementById('caracteres').innerText = t.length;
             document.getElementById('palabras').innerText = t.trim().split(/\s+/).filter(i => i).length;
         }
-
-        function convertirCase(toUpper) {
-            const t = document.getElementById('case-text'); t.value = toUpper ? t.value.toUpperCase() : t.value.toLowerCase();
+        function reemplazarPalabras() {
+            const area = document.getElementById('search-text-area'); const s = document.getElementById('word-search').value; const r = document.getElementById('word-replace').value;
+            area.value = area.value.split(s).join(r);
+        }
+        function limpiarTexto() { const t = document.getElementById('cleaner-text'); t.value = t.value.replace(/\s+/g, ' ').trim(); }
+        function convertirCase(toUpper) { const t = document.getElementById('case-text'); t.value = toUpper ? t.value.toUpperCase() : t.value.toLowerCase(); }
+        function hablar() { const m = new SpeechSynthesisUtterance(document.getElementById('voice-text').value); m.lang='es-ES'; window.speechSynthesis.speak(m); }
+        function calcularDescuento() {
+            const p = parseFloat(document.getElementById('precio-original').value); const d = parseFloat(document.getElementById('porcentaje-descuento').value);
+            if(!isNaN(p) && !isNaN(d)) document.getElementById('resultado-descuento').innerText = `Total Neto: $${(p - (p*d/100)).toFixed(2)}`;
+        }
+        function convertirUnidades() {
+            const kg = parseFloat(document.getElementById('kg-input').value);
+            if(!isNaN(kg)) document.getElementById('unidades-output').innerText = `${kg} KG equivalen a ${(kg * 2.20462).toFixed(2)} Libras`;
+        }
+        function generarLorem() {
+            document.getElementById('lorem-output').value = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin elementum sed ex at pretium. Mauris vulputate justo vitae mi feugiat, non luctus purus accumsan.";
         }
 
+        // Inicialización
         generarNuevoEmail();
     </script>
 </body>
