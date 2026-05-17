@@ -5,18 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Herramientas Web Gratuitas | ÚtilWeb Ultimate Portal</title>
 
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+
     <style>
         :root {
             --bg-principal: #05070f;
-            --bg-tarjetas: rgba(15, 23, 42, 0.45);
-            --border-color: rgba(30, 41, 59, 0.6);
+            --bg-tarjetas: rgba(15, 23, 42, 0.4);
+            --border-color: rgba(30, 41, 59, 0.5);
             --texto-principal: #f8fafc;
             --texto-secundario: #94a3b8;
-            --color-neon: #38bdf8;
-            --color-neon-hover: #0ea5e9;
-            --color-estudiante: #f59e0b;
-            --color-correo: #c084fc;
-            --color-exito: #10b981;
+            
+            /* Colores temáticos neón */
+            --neon-seguridad: #38bdf8;
+            --neon-productividad: #f59e0b;
+            --neon-negocios: #c084fc;
+            --neon-utilidades: #10b981;
             --color-alerta: #ef4444;
         }
 
@@ -25,8 +30,8 @@
         body { 
             background-color: var(--bg-principal); 
             background-image: 
-                radial-gradient(circle at 80% 20%, rgba(192, 132, 252, 0.05) 0%, transparent 40%),
-                radial-gradient(circle at 15% 70%, rgba(56, 189, 248, 0.06) 0%, transparent 45%);
+                radial-gradient(circle at 80% 20%, rgba(192, 132, 252, 0.04) 0%, transparent 40%),
+                radial-gradient(circle at 15% 70%, rgba(56, 189, 248, 0.05) 0%, transparent 45%);
             background-attachment: fixed;
             color: var(--texto-principal); 
             display: flex; 
@@ -35,18 +40,19 @@
         }
         
         /* Navbar */
-        nav { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid rgba(30, 41, 59, 0.4); padding: 15px 25px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; flex-wrap: wrap; gap: 10px; }
-        nav h1 { font-size: 21px; font-weight: 700; color: var(--color-neon); text-shadow: 0 0 10px rgba(56, 189, 248, 0.2); }
+        nav { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding: 15px 25px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; flex-wrap: wrap; gap: 10px; }
+        nav h1 { font-size: 21px; font-weight: 700; color: var(--neon-seguridad); text-shadow: 0 0 10px rgba(56, 189, 248, 0.2); }
         .nav-actions { display: flex; align-items: center; gap: 12px; }
-        .estudiante-tag { font-size: 13px; background: rgba(245, 158, 11, 0.12); color: var(--color-estudiante); padding: 8px 16px; border-radius: 20px; font-weight: 600; border: 1px solid rgba(245, 158, 11, 0.2); max-width: 420px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
+        .estudiante-tag { font-size: 13px; background: rgba(245, 158, 11, 0.1); color: var(--neon-productividad); padding: 8px 16px; border-radius: 20px; font-weight: 600; border: 1px solid rgba(245, 158, 11, 0.15); max-width: 420px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
         
         /* Botones del Nav */
-        .btn-nav-action { background: #1e293b; color: #fff; padding: 8px 14px; font-size: 13px; border-radius: 8px; font-weight: 600; display: flex; align-items: center; gap: 6px; border: 1px solid rgba(255,255,255,0.05); cursor:pointer; transition:0.2s; text-decoration: none; }
+        .btn-nav-action { background: #1e293b; color: #fff; padding: 8px 14px; font-size: 13px; border-radius: 8px; font-weight: 600; display: flex; align-items: center; gap: 6px; border: 1px solid rgba(255,255,255,0.05); cursor:pointer; transition: 0.2s ease; text-decoration: none; }
         .btn-nav-action:hover { background: #334155; transform: translateY(-1px); }
         .btn-login { background: #fff; color: #000; border: none; }
         .btn-login:hover { background: #e2e8f0; }
-        .btn-download-app { background: rgba(56, 189, 248, 0.1); color: var(--color-neon); border: 1px solid rgba(56, 189, 248, 0.2); }
-        .btn-download-app:hover { background: rgba(56, 189, 248, 0.2); border-color: var(--color-neon); }
+        .btn-login img { width: 18px; height: 18px; border-radius: 50%; object-fit: cover; }
+        .btn-download-app { background: rgba(56, 189, 248, 0.1); color: var(--neon-seguridad); border: 1px solid rgba(56, 189, 248, 0.2); }
+        .btn-download-app:hover { background: rgba(56, 189, 248, 0.2); border-color: var(--neon-seguridad); }
 
         /* Barra de Pestañas Animada */
         .tabs-container { max-width: 1400px; width: 100%; margin: 20px auto 0; padding: 0 20px; display: flex; gap: 10px; flex-wrap: wrap; }
@@ -58,118 +64,117 @@
             border-radius: 12px; 
             font-weight: 600; 
             cursor: pointer; 
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); 
             font-size: 14px; 
         }
-        .tab-button:hover { 
-            background: #1e293b; 
-            color: white; 
-            box-shadow: 0 0 15px rgba(56, 189, 248, 0.1);
-        }
+        .tab-button:hover { background: #1e293b; color: white; }
         .tab-button.active { 
-            background: linear-gradient(135deg, var(--color-neon), #0284c7); 
+            background: linear-gradient(135deg, var(--neon-seguridad), #0284c7); 
             color: #05070f; 
-            border-color: var(--color-neon); 
-            box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+            border-color: var(--neon-seguridad); 
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
             transform: scale(1.02);
         }
 
-        /* Estructura */
-        .wrapper { max-width: 1400px; width: 100%; margin: 15px auto; padding: 0 20px; display: block; }
+        /* Estructura Rejilla de Tarjetas Grid Premium */
+        .wrapper { max-width: 1400px; width: 100%; margin: 15px auto; padding: 0 20px; }
+        .tab-content { display: none; grid-template-columns: repeat(auto-fill, minmax(430px, 1fr)); gap: 20px; width: 100%; }
+        @media (max-width: 500px) { .tab-content { grid-template-columns: 1fr; } }
+        .tab-content.active { display: grid; }
 
-        .main-content { display: flex; flex-direction: column; gap: 15px; width: 100%; }
-        .tab-content { display: none; flex-direction: column; gap: 15px; }
-        .tab-content.active { display: flex; }
-
-        /* Tarjetas Colapsables */
+        /* Tarjetas Estilo Glassmorphism Colapsables */
         .card { 
             background: var(--bg-tarjetas); 
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             padding: 20px; 
             border-radius: 14px; 
-            box-shadow: 0 4px 20px rgba(0,0,0,0.4); 
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3); 
             border: 1px solid var(--border-color); 
-            transition: all 0.25s ease;
-            overflow: hidden;
+            transition: border-color 0.25s ease, box-shadow 0.25s ease;
+            height: fit-content;
+            align-self: start;
         }
+        .card:hover { 
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+        }
+        .card.cat-seguridad { border-left: 4px solid var(--neon-seguridad); }
+        .card.cat-seguridad:hover { border-color: var(--neon-seguridad); }
+        .card.cat-productividad { border-left: 4px solid var(--neon-productividad); }
+        .card.cat-productividad:hover { border-color: var(--neon-productividad); }
+        .card.cat-negocios { border-left: 4px solid var(--neon-negocios); }
+        .card.cat-negocios:hover { border-color: var(--neon-negocios); }
+        .card.cat-utilidades { border-left: 4px solid var(--neon-utilidades); }
+        .card.cat-utilidades:hover { border-color: var(--neon-utilidades); }
+
         .card-header { display: flex; justify-content: space-between; align-items: center; cursor: pointer; user-select: none; }
-        .card-header-left { display: flex; flex-direction: column; gap: 4px; }
-        .card h2 { font-size: 17px; color: var(--texto-principal); display: flex; align-items: center; gap: 10px; font-weight: 600; }
-        .card p.desc-corta { font-size: 13px; color: var(--texto-secundario); margin-bottom: 0; line-height: 1.4; }
+        .card-header-left { display: flex; flex-direction: column; gap: 4px; padding-right: 10px; }
+        .card h2 { font-size: 16px; color: var(--texto-principal); display: flex; align-items: center; gap: 10px; font-weight: 600; }
+        .card p.desc-corta { font-size: 12.5px; color: var(--texto-secundario); margin-bottom: 0; line-height: 1.4; }
         
         .card-body { display: none; margin-top: 20px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.05); }
-        .card.expanded { background: rgba(15, 23, 42, 0.75); border-color: rgba(56, 189, 248, 0.3); }
-        .card.expanded .card-body { display: block; }
+        .card.expanded .card-body { display: block; animation: abrirFlipped 0.25s ease-out; }
         
-        .arrow-icon { color: var(--texto-secundario); transition: transform 0.25s; font-size: 14px; font-weight: bold; }
-        .card.expanded .arrow-icon { transform: rotate(180deg); color: var(--color-neon); }
+        .arrow-icon { color: var(--texto-secundario); transition: transform 0.2s ease; font-size: 13px; font-weight: bold; }
+        .card.expanded .arrow-icon { transform: rotate(180deg); }
+        .card.cat-seguridad.expanded .arrow-icon { color: var(--neon-seguridad); }
+        .card.cat-productividad.expanded .arrow-icon { color: var(--neon-productividad); }
+        .card.cat-negocios.expanded .arrow-icon { color: var(--neon-negocios); }
+        .card.cat-utilidades.expanded .arrow-icon { color: var(--neon-utilidades); }
 
-        /* Inputs Estilizados */
+        /* Inputs y Textareas */
         textarea, input, select { 
             width: 100%; 
-            padding: 11px 14px; 
-            background: rgba(6, 8, 20, 0.85); 
-            border: 1px solid rgba(30, 41, 59, 0.8); 
-            border-radius: 10px; 
+            padding: 10px 14px; 
+            background: rgba(6, 8, 20, 0.8); 
+            border: 1px solid rgba(255, 255, 255, 0.08); 
+            border-radius: 9px; 
             margin-bottom: 12px; 
-            font-size: 13.5px; 
+            font-size: 13px; 
             color: white; 
             outline: none; 
-            transition: all 0.2s ease;
+            transition: border-color 0.2s, box-shadow 0.2s;
         }
         textarea:focus, input:focus, select:focus { 
-            border-color: var(--color-neon); 
-            box-shadow: 0 0 10px rgba(56, 189, 248, 0.15);
-            background: #060814;
+            border-color: rgba(255,255,255,0.25);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
         }
-        .flex-group { display: flex; gap: 10px; align-items: center; margin-bottom: 12px; }
-        .flex-group input, .flex-group select { margin-bottom: 0; }
+        label { font-size: 12px; color: var(--texto-secundario); display: block; margin-bottom: 4px; font-weight: 500; }
         
-        /* Botones e Interacciones */
-        button { background: var(--color-neon); color: #060814; border: none; padding: 10px 20px; font-size: 13.5px; font-weight: 700; border-radius: 9px; cursor: pointer; transition: 0.2s; display: inline-flex; align-items: center; gap: 8px; justify-content: center; }
-        button:hover { background: var(--color-neon-hover); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(56, 189, 248, 0.15); }
-        .btn-alt { background: #1e293b; color: white; border: 1px solid rgba(255,255,255,0.05); }
-        .btn-alt:hover { background: #334155; box-shadow: none; }
-        .btn-danger { background: var(--color-alerta); color: white; }
-        .btn-danger:hover { background: #b91c1c; box-shadow: 0 4px 12px rgba(239, 68, 68, 0.15); }
+        /* Botones */
+        button { background: #1e293b; color: white; border: 1px solid rgba(255,255,255,0.08); padding: 9px 18px; font-size: 13px; font-weight: 600; border-radius: 8px; cursor: pointer; transition: 0.2s ease; display: inline-flex; align-items: center; gap: 8px; justify-content: center; }
+        button:hover { background: #2d3a4f; transform: translateY(-1px); }
+        .btn-accent { background: var(--neon-seguridad); color: #05070f; border: none; }
+        .btn-accent:hover { background: #0ea5e9; }
+        .btn-alt { background: rgba(255,255,255,0.03); color: white; }
+        .btn-alt:hover { background: rgba(255,255,255,0.08); }
+        .btn-danger { background: var(--color-alerta); color: white; border: none; }
+        .btn-danger:hover { background: #b91c1c; }
 
-        /* Detalles Internos */
-        #qrcode img { border: 6px solid white; border-radius: 8px; background: white; margin-top: 15px; }
-        .stats { font-size: 13px; color: var(--color-neon); background: rgba(56, 189, 248, 0.08); display: inline-block; padding: 4px 10px; border-radius: 6px; margin-right: 10px; margin-bottom: 10px; }
-        
-        /* Temporizadores */
-        .timer-display { font-size: 40px; font-weight: bold; font-family: monospace; color: var(--color-neon); margin: 8px 0; }
+        /* Estilos de Componentes */
+        .stats { font-size: 12px; color: var(--neon-utilidades); background: rgba(16, 185, 129, 0.08); display: inline-block; padding: 4px 10px; border-radius: 6px; margin-right: 10px; margin-bottom: 5px; font-weight: 600; }
+        .todo-item { display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.2); padding: 8px 12px; border-radius: 8px; margin-bottom: 8px; border: 1px solid rgba(255,255,255,0.03); }
+        .email-box { background: rgba(192, 132, 252, 0.05); border: 1px solid rgba(192, 132, 252, 0.2); padding: 12px; border-radius: 10px; display: flex; gap: 10px; align-items: center; margin-bottom: 12px; }
+        .inbox-container { background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.05); border-radius: 10px; padding: 12px; max-height: 120px; overflow-y: auto; font-size: 12.5px; }
+        .flashcard-box { background: #060814; border: 1px dashed rgba(245, 158, 11, 0.3); min-height: 110px; border-radius: 12px; display: flex; justify-content: center; align-items: center; padding: 20px; cursor: pointer; text-align: center; font-size: 14.5px; transition: 0.2s; position: relative; user-select: none; }
+        .flashcard-badge { position: absolute; top: 8px; left: 12px; font-size: 9px; color: var(--neon-productividad); font-weight: bold; letter-spacing: 1px; }
 
-        .todo-list { list-style: none; }
-        .todo-item { display: flex; justify-content: space-between; align-items: center; background: #060814; padding: 10px 15px; border-radius: 8px; margin-bottom: 8px; border: 1px solid rgba(30, 41, 59, 0.5); }
-        .email-box { background: #1e1b4b; border: 1px solid var(--color-correo); padding: 15px; border-radius: 10px; display: flex; gap: 10px; align-items: center; margin-bottom: 15px; }
-        .inbox-container { background: #060814; border: 1px solid rgba(30, 41, 59, 0.5); border-radius: 10px; padding: 15px; max-height: 150px; overflow-y: auto; font-size: 13px; }
-        .cv-preview { background: white; color: black; padding: 20px; border-radius: 8px; margin-top: 15px; display: none; }
-        
-        .strength-bar { height: 7px; width: 100%; background: #24324f; border-radius: 4px; margin-top: -5px; margin-bottom: 15px; overflow: hidden; }
-        .strength-fill { height: 100%; width: 0%; transition: 0.3s; }
-        .sound-btn { background: #1e293b; color: white; border: 1px solid rgba(30, 41, 59, 0.5); padding: 10px; border-radius: 8px; cursor: pointer; flex: 1; text-align: center; transition: all 0.2s; }
-        .sound-btn.playing { border-color: var(--color-exito); background: rgba(16, 185, 129, 0.1); box-shadow: 0 0 10px rgba(16, 185, 129, 0.2); }
-        .ruleta-result { font-size: 18px; font-weight: bold; color: var(--color-estudiante); margin-top: 15px; }
+        .gantt-container { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+        .gantt-row { background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.03); border-radius: 8px; padding: 10px; }
+        .gantt-bar-bg { background: rgba(255,255,255,0.05); height: 8px; border-radius: 4px; margin-top: 6px; overflow: hidden; }
+        .gantt-bar-fill { height: 100%; background: var(--neon-productividad); border-radius: 4px; width: 0%; transition: width 0.5s ease; }
 
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        @media (max-width: 600px) { .grid-2 { grid-template-columns: 1fr; } }
-        .output-box { background: #060814; border: 1px solid rgba(30, 41, 59, 0.5); padding: 12px; border-radius: 10px; font-family: monospace; color: var(--color-neon); font-size: 13.5px; min-height: 40px; word-break: break-all; margin-top: 8px; }
-        
-        .canvas-draw { background: #060814; border: 1px dashed rgba(56, 189, 248, 0.3); border-radius: 12px; cursor: crosshair; width: 100%; max-width: 100%; touch-action: none; }
+        .btn-float-donate { position: fixed; bottom: 20px; right: 20px; background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 13px 20px; border-radius: 30px; font-weight: bold; box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3); z-index: 999; text-decoration: none; display: flex; align-items: center; gap: 8px; font-size: 13.5px; transition: 0.2s ease; border: 1px solid rgba(255,255,255,0.1); }
+        .btn-float-donate:hover { transform: scale(1.05); }
 
-        /* Botón Donar Flotante */
-        .btn-float-donate { position: fixed; bottom: 20px; right: 20px; background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 13px 20px; border-radius: 30px; font-weight: bold; box-shadow: 0 4px 20px rgba(16, 185, 129, 0.4); z-index: 999; text-decoration: none; display: flex; align-items: center; gap: 8px; font-size: 13.5px; transition:0.2s; border: 1px solid rgba(255,255,255,0.1); }
-        .btn-float-donate:hover { transform: scale(1.05); background: linear-gradient(135deg, #13ce93, #047857); }
-
-        /* Ventanas Modales */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5,7,15,0.85); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); display: none; justify-content: center; align-items: center; z-index: 2000; padding: 20px; }
-        .modal-card { background: #0f172a; border: 1px solid var(--border-color); border-radius: 20px; padding: 30px; max-width: 480px; width: 100%; box-shadow: 0 20px 50px rgba(0,0,0,0.8); position: relative; }
-        .modal-card h3 { color: var(--color-neon); margin-bottom: 12px; font-size: 21px; }
-        .modal-close { position: absolute; top: 15px; right: 15px; background: transparent; color: var(--texto-secundario); font-size: 20px; border:none; cursor: pointer; }
+        .modal-card { background: #0f172a; border: 1px solid var(--border-color); border-radius: 20px; padding: 30px; max-width: 480px; width: 100%; box-shadow: 0 20px 50px rgba(0,0,0,0.8); position: relative; max-height: 90vh; overflow-y: auto; }
+        .modal-card h3 { color: var(--neon-seguridad); margin-bottom: 12px; font-size: 20px; }
+        .modal-close { position: absolute; top: 15px; right: 15px; background: transparent; color: var(--texto-secundario); font-size: 18px; border:none; cursor: pointer; }
+        .founders-list { list-style: none; margin-top: 10px; max-height: 120px; overflow-y: auto; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 8px; font-size: 12.5px; border: 1px solid rgba(255,255,255,0.03); }
+        .founders-list li { padding: 4px 0; border-bottom: 1px solid rgba(255,255,255,0.02); color: #e2e8f0; }
         
-        @keyframes latido { 0% { opacity: 1; } 50% { opacity: 0.75; text-shadow: 0 0 15px var(--color-neon); } 100% { opacity: 1; } }
+        @keyframes abrirFlipped { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
@@ -180,550 +185,782 @@
             <div class="estudiante-tag">🎓 Apoya mis estudios técnicos usando este portal gratuito.</div>
             
             <button class="btn-nav-action btn-download-app" onclick="descargarPortalCompleto()">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
                 <span>Descargar Portal (.html)</span>
             </button>
 
-            <button class="btn-nav-action btn-login" id="login-nav-btn" onclick="abrirModal('modal-login')">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                <span id="login-text">Ingresar</span>
+            <button class="btn-nav-action btn-login" id="login-nav-btn" onclick="manejarAutenticacion()">
+                <span id="login-icon-placeholder">🔑</span>
+                <span id="login-text">Ingresar con Google</span>
             </button>
         </div>
     </nav>
 
     <div class="tabs-container">
-        <button class="tab-button active" onclick="cambiarPestaña('seguridad')">🔐 Seguridad y Privacidad</button>
-        <button class="tab-button" onclick="cambiarPestaña('productividad')">⏱️ Estudio y Organización</button>
-        <button class="tab-button" onclick="cambiarPestaña('negocios')">💼 Emprendimiento y Redes</button>
-        <button class="tab-button" onclick="cambiarPestaña('utilidades')">🧹 Textos y Cálculos</button>
+        <button class="tab-button active" onclick="cambiarPestaña('seguridad', this)">🔐 Seguridad y Privacidad</button>
+        <button class="tab-button" onclick="cambiarPestaña('productividad', this)">⏱️ Estudio y Organización</button>
+        <button class="tab-button" onclick="cambiarPestaña('negocios', this)">💼 Emprendimiento y Redes</button>
+        <button class="tab-button" onclick="cambiarPestaña('utilidades', this)">🧹 Textos y Cálculos</button>
     </div>
 
     <div class="wrapper">
-        <main class="main-content">
+        <main id="seguridad" class="tab-content active">
+            <section class="card cat-seguridad">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="card-header-left">
+                        <h2>✉️ Correo Temporal Anti-Spam</h2>
+                        <p class="desc-corta">Protege tu bandeja real con una cuenta rápida de un solo uso.</p>
+                    </div>
+                    <span class="arrow-icon">▼</span>
+                </div>
+                <div class="card-body">
+                    <div class="email-box">
+                        <div id="email-value" style="font-family: monospace; color: #e9d5ff; flex-grow: 1;">Generando cuenta...</div>
+                        <button onclick="copiarEmail()" class="btn-alt">📋</button>
+                    </div>
+                    <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+                        <button onclick="generarNuevoEmail()" class="btn-accent" style="background:var(--neon-negocios)">🔄 Cambiar</button>
+                        <button onclick="revisarBandeja()" class="btn-alt">📥 Ver Buzón</button>
+                    </div>
+                    <div class="inbox-container"><div id="inbox-list"><p style="color: var(--texto-secundario); font-style: italic;">Esperando mensajes de verificación...</p></div></div>
+                </div>
+            </section>
 
-            <div id="seguridad" class="tab-content active">
-                <section class="card" style="border-color: var(--color-correo);">
-                    <div class="card-header" onclick="toggleCard(this)">
-                        <div class="card-header-left">
-                            <h2>✉️ Correo Temporal de Un Solo Uso (Anti-Spam)</h2>
-                            <p class="desc-corta">Protege tu bandeja real de publicidad basura con una dirección aleatoria rápida.</p>
-                        </div>
-                        <span class="arrow-icon">▼</span>
+            <section class="card cat-seguridad">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="card-header-left">
+                        <h2>🔒 Generador de Contraseñas Securas</h2>
+                        <p class="desc-corta">Crea claves criptográficas aleatorias complejas al instante.</p>
                     </div>
-                    <div class="card-body">
-                        <div class="email-box">
-                            <div id="email-value" style="font-family: monospace; color: #e9d5ff; flex-grow: 1;">Generando cuenta...</div>
-                            <button onclick="copiarEmail()" class="btn-alt">📋 Copiar</button>
-                        </div>
-                        <div style="display: flex; gap: 10px; margin-bottom: 15px;">
-                            <button onclick="generarNuevoEmail()" style="background: var(--color-correo); color: white;">🔄 Cambiar Correo</button>
-                            <button onclick="revisarBandeja()" class="btn-alt">📥 Ver Buzón</button>
-                        </div>
-                        <div class="inbox-container"><div id="inbox-list"><p style="color: var(--texto-secundario); font-style: italic;">Esperando mensajes de verificación...</p></div></div>
+                    <span class="arrow-icon">▼</span>
+                </div>
+                <div class="card-body">
+                    <div style="display: flex; gap: 8px;">
+                        <input type="text" id="password-output" readonly style="font-family: monospace; color: var(--neon-seguridad);">
+                        <button onclick="copiarPassword()" class="btn-alt">📋</button>
                     </div>
-                </section>
+                    <button onclick="generarPassword()" class="btn-accent">Generar Clave Compleja</button>
+                </div>
+            </section>
 
-                <section class="card">
-                    <div class="card-header" onclick="toggleCard(this)">
-                        <div class="card-header-left">
-                            <h2>🔒 Generador de Contraseñas Securas</h2>
-                            <p class="desc-corta">Crea contraseñas criptográficas complejas e instantáneas con un solo clic.</p>
-                        </div>
-                        <span class="arrow-icon">▼</span>
+            <section class="card cat-seguridad">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="card-header-left">
+                        <h2>📊 Medidor de Fuerza de Claves</h2>
+                        <p class="desc-corta">Analiza qué tan vulnerable es tu contraseña actual.</p>
                     </div>
-                    <div class="card-body">
-                        <div style="display: flex; gap: 10px;">
-                            <input type="text" id="password-output" readonly style="font-family: monospace; color: var(--color-neon);">
-                            <button onclick="copiarPassword()" class="btn-alt">📋 Copiar</button>
-                        </div>
-                        <button onclick="generarPassword()">Generar Clave Aleatoria</button>
-                    </div>
-                </section>
+                    <span class="arrow-icon">▼</span>
+                </div>
+                <div class="card-body">
+                    <input type="text" id="strength-input" placeholder="Escribe tu clave aquí..." oninput="chequearFuerza()">
+                    <div class="strength-bar"><div id="strength-fill" class="strength-fill"></div></div>
+                    <p id="strength-text" style="font-size:12px; font-weight:bold;"></p>
+                </div>
+            </section>
 
-                <section class="card">
-                    <div class="card-header" onclick="toggleCard(this)">
-                        <div class="card-header-left">
-                            <h2>📊 Medidor de Fuerza de Contraseñas</h2>
-                            <p class="desc-corta">Analiza qué tan rápido podría ser vulnerada tu clave de seguridad.</p>
-                        </div>
-                        <span class="arrow-icon">▼</span>
+            <section class="card cat-seguridad">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="card-header-left">
+                        <h2>🔑 Generador de Hash Local (MD5 y SHA-256)</h2>
+                        <p class="desc-corta">Genera identificadores cifrados únicos directos desde tu navegador.</p>
                     </div>
-                    <div class="card-body">
-                        <input type="text" id="strength-input" placeholder="Escribe una contraseña aquí..." oninput="chequearFuerza()">
-                        <div class="strength-bar"><div id="strength-fill" class="strength-fill"></div></div>
-                        <p id="strength-text" style="font-size:13px; font-weight:bold;"></p>
+                    <span class="arrow-icon">▼</span>
+                </div>
+                <div class="card-body">
+                    <input type="text" id="hash-input" placeholder="Ingresa el texto a encriptar..." oninput="generarHashes()">
+                    <div style="font-size: 12px; line-height: 1.5;">
+                        <div><b>MD5 Simulado:</b> <span id="hash-md5" style="font-family: monospace; color: var(--neon-seguridad);"></span></div>
+                        <div style="margin-top: 5px;"><b>SHA-256 Real:</b> <span id="hash-sha256" style="font-family: monospace; color: var(--neon-negocios); word-break:break-all;"></span></div>
                     </div>
-                </section>
+                </div>
+            </section>
 
-                <section class="card">
-                    <div class="card-header" onclick="toggleCard(this)">
-                        <div class="card-header-left">
-                            <h2>🔑 Generador de Hash Instantáneo (MD5 y SHA-256)</h2>
-                            <p class="desc-corta">Genera identificadores hash web locales y únicos de forma segura sin servidores.</p>
-                        </div>
-                        <span class="arrow-icon">▼</span>
+            <section class="card cat-seguridad">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="card-header-left">
+                        <h2>🕵️ Encriptador Base64 Secreto</h2>
+                        <p class="desc-corta">Codifica o decodifica notas ocultas para fuentes seguras.</p>
                     </div>
-                    <div class="card-body">
-                        <input type="text" id="hash-input" placeholder="Ingresa el texto a encriptar..." oninput="generarHashes()">
-                        <div style="font-size: 12px; color: var(--texto-secundario);">
-                            <div><b>MD5 Pseudo-Simulado:</b> <span id="hash-md5" style="font-family: monospace; color: var(--color-neon);"></span></div>
-                            <div style="margin-top: 5px;"><b>SHA-256 Real (WebCrypto):</b> <span id="hash-sha256" style="font-family: monospace; color: var(--color-correo); word-break:break-all;"></span></div>
-                        </div>
+                    <span class="arrow-icon">▼</span>
+                </div>
+                <div class="card-body">
+                    <textarea id="crypto-input" rows="2" placeholder="Escribe tu mensaje oculto o código cifrado aquí..."></textarea>
+                    <div style="display: flex; gap: 8px;">
+                        <button onclick="procesarCifrado(true)" class="btn-accent">🔒 Encriptar</button>
+                        <button onclick="procesarCifrado(false)" class="btn-alt">🔓 Desencriptar</button>
                     </div>
-                </section>
+                </div>
+            </section>
+        </main>
 
-                <section class="card">
-                    <div class="card-header" onclick="toggleCard(this)">
-                        <div class="card-header-left">
-                            <h2>🕵️ Encriptador de Mensajes Secretos (Base64)</h2>
-                            <p class="desc-corta">Codifica o decodifica textos para enviar notas privadas seguras.</p>
-                        </div>
-                        <span class="arrow-icon">▼</span>
+        <main id="productividad" class="tab-content">
+            <section class="card cat-productividad">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="card-header-left">
+                        <h2>📝 Bloc de Notas Personales en la Nube</h2>
+                        <p class="desc-corta">Tus anotaciones se sincronizan automáticamente con tu cuenta de Google.</p>
                     </div>
-                    <div class="card-body">
-                        <textarea id="crypto-input" rows="2" placeholder="Escribe tu mensaje oculto o código cifrado aquí..."></textarea>
-                        <div style="display: flex; gap: 10px;">
-                            <button onclick="procesarCifrado(true)">🔒 Encriptar</button>
-                            <button onclick="procesarCifrado(false)" class="btn-alt">🔓 Desencriptar</button>
-                        </div>
-                    </div>
-                </section>
-            </div>
+                    <span class="arrow-icon">▼</span>
+                </div>
+                <div class="card-body">
+                    <textarea id="cloud-notes-area" rows="4" placeholder="Escribe tus apuntes aquí... (Se guarda automáticamente)" oninput="guardarNotasNube()"></textarea>
+                    <p id="notes-status-text" style="font-size: 11px; color: var(--neon-utilidades);">Cambios guardados localmente.</p>
+                </div>
+            </section>
 
-            <div id="productividad" class="tab-content">
-                <section class="card">
-                    <div class="card-header" onclick="toggleCard(this)">
-                        <div class="card-header-left">
-                            <h2>⏱️ Temporizador Pomodoro Integrado</h2>
-                            <p class="desc-corta">Alterna 25 minutos de estudio estricto con 5 minutos de descanso guiado.</p>
-                        </div>
-                        <span class="arrow-icon">▼</span>
+            <section class="card cat-productividad">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="card-header-left">
+                        <h2>🗂️ Fichas de Memorización (Flashcards)</h2>
+                        <p class="desc-corta">Crea tarjetas de preguntas y respuestas para repasar antes de parciales.</p>
                     </div>
-                    <div class="card-body">
-                        <div class="timer-display" id="timer-display">25:00</div>
-                        <div style="display: flex; gap: 10px;">
-                            <button onclick="controlarPomodoro()" id="btn-pomodoro">▶️ Empezar</button>
-                            <button onclick="reiniciarPomodoro()" class="btn-alt">🔄 Resetear</button>
-                        </div>
+                    <span class="arrow-icon">▼</span>
+                </div>
+                <div class="card-body">
+                    <div class="grid-2">
+                        <input type="text" id="fc-front" placeholder="Pregunta (Frente)">
+                        <input type="text" id="fc-back" placeholder="Definición (Atrás)">
                     </div>
-                </section>
+                    <button onclick="crearFlashcard()" style="margin-bottom:12px; width:100%;">➕ Agregar Tarjeta</button>
+                    <div id="flashcard-render" class="flashcard-box" onclick="voltearFlashcard()">
+                        <span class="flashcard-badge" id="fc-badge-view">FRENTE</span>
+                        <p id="fc-text-view">¡Crea una tarjeta arriba para comenzar!</p>
+                    </div>
+                </div>
+            </section>
 
-                <section class="card">
-                    <div class="card-header" onclick="toggleCard(this)">
-                        <div class="card-header-left">
-                            <h2>🌧️ Sonidos de Fondo para Concentración</h2>
-                            <p class="desc-corta">Bloquea ruidos externos con audio ambiental artificial en bucle.</p>
-                        </div>
-                        <span class="arrow-icon">▼</span>
+            <section class="card cat-productividad">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="card-header-left">
+                        <h2>📊 Cronograma de Tareas (Gantt Escolar)</h2>
+                        <p class="desc-corta">Sigue de forma visual el progreso de tus entregas y proyectos.</p>
                     </div>
-                    <div class="card-body">
-                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                            <button class="sound-btn" id="sound-rain" onclick="toggleSonido('rain')">🌧️ Lluvia Relajante</button>
-                            <button class="sound-btn" id="sound-white" onclick="toggleSonido('white')">🎛️ Ruido Blanco</button>
-                        </div>
-                    </div>
-                </section>
+                    <span class="arrow-icon">▼</span>
+                </div>
+                <div class="card-body">
+                    <input type="text" id="gantt-title" placeholder="Ej: Taller Técnico Administrativo">
+                    <label>Progreso de la Tarea (%):</label>
+                    <input type="number" id="gantt-progress" value="50" min="0" max="100">
+                    <button onclick="agregarFilaGantt()" style="width:100%;">➕ Añadir al Cronograma</button>
+                    <div class="gantt-container" id="gantt-render-box"></div>
+                </div>
+            </section>
 
-                <section class="card">
-                    <div class="card-header" onclick="toggleCard(this)">
-                        <div class="card-header-left">
-                            <h2>✅ Lista de Pendientes Activos (To-Do)</h2>
-                            <p class="desc-corta">Registra y gestiona tus compromisos diarios cómodamente.</p>
-                        </div>
-                        <span class="arrow-icon">▼</span>
+            <section class="card cat-productividad">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="card-header-left">
+                        <h2>⏱️ Temporizador Pomodoro Estricto</h2>
+                        <p class="desc-corta">Alterna 25 minutos de estudio con 5 minutos de descanso rápido.</p>
                     </div>
-                    <div class="card-body">
-                        <div style="display: flex; gap: 10px;">
-                            <input type="text" id="todo-input" placeholder="Ej: Entregar taller técnico administrativo...">
-                            <button onclick="agregarTarea()">Agregar</button>
-                        </div>
-                        <ul class="todo-list" id="todo-container"></ul>
+                    <span class="arrow-icon">▼</span>
+                </div>
+                <div class="card-body">
+                    <div class="timer-display" id="timer-display" style="font-size: 36px; text-align:center; font-weight:bold; color:var(--neon-productividad)">25:00</div>
+                    <div style="display: flex; gap: 8px; justify-content:center; margin-top:10px;">
+                        <button onclick="controlarPomodoro()" id="btn-pomodoro" class="btn-accent" style="background:var(--neon-productividad)">▶️ Empezar</button>
+                        <button onclick="reiniciarPomodoro()" class="btn-alt">🔄 Reset</button>
                     </div>
-                </section>
+                </div>
+            </section>
 
-                <section class="card">
-                    <div class="card-header" onclick="toggleCard(this)">
-                        <div class="card-header-left">
-                            <h2>⏱️ Cronómetro Digital Preciso</h2>
-                            <p class="desc-corta">Mide con precisión tiempos de estudio, lecturas o rutinas físicas.</p>
-                        </div>
-                        <span class="arrow-icon">▼</span>
+            <section class="card cat-productividad">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="card-header-left">
+                        <h2>🌧️ Audio de Enfoque Relajante</h2>
+                        <p class="desc-corta">Bloquea distracciones externas con sonido ambiental sintético.</p>
                     </div>
-                    <div class="card-body">
-                        <div class="timer-display" id="chrono-display" style="color: var(--color-correo);">00:00:00.00</div>
-                        <div style="display: flex; gap: 10px;">
-                            <button onclick="controlarCronometro()" id="btn-chrono">▶️ Iniciar</button>
-                            <button onclick="vueltaCronometro()" class="btn-alt">🏳️ Vuelta</button>
-                            <button onclick="reiniciarCronometro()" class="btn-danger">🔄 Reset</button>
-                        </div>
-                        <div id="chrono-laps" style="margin-top: 10px; font-size: 13px; color: var(--texto-secundario); max-height: 100px; overflow-y: auto;"></div>
+                    <span class="arrow-icon">▼</span>
+                </div>
+                <div class="card-body">
+                    <div style="display: flex; gap: 8px;">
+                        <button class="sound-btn" id="sound-rain" onclick="toggleSonido('rain')">🌧️ Lluvia</button>
+                        <button class="sound-btn" id="sound-white" onclick="toggleSonido('white')">🎛️ Ruido Blanco</button>
                     </div>
-                </section>
+                </div>
+            </section>
 
-                <section class="card">
-                    <div class="card-header" onclick="toggleCard(this)">
-                        <div class="card-header-left">
-                            <h2>🎰 Ruleta Tomadora de Decisiones</h2>
-                            <p class="desc-corta">¿No sabes qué actividad priorizar? Deja que el azar decida por ti.</p>
-                        </div>
-                        <span class="arrow-icon">▼</span>
+            <section class="card cat-productividad">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="card-header-left">
+                        <h2>✅ Lista de Pendientes Diarios (To-Do)</h2>
+                        <p class="desc-corta">Gestiona tus responsabilidades y tareas sobre la marcha.</p>
                     </div>
-                    <div class="card-body">
-                        <input type="text" id="ruleta-options" value="Estudiar Técnico, Avanzar Tareas, Jugar Sandbox, Ver Métricas">
-                        <button onclick="girarRuleta()">🎰 Decidir al Azar</button>
-                        <div class="ruleta-result" id="ruleta-output"></div>
+                    <span class="arrow-icon">▼</span>
+                </div>
+                <div class="card-body">
+                    <div style="display: flex; gap: 8px;">
+                        <input type="text" id="todo-input" placeholder="Escribe un pendiente...">
+                        <button onclick="agregarTarea()" class="btn-accent" style="background:var(--neon-productividad)">Añadir</button>
                     </div>
-                </section>
+                    <ul class="todo-list" id="todo-container" style="margin-top:10px;"></ul>
+                </div>
+            </section>
 
-                <section class="card">
-                    <div class="card-header" onclick="toggleCard(this)">
-                        <div class="card-header-left">
-                            <h2>📊 Calculadora de Promedio de Notas</h2>
-                            <p class="desc-corta">Ingresa tus calificaciones espaciadas para conocer tu nota definitiva.</p>
-                        </div>
-                        <span class="arrow-icon">▼</span>
+            <section class="card cat-productividad">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="card-header-left">
+                        <h2>⏱️ Cronómetro Digital Completo</h2>
+                        <p class="desc-corta">Mide lapsos exactos con soporte de marcación de vueltas.</p>
                     </div>
-                    <div class="card-body">
-                        <input type="text" id="promedio-input" placeholder="Ejemplo: 4.5 3.8 5.0 4.2">
-                        <button onclick="calcularPromedio()">Calcular Nota Definitiva</button>
-                        <p id="promedio-output" style="margin-top:15px; font-weight:bold; color:var(--color-neon);"></p>
+                    <span class="arrow-icon">▼</span>
+                </div>
+                <div class="card-body">
+                    <div class="timer-display" id="chrono-display" style="font-family:monospace; color:var(--neon-seguridad); font-size:32px; text-align:center;">00:00:00.00</div>
+                    <div style="display: flex; gap: 8px; justify-content:center; margin-top:10px;">
+                        <button onclick="controlarCronometro()" id="btn-chrono">▶️ Iniciar</button>
+                        <button onclick="vueltaCronometro()" class="btn-alt">🏳️ Vuelta</button>
+                        <button onclick="reiniciarCronometro()" class="btn-danger">🔄</button>
                     </div>
-                </section>
+                    <div id="chrono-laps" style="margin-top: 10px; font-size: 12px; color: var(--texto-secundario); max-height: 80px; overflow-y: auto;"></div>
+                </div>
+            </section>
 
-                <section class="card">
-                    <div class="card-header" onclick="toggleCard(this)">
-                        <div class="card-header-left">
-                            <h2>📄 Redactor de Hoja de Vida Express</h2>
-                            <p class="desc-corta">Genera una estructura de currículum limpia lista para copiar.</p>
-                        </div>
-                        <span class="arrow-icon">▼</span>
+            <section class="card cat-productividad">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="card-header-left">
+                        <h2>🎰 Ruleta Tomadora de Decisiones</h2>
+                        <p class="desc-corta">¿No sabes por dónde empezar? Deja que el azar elija tu prioridad.</p>
                     </div>
-                    <div class="card-body">
-                        <input type="text" id="cv-nombre" placeholder="Nombre y Apellido">
-                        <input type="text" id="cv-perfil" placeholder="Breve perfil ocupacional o técnico">
-                        <textarea id="cv-exp" rows="2" placeholder="Estudios o experiencias laborales..."></textarea>
-                        <button onclick="generarCV()">Compilar Currículum</button>
-                        <div class="cv-preview" id="cv-block"></div>
-                    </div>
-                </section>
-            </div>
+                    <span class="arrow-icon">▼</span>
+                </div>
+                <div class="card-body">
+                    <input type="text" id="ruleta-options" value="Estudiar Técnico, Avanzar Tareas, Configurar Linux, Jugar Sandbox">
+                    <button onclick="girarRuleta()" style="width:100%;">🎰 Elegir al Azar</button>
+                    <div class="ruleta-result" id="ruleta-output" style="text-align:center; font-weight:bold;"></div>
+                </div>
+            </section>
 
-            <div id="negocios" class="tab-content">
-                <section class="card">
-                    <div class="card-header" onclick="toggleCard(this)">
-                        <div class="card-header-left">
-                            <h2>📱 Generador de Códigos QR Directos</h2>
-                            <p class="desc-corta">Convierte enlaces de tus proyectos o portafolios en imágenes QR.</p>
-                        </div>
-                        <span class="arrow-icon">▼</span>
+            <section class="card cat-productividad">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="card-header-left">
+                        <h2>📅 Simulador de Metas de Ahorro</h2>
+                        <p class="desc-corta">Calcula la fecha exacta en la que podrás comprar un componente o juego.</p>
                     </div>
-                    <div class="card-body">
-                        <input type="text" id="qr-text" placeholder="Pega el link aquí...">
-                        <button onclick="generarQR()">Generar Gráfico QR</button>
-                        <div id="qrcode"></div>
-                    </div>
-                </section>
+                    <span class="arrow-icon">▼</span>
+                </div>
+                <div class="card-body">
+                    <label>Valor de la meta o artículo ($):</label>
+                    <input type="number" id="save-target-value" value="150000">
+                    <label>¿Cuánto puedes guardar a la semana? ($):</label>
+                    <input type="number" id="save-weekly" value="15000">
+                    <button onclick="calcularMetaAhorro()" style="width:100%;">📅 Calcular Semanas Necesarias</button>
+                    <div id="save-output-box" class="output-box" style="color:var(--neon-productividad)">Ingresa los montos para simular el tiempo...</div>
+                </div>
+            </section>
 
-                <section class="card">
-                    <div class="card-header" onclick="toggleCard(this)">
-                        <div class="card-header-left">
-                            <h2>💬 Enlaces Directos de WhatsApp Business</h2>
-                            <p class="desc-corta">Crea links comerciales directos con mensajes pre-escritos para tus clientes.</p>
-                        </div>
-                        <span class="arrow-icon">▼</span>
+            <section class="card cat-productividad">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="card-header-left">
+                        <h2>📊 Calculadora de Promedio Académico</h2>
+                        <p class="desc-corta">Suma tus notas para conocer tu calificación definitiva del periodo.</p>
                     </div>
-                    <div class="card-body">
-                        <input type="text" id="wa-num" placeholder="Número con código de país (ej: 57315...)">
-                        <textarea id="wa-msg" rows="2" placeholder="Hola, me gustaría recibir más información de tus productos..."></textarea>
-                        <button onclick="generarLinkWA()">Estructurar Enlace</button>
-                        <input type="text" id="wa-output" readonly style="margin-top:15px; font-family: monospace; color: var(--color-neon);">
-                    </div>
-                </section>
+                    <span class="arrow-icon">▼</span>
+                </div>
+                <div class="card-body">
+                    <input type="text" id="promedio-input" placeholder="Ej: 4.5 3.8 5.0 4.2">
+                    <button onclick="calcularPromedio()">Calcular Nota Definitiva</button>
+                    <p id="promedio-output" style="margin-top:10px; font-weight:bold; color:var(--neon-seguridad);"></p>
+                </div>
+            </section>
 
-                <section class="card">
-                    <div class="card-header" onclick="toggleCard(this)">
-                        <div class="card-header-left">
-                            <h2>📱 Limpiador y Espaciador de Párrafos para Redes Sociales</h2>
-                            <p class="desc-corta">Añade caracteres invisibles para que las descripciones de tus videos no pierdan el formato.</p>
-                        </div>
-                        <span class="arrow-icon">▼</span>
+            <section class="card cat-productividad">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="card-header-left">
+                        <h2>📄 Redactor de Hoja de Vida Express</h2>
+                        <p class="desc-corta">Genera una estructura de perfil lista para copiar.</p>
                     </div>
-                    <div class="card-body">
-                        <textarea id="social-desc-input" rows="3" placeholder="Escribe tu descripción con saltos de línea normales aquí..."></textarea>
-                        <button onclick="formatearTextoRedes()">✨ Formatear e Insertar Espacios Invisibles</button>
-                        <textarea id="social-desc-output" rows="3" style="margin-top:12px; font-family:monospace; color:var(--color-correo);" readonly placeholder="Tu texto listo para copiar..."></textarea>
-                    </div>
-                </section>
+                    <span class="arrow-icon">▼</span>
+                </div>
+                <div class="card-body">
+                    <input type="text" id="cv-nombre" placeholder="Nombre completo">
+                    <input type="text" id="cv-perfil" placeholder="Perfil ocupacional o técnico">
+                    <textarea id="cv-exp" rows="2" placeholder="Experiencia o estudios académicos..."></textarea>
+                    <button onclick="generarCV()">Compilar Currículum</button>
+                    <div class="cv-preview" id="cv-block"></div>
+                </div>
+            </section>
+        </main>
 
-                <section class="card">
-                    <div class="card-header" onclick="toggleCard(this)">
-                        <div class="card-header-left">
-                            <h2>✍️ Pizarra Trazadora de Firmas Digitales</h2>
-                            <p class="desc-corta">Dibuja tu firma digital en pantalla y descárgala en formato transparente PNG limpio.</p>
-                        </div>
-                        <span class="arrow-icon">▼</span>
+        <main id="negocios" class="tab-content">
+            <section class="card cat-negocios">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="card-header-left">
+                        <h2>💰 Costos de Producción y Precios de Venta</h2>
+                        <p class="desc-corta">Calcula insumos y define el precio ideal ganando el porcentaje correcto.</p>
                     </div>
-                    <div class="card-body">
-                        <canvas id="canvas-firma" class="canvas-draw" height="150"></canvas>
-                        <div style="display: flex; gap: 10px; margin-top: 10px;">
-                            <button onclick="limpiarFirma()" class="btn-alt">🧹 Limpiar</button>
-                            <button onclick="descargarFirma()">💾 Descargar en PNG</button>
-                        </div>
-                    </div>
-                </section>
-
-                <section class="card">
-                    <div class="card-header" onclick="toggleCard(this)">
-                        <div class="card-header-left">
-                            <h2>🚀 Extractor de Hashtags de Tendencia</h2>
-                            <p class="desc-corta">Ingresa una temática para obtener una combinación optimizada para alcance.</p>
-                        </div>
-                        <span class="arrow-icon">▼</span>
-                    </div>
-                    <div class="card-body">
-                        <input type="text" id="tag-keyword" placeholder="Ej: entrepreneurship, postres, tecnologia">
-                        <button onclick="generarHashtags()">Generar Combinación Viral</button>
-                        <textarea id="tag-output" rows="2" style="margin-top:15px; font-family:monospace; color:var(--color-exito);" readonly></textarea>
-                    </div>
-                </section>
-
-                <section class="card">
-                    <div class="card-header" onclick="toggleCard(this)">
-                        <div class="card-header-left">
-                            <h2>📇 Constructor de Tarjeta Digital Breve</h2>
-                            <p class="desc-corta">Diseña y visualiza una plantilla rápida de presentación profesional.</p>
-                        </div>
-                        <span class="arrow-icon">▼</span>
-                    </div>
-                    <div class="card-body">
-                        <input type="text" id="card-name" placeholder="Tu Nombre">
-                        <input type="text" id="card-role" placeholder="Tu Especialidad o Ocupación">
-                        <button onclick="construirTarjetaDigital()">Visualizar Tarjeta</button>
-                        <div id="card-preview" style="margin-top:15px; padding:15px; border-radius:8px; display:none; border:2px dashed var(--color-neon);"></div>
-                    </div>
-                </section>
-            </div>
-
-            <div id="utilidades" class="tab-content">
-                <section class="card">
-                    <div class="card-header" onclick="toggleCard(this)">
-                        <div class="card-header-left">
-                            <h2>🎮 Calculadora de RAM Óptima para Servidores y Sandbox</h2>
-                            <p class="desc-corta">Calcula los GB recomendados e hilos del sistema basados en tus mods y jugadores.</p>
-                        </div>
-                        <span class="arrow-icon">▼</span>
-                    </div>
-                    <div class="card-body">
-                        <div class="grid-2">
-                            <div>
-                                <label style="font-size:12px; color:var(--texto-secundario)">Número Estimado de Jugadores:</label>
-                                <input type="number" id="ram-players" value="5" min="1">
-                            </div>
-                            <div>
-                                <label style="font-size:12px; color:var(--texto-secundario)">Cantidad de Mods activos (Fabric/Forge/Plugins):</label>
-                                <input type="number" id="ram-mods" value="20" min="0">
-                            </div>
-                        </div>
-                        <button onclick="calcularRamServidor()">⚙️ Optimizar Asignación de Hardware</button>
-                        <div id="ram-output-box" class="output-box" style="margin-top:12px; font-size:13px; color:var(--color-estudiante);">Asignación sugerida: -- GB de RAM libres en el Sistema Operativo.</div>
-                    </div>
-                </section>
-
-                <section class="card">
-                    <div class="card-header" onclick="toggleCard(this)">
-                        <div class="card-header-left">
-                            <h2>💼 Calculadora de IVA y Retenciones Administrativas</h2>
-                            <p class="desc-corta">Desglosa montos bases, impuestos aplicados y netos para cuentas de cobro mercantiles.</p>
-                        </div>
-                        <span class="arrow-icon">▼</span>
-                    </div>
-                    <div class="card-body">
-                        <div class="grid-2">
-                            <div>
-                                <label style="font-size:12px; color:var(--texto-secundario)">Valor Base Comercial ($):</label>
-                                <input type="number" id="iva-base" placeholder="Monto base...">
-                            </div>
-                            <div>
-                                <label style="font-size:12px; color:var(--texto-secundario)">Porcentaje de IVA (%):</label>
-                                <select id="iva-percentage">
-                                    <option value="19">19% (General CO)</option>
-                                    <option value="5">5% (Exento/Reducido)</option>
-                                    <option value="0">0% (Excluido)</option>
-                                </select>
-                            </div>
-                        </div>
-                        <button onclick="calcularIvaExpress()">📊 Calcular Balances Contables</button>
-                        <div id="iva-output-box" class="output-box" style="font-size:13px; white-space:pre-line; line-height:1.5;">Ingresa los montos comerciales para calcular...</div>
-                    </div>
-                </section>
-
-                <section class="card">
-                    <div class="card-header" onclick="toggleCard(this)">
-                        <div class="card-header-left">
-                            <h2>🎨 Conversor de Imágenes Local a WebP (Ahorro de Almacenamiento)</h2>
-                            <p class="desc-corta">Convierte imágenes pesadas PNG/JPG a WebP liviano localmente sin subirlas a internet.</p>
-                        </div>
-                        <span class="arrow-icon">▼</span>
-                    </div>
-                    <div class="card-body">
-                        <input type="file" id="image-convert-input" accept="image/png, image/jpeg" onchange="convertirImagenLocalWebp()">
-                        <div id="image-convert-preview" style="margin-top:5px;"></div>
-                    </div>
-                </section>
-
-                <section class="card">
-                    <div class="card-header" onclick="toggleCard(this)">
-                        <div class="card-header-left">
-                            <h2>✍️ Contador de Palabras y Caracteres</h2>
-                            <p class="desc-corta">Analiza la longitud de tus textos o párrafos en tiempo real.</p>
-                        </div>
-                        <span class="arrow-icon">▼</span>
-                    </div>
-                    <div class="card-body">
-                        <textarea id="counter-text" rows="3" placeholder="Pega tu documento aquí..." oninput="contar()"></textarea>
+                    <span class="arrow-icon">▼</span>
+                </div>
+                <div class="card-body">
+                    <div class="grid-2">
                         <div>
-                            <div class="stats"><span id="palabras">0</span> palabras</div>
-                            <div class="stats"><span id="caracteres">0</span> caracteres</div>
+                            <label>Costo de Fabricación / Insumos ($):</label>
+                            <input type="number" id="cost-base" value="2000">
+                        </div>
+                        <div>
+                            <label>Margen de Ganancia Deseado (%):</label>
+                            <input type="number" id="cost-margin" value="40">
                         </div>
                     </div>
-                </section>
+                    <button onclick="calcularMargenGanancia()" class="btn-accent" style="background:var(--neon-negocios); color:white; width:100%;">📊 Estructurar Balance de Venta</button>
+                    <div id="cost-output-box" class="output-box" style="color:var(--neon-negocios); white-space: pre-line;"></div>
+                </div>
+            </section>
 
-                <section class="card">
-                    <div class="card-header" onclick="toggleCard(this)">
-                        <div class="card-header-left">
-                            <h2>🔍 Buscador y Reemplazador Dinámico</h2>
-                            <p class="desc-corta">Busca palabras repetidas en un bloque completo y cámbialas en lote.</p>
-                        </div>
-                        <span class="arrow-icon">▼</span>
+            <section class="card cat-negocios">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="card-header-left">
+                        <h2>📊 Calculadora de Tasa de Engagement (TikTok/IG)</h2>
+                        <p class="desc-corta">Mide el impacto de tus videos virales analizando la tasa de interacción real.</p>
                     </div>
-                    <div class="card-body">
-                        <textarea id="search-text-area" rows="3" placeholder="Pega el texto completo aquí..."></textarea>
-                        <div style="display: flex; gap: 10px;">
-                            <input type="text" id="word-search" placeholder="Buscar palabra...">
-                            <input type="text" id="word-replace" placeholder="Reemplazar con...">
+                    <span class="arrow-icon">▼</span>
+                </div>
+                <div class="card-body">
+                    <div class="grid-2">
+                        <div>
+                            <label>Vistas Totales:</label>
+                            <input type="number" id="eng-views" value="10000">
                         </div>
-                        <button onclick="reemplazarPalabras()">Ejecutar Reemplazo Completo</button>
+                        <div>
+                            <label>Interacciones (Likes+Comentarios+Shares):</label>
+                            <input type="number" id="eng-actions" value="1200">
+                        </div>
                     </div>
-                </section>
+                    <button onclick="calcularEngagement()" style="width:100%;">📊 Calcular Porcentaje de Engagement</button>
+                    <div id="engagement-output" class="output-box" style="color:var(--neon-negocios)">Ingresa los datos analíticos...</div>
+                </div>
+            </section>
 
-                <section class="card">
-                    <div class="card-header" onclick="toggleCard(this)">
-                        <div class="card-header-left">
-                            <h2>🎨 Selector Digital de Paletas Cromáticas</h2>
-                            <p class="desc-corta">Extrae códigos de diseño RGB y HEX exactos al instante.</p>
-                        </div>
-                        <span class="arrow-icon">▼</span>
+            <section class="card cat-negocios">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="card-header-left">
+                        <h2>📱 Generador de Títulos Virales (Ganchos)</h2>
+                        <p class="desc-corta">Genera títulos atractivos psicológicos basados en tu temática.</p>
                     </div>
-                    <div class="card-body">
-                        <div class="flex-group">
-                            <input type="color" id="color-picker" style="width: 80px; height: 42px; padding:2px; cursor:pointer;" oninput="actualizarColor()">
-                            <input type="text" id="color-hex" readonly style="font-family: monospace;">
-                            <input type="text" id="color-rgb" readonly style="font-family: monospace;">
-                        </div>
-                    </div>
-                </section>
+                    <span class="arrow-icon">▼</span>
+                </div>
+                <div class="card-body">
+                    <input type="text" id="hook-keyword" placeholder="Ej: hacer postres, optimizar hardware">
+                    <button onclick="generarTítulosHooks()" style="width:100%;">✨ Generar 5 Ganchos de Retención</button>
+                    <textarea id="hook-output" rows="4" style="margin-top:12px; font-family:monospace; color:var(--neon-negocios);" readonly></textarea>
+                </div>
+            </section>
 
-                <section class="card">
-                    <div class="card-header" onclick="toggleCard(this)">
-                        <div class="card-header-left">
-                            <h2>🧹 Depurador de Espacios y Saltos Vacíos</h2>
-                            <p class="desc-corta">Corrije formatos desordenados removiendo tabulaciones extras.</p>
-                        </div>
-                        <span class="arrow-icon">▼</span>
+            <section class="card cat-negocios">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="card-header-left">
+                        <h2>📄 Generador de Cuentas de Cobro Express</h2>
+                        <p class="desc-corta">Rellena el formato para imprimir o exportar una cuenta de cobro limpia a PDF.</p>
                     </div>
-                    <div class="card-body">
-                        <textarea id="cleaner-text" rows="2" placeholder="Pega textos desordenados aquí..."></textarea>
-                        <button onclick="limpiarTexto()">Corregir Formato</button>
-                    </div>
-                </section>
+                    <span class="arrow-icon">▼</span>
+                </div>
+                <div class="card-body">
+                    <input type="text" id="bill-name" placeholder="Tu Nombre o Razón Social">
+                    <input type="text" id="bill-concept" placeholder="Concepto del servicio prestado">
+                    <input type="number" id="bill-value" placeholder="Monto total a cobrar ($)">
+                    <button onclick="generarCuentaCobroPDF()" style="width:100%;" class="btn-accent" style="background:var(--neon-negocios); color:white;">🖨️ Generar y Abrir Impresión PDF</button>
+                </div>
+            </section>
 
-                <section class="card">
-                    <div class="card-header" onclick="toggleCard(this)">
-                        <div class="card-header-left">
-                            <h2>🔠 Conversor de Caja de Letras</h2>
-                            <p class="desc-corta">Alterna textos enteros de mayúsculas a minúsculas en un segundo.</p>
-                        </div>
-                        <span class="arrow-icon">▼</span>
+            <section class="card cat-negocios">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="card-header-left">
+                        <h2>¼ Generador de Comprobantes de Recibo de Caja</h2>
+                        <p class="desc-corta">Crea un recibo de pago rápido para tus clientes en pantalla.</p>
                     </div>
-                    <div class="card-body">
-                        <textarea id="case-text" rows="2" placeholder="Pega el texto a transformar..."></textarea>
-                        <div style="display: flex; gap: 10px;">
-                            <button onclick="convertirCase(true)">PASAR A MAYÚSCULAS</button>
-                            <button onclick="convertirCase(false)" class="btn-alt">pasar a minúsculas</button>
-                        </div>
-                    </div>
-                </section>
+                    <span class="arrow-icon">▼</span>
+                </div>
+                <div class="card-body">
+                    <input type="text" id="rec-client" placeholder="Nombre del Cliente">
+                    <input type="text" id="rec-detail" placeholder="Por concepto de (Venta de artículo)">
+                    <input type="number" id="rec-price" placeholder="Valor recibido ($)">
+                    <button onclick="generarReciboCaja()" style="width:100%;">🖨️ Estructurar Recibo e Imprimir</button>
+                </div>
+            </section>
 
-                <section class="card">
-                    <div class="card-header" onclick="toggleCard(this)">
-                        <div class="card-header-left">
-                            <h2>🗣️ Transcriptor de Lectura por Voz</h2>
-                            <p class="desc-corta">Reproduce en audio asistido los textos que redactes.</p>
-                        </div>
-                        <span class="arrow-icon">▼</span>
+            <section class="card cat-negocios">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="card-header-left">
+                        <h2>🎬 Cortador de Tiempos para Videos cortos</h2>
+                        <p class="desc-corta">Calcula en cuántas partes debes fragmentar un video según la red social.</p>
                     </div>
-                    <div class="card-body">
-                        <textarea id="voice-text" rows="2" placeholder="Escribe el bloque de lectura..."></textarea>
-                        <button onclick="hablar()">▶️ Activar Audio</button>
-                    </div>
-                </section>
+                    <span class="arrow-icon">▼</span>
+                </div>
+                <div class="card-body">
+                    <label>Duración total del video (en segundos):</label>
+                    <input type="number" id="split-video-seconds" value="145">
+                    <label>Dividir en bloques de (segundos):</label>
+                    <select id="split-platform-time">
+                        <option value="15">15 Segundos (Historias Cortas)</option>
+                        <option value="30">30 Segundos (WhatsApp/Reels)</option>
+                        <option value="60">60 Segundos (TikTok Standard)</option>
+                    </select>
+                    <button onclick="calcularCortesVideo()" style="width:100%;">🎬 Calcular Fragmentos</button>
+                    <div id="video-split-output" class="output-box" style="color:var(--neon-negocios)"></div>
+                </div>
+            </section>
 
-                <section class="card">
-                    <div class="card-header" onclick="toggleCard(this)">
-                        <div class="card-header-left">
-                            <h2>💰 Calculadora de Descuentos Comerciales</h2>
-                            <p class="desc-corta">Evalúa de manera rápida valores bases deduciendo rebajas porcentuales.</p>
-                        </div>
-                        <span class="arrow-icon">▼</span>
+            <section class="card cat-negocios">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="card-header-left">
+                        <h2>📱 Códigos QR e Imágenes Directas</h2>
+                        <p class="desc-corta">Convierte los enlaces de tus portafolios en imágenes QR instantáneas.</p>
                     </div>
-                    <div class="card-body">
-                        <div style="display: flex; gap: 10px;">
-                            <input type="number" id="precio-original" placeholder="Precio Base">
-                            <input type="number" id="porcentaje-descuento" placeholder="Descuento (%)">
-                        </div>
-                        <button onclick="calcularDescuento()">Calcular Precio Neto</button>
-                        <p id="resultado-descuento" style="margin-top: 15px; color: var(--color-neon); font-weight: bold;"></p>
-                    </div>
-                </section>
+                    <span class="arrow-icon">▼</span>
+                </div>
+                <div class="card-body">
+                    <input type="text" id="qr-text" placeholder="Pega el link del proyecto aquí...">
+                    <button onclick="generarQR()" class="btn-accent" style="background:var(--neon-negocios); color:white;">Generar Código QR</button>
+                    <div id="qrcode" style="text-align:center;"></div>
+                </div>
+            </section>
 
-                <section class="card">
-                    <div class="card-header" onclick="toggleCard(this)">
-                        <div class="card-header-left">
-                            <h2>⚖️ Conversor Universal de Medidas Métricas</h2>
-                            <p class="desc-corta">Pasajes directos de unidades para Peso y Temperatura.</p>
-                        </div>
-                        <span class="arrow-icon">▼</span>
+            <section class="card cat-negocios">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="card-header-left">
+                        <h2>💬 Enlaces Directos de WhatsApp Business</h2>
+                        <p class="desc-corta">Estructura links comerciales directos con mensajes pre-redactados.</p>
                     </div>
-                    <div class="card-body">
-                        <div class="grid-2">
-                            <div>
-                                <label style="font-size:12px; color:var(--texto-secundario)">Kilogramos a Libras:</label>
-                                <input type="number" id="kg-input" placeholder="KG" oninput="convertirPeso()">
-                                <div id="peso-output" class="output-box">0.00 Libras</div>
-                            </div>
-                            <div>
-                                <label style="font-size:12px; color:var(--texto-secundario)">Celsius a Fahrenheit:</label>
-                                <input type="number" id="celsius-input" placeholder="°C" oninput="convertirTemp()">
-                                <div id="temp-output" class="output-box">32.00 °F</div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                    <span class="arrow-icon">▼</span>
+                </div>
+                <div class="card-body">
+                    <input type="text" id="wa-num" placeholder="Número celular con código de país (ej: 57304...)">
+                    <textarea id="wa-msg" rows="2" placeholder="Hola, me interesa cotizar un servicio..."></textarea>
+                    <button onclick="generarLinkWA()">Estructurar Enlace</button>
+                    <input type="text" id="wa-output" readonly style="margin-top:10px; font-family: monospace; color: var(--neon-negocios);">
+                </div>
+            </section>
 
-                <section class="card">
-                    <div class="card-header" onclick="toggleCard(this)">
-                        <div class="card-header-left">
-                            <h2>📰 Generador de Texto Lorem Ipsum</h2>
-                            <p class="desc-corta">Crea bloques de texto estándar para maquetación y diseño de interfaces.</p>
+            <section class="card cat-negocios">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="card-header-left">
+                        <h2>✍️ Pizarra Trazadora de Firmas Digitales</h2>
+                        <p class="desc-corta">Dibuja tu firma digital y descárgala en formato transparente PNG.</p>
+                    </div>
+                    <span class="arrow-icon">▼</span>
+                </div>
+                <div class="card-body">
+                    <canvas id="canvas-firma" class="canvas-draw" height="130"></canvas>
+                    <div style="display: flex; gap: 8px; margin-top: 10px;">
+                        <button onclick="limpiarFirma()" class="btn-alt">🧹 Limpiar</button>
+                        <button onclick="descargarFirma()" class="btn-accent" style="background:var(--neon-negocios); color:white;">💾 Guardar PNG</button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card cat-negocios">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="card-header-left">
+                        <h2>🚀 Extractor de Hashtags de Tendencia</h2>
+                        <p class="desc-corta">Obtén una combinación optimizada de tags según tu nicho.</p>
+                    </div>
+                    <span class="arrow-icon">▼</span>
+                </div>
+                <div class="card-body">
+                    <input type="text" id="tag-keyword" placeholder="Ej: tecnologia, postres">
+                    <button onclick="generarHashtags()">Generar Combinación Viral</button>
+                    <textarea id="tag-output" rows="2" style="margin-top:10px; font-family:monospace; color:var(--neon-utilidades);" readonly></textarea>
+                </div>
+            </section>
+
+            <section class="card cat-negocios">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="card-header-left">
+                        <h2>📇 Constructor de Tarjeta Digital Breve</h2>
+                        <p class="desc-corta">Diseña y visualiza una plantilla rápida de presentación.</p>
+                    </div>
+                    <span class="arrow-icon">▼</span>
+                </div>
+                <div class="card-body">
+                    <input type="text" id="card-name" placeholder="Tu Nombre">
+                    <input type="text" id="card-role" placeholder="Tu Especialidad u Ocupación">
+                    <button onclick="construirTarjetaDigital()">Visualizar Tarjeta</button>
+                    <div id="card-preview" style="margin-top:12px; padding:12px; border-radius:8px; display:none; border:2px dashed var(--neon-negocios);"></div>
+                </div>
+            </section>
+        </main>
+
+        <main id="utilidades" class="tab-content">
+            <section class="card cat-utilidades">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="card-header-left">
+                        <h2>🧮 Calculadora de Regla de Tres Simple</h2>
+                        <p class="desc-corta">Resuelve ecuaciones de proporcionalidad cruzada en un segundo.</p>
+                    </div>
+                    <span class="arrow-icon">▼</span>
+                </div>
+                <div class="card-body">
+                    <div style="display: flex; gap: 8px; align-items: center; justify-content: center; flex-wrap: wrap;">
+                        <div style="width:110px; text-align:center;">Si <input type="number" id="r3-a" placeholder="A" style="margin-top:4px;"></div>
+                        <div style="color:var(--neon-utilidades);">➔</div>
+                        <div style="width:110px; text-align:center;">es a <input type="number" id="r3-b" placeholder="B" style="margin-top:4px;"></div>
+                    </div>
+                    <div style="display: flex; gap: 8px; align-items: center; justify-content: center; margin-top: 8px; flex-wrap: wrap;">
+                        <div style="width:110px; text-align:center;">Entonces <input type="number" id="r3-c" placeholder="C" style="margin-top:4px;"></div>
+                        <div style="color:var(--neon-utilidades);">➔</div>
+                        <div style="width:110px; text-align:center;">X = <div id="r3-output" class="output-box" style="margin-top:4px; height:38px; padding:8px;">?</div></div>
+                    </div>
+                    <button onclick="calcularReglaDeTres()" style="margin-top:12px; width:100%;" class="btn-accent" style="background:var(--neon-utilidades); color:white;">🧮 Resolver Proporción</button>
+                </div>
+            </section>
+
+            <section class="card cat-utilidades">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="card-header-left">
+                        <h2>🎮 RAM Óptima para Servidores y Sandbox</h2>
+                        <p class="desc-corta">Calcula los GB recomendados basados en tus mods y jugadores estimados.</p>
+                    </div>
+                    <span class="arrow-icon">▼</span>
+                </div>
+                <div class="card-body">
+                    <div class="grid-2">
+                        <div>
+                            <label>Número de Jugadores:</label>
+                            <input type="number" id="ram-players" value="5">
                         </div>
-                        <span class="arrow-icon">▼</span>
+                        <div>
+                            <label>Cantidad de Mods:</label>
+                            <input type="number" id="ram-mods" value="20">
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <button onclick="generarLorem()">Generar Bloque de Relleno</button>
-                        <textarea id="lorem-output" rows="3" style="margin-top:15px; font-family:monospace;" readonly></textarea>
+                    <button onclick="calcularRamServidor()" style="width:100%;">⚙️ Calcular Asignación de Hardware</button>
+                    <div id="ram-output-box" class="output-box" style="color:var(--neon-productividad)"></div>
+                </div>
+            </section>
+
+            <section class="card cat-utilidades">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="card-header-left">
+                        <h2>🎮 RAM Libre con Gráficos Integrados (APU)</h2>
+                        <p class="desc-corta">Calcula cuánta memoria real le queda a tu sistema operativo tras asignar VRAM en la BIOS.</p>
                     </div>
-                </section>
-            </div>
+                    <span class="arrow-icon">▼</span>
+                </div>
+                <div class="card-body">
+                    <div class="grid-2">
+                        <div>
+                            <label>RAM Física Total instalada (GB):</label>
+                            <input type="number" id="apu-total-ram" value="8">
+                        </div>
+                        <div>
+                            <label>VRAM asignada en BIOS (GB):</label>
+                            <input type="number" id="apu-vram" value="2">
+                        </div>
+                    </div>
+                    <button onclick="calcularApuRamBalance()" style="width:100%;">⚙️ Calcular RAM Restante para el Sistema</button>
+                    <div id="apu-ram-output" class="output-box" style="color:var(--neon-utilidades)"></div>
+                </div>
+            </section>
+
+            <section class="card cat-utilidades">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="card-header-left">
+                        <h2>🌐 Conversor de Mbps a MB/s (Descargas Reales)</h2>
+                        <p class="desc-corta">Convierte las megas comerciales de tu plan de internet a la velocidad real de bajada.</p>
+                    </div>
+                    <span class="arrow-icon">▼</span>
+                </div>
+                <div class="card-body">
+                    <label>Megas de tu plan contratado (Mbps):</label>
+                    <input type="number" id="net-mbps-input" value="200">
+                    <button onclick="calcularVelocidadDescargaReal()" style="width:100%;">🌐 Calcular Velocidad de Bajada Real</button>
+                    <div id="net-download-output" class="output-box" style="color:var(--neon-seguridad)"></div>
+                </div>
+            </section>
+
+            <section class="card cat-utilidades">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="card-header-left">
+                        <h2>💾 Calculadora de Conversión GiB a MB exactos</h2>
+                        <p class="desc-corta">Pasa de Gigabytes binarios a Megabytes para configurar particiones o Dual Boot.</p>
+                    </div>
+                    <span class="arrow-icon">▼</span>
+                </div>
+                <div class="card-body">
+                    <label>Cantidad de Gigabytes (GiB) a asignar:</label>
+                    <input type="number" id="gib-input-value" value="50">
+                    <button onclick="convertirGibAMbExacto()" style="width:100%;">💾 Calcular MB Exactos</button>
+                    <div id="gib-convert-output" class="output-box" style="color:var(--neon-utilidades)"></div>
+                </div>
+            </section>
+
+            <section class="card cat-utilidades">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="card-header-left">
+                        <h2>💼 Calculadora de IVA y Retenciones Express</h2>
+                        <p class="desc-corta">Desglosa montos comerciales bases, impuestos y balances netos.</p>
+                    </div>
+                    <span class="arrow-icon">▼</span>
+                </div>
+                <div class="card-body">
+                    <div class="grid-2">
+                        <div>
+                            <label>Valor Base Comercial ($):</label>
+                            <input type="number" id="iva-base" placeholder="Monto base...">
+                        </div>
+                        <div>
+                            <label>Porcentaje de IVA (%):</label>
+                            <select id="iva-percentage">
+                                <option value="19">19% (General CO)</option>
+                                <option value="5">5% (Reducido)</option>
+                                <option value="0">0% (Exento)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button onclick="calcularIvaExpress()" style="width:100%;">📊 Calcular Balances Contables</button>
+                    <div id="iva-output-box" class="output-box" style="white-space:pre-line; line-height:1.4;"></div>
+                </div>
+            </section>
+
+            <section class="card cat-utilidades">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="card-header-left">
+                        <h2>🎨 Conversor de Imágenes Local a WebP</h2>
+                        <p class="desc-corta">Optimiza archivos PNG o JPG convirtiéndolos a WebP liviano localmente.</p>
+                    </div>
+                    <span class="arrow-icon">▼</span>
+                </div>
+                <div class="card-body">
+                    <input type="file" id="image-convert-input" accept="image/png, image/jpeg" onchange="convertirImagenLocalWebp()">
+                    <div id="image-convert-preview" style="margin-top:5px;"></div>
+                </div>
+            </section>
+
+            <section class="card cat-utilidades">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="card-header-left">
+                        <h2>📱 Alerta de Límites y Contador de Texto</h2>
+                        <p class="desc-corta">Redacta descripciones cuidando no exceder el tope de TikTok o Instagram.</p>
+                    </div>
+                    <span class="arrow-icon">▼</span>
+                </div>
+                <div class="card-body">
+                    <label>Elegir plataforma de destino:</label>
+                    <select id="text-limit-platform" onchange="contarTextoConLimite()">
+                        <option value="80">TikTok (Límite Biografía: 80 caracteres)</option>
+                        <option value="150">Instagram (Límite Biografía: 150 caracteres)</option>
+                        <option value="4000">Libre (Sin restricciones de red)</option>
+                    </select>
+                    <textarea id="counter-text" rows="3" placeholder="Escribe tu texto aquí..." oninput="contarTextoConLimite()"></textarea>
+                    <div>
+                        <div class="stats"><span id="palabras">0</span> palabras</div>
+                        <div class="stats" id="char-badge-limit"><span id="caracteres">0</span> caracteres</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card cat-utilidades">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="card-header-left">
+                        <h2>🧹 Depurador de Duplicados y Ordenador Alfabético</h2>
+                        <p class="desc-corta">Pega una lista desordenada para limpiar repetidos y organizarla en lote.</p>
+                    </div>
+                    <span class="arrow-icon">▼</span>
+                </div>
+                <div class="card-body">
+                    <textarea id="duplicate-input-area" rows="3" placeholder="Pega tu lista (un elemento por renglón)..."></textarea>
+                    <button onclick="limpiarYOrdenarListaDuplicados()" style="width:100%;" class="btn-accent" style="background:var(--neon-utilidades); color:white;">🧹 Eliminar Duplicados y Organizar A-Z</button>
+                </div>
+            </section>
+
+            <section class="card cat-utilidades">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="card-header-left">
+                        <h2>🔍 Buscador y Reemplazador Dinámico</h2>
+                        <p class="desc-corta">Busca palabras específicas en un párrafo y cámbialas de una vez.</p>
+                    </div>
+                    <span class="arrow-icon">▼</span>
+                </div>
+                <div class="card-body">
+                    <textarea id="search-text-area" rows="2" placeholder="Pega el texto completo aquí..."></textarea>
+                    <div class="grid-2">
+                        <input type="text" id="word-search" placeholder="Buscar palabra...">
+                        <input type="text" id="word-replace" placeholder="Reemplazar con...">
+                    </div>
+                    <button onclick="reemplazarPalabras()">Ejecutar Reemplazo Completo</button>
+                </div>
+            </section>
+
+            <section class="card cat-utilidades">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="card-header-left">
+                        <h2>🎨 Selector Digital de Paletas Cromáticas</h2>
+                        <p class="desc-corta">Extrae códigos HEX y RGB de diseño al instante.</p>
+                    </div>
+                    <span class="arrow-icon">▼</span>
+                </div>
+                <div class="card-body">
+                    <div class="flex-group">
+                        <input type="color" id="color-picker" style="width: 80px; height: 38px; padding:2px; cursor:pointer;" oninput="actualizarColor()">
+                        <input type="text" id="color-hex" readonly style="font-family: monospace;">
+                        <input type="text" id="color-rgb" readonly style="font-family: monospace;">
+                    </div>
+                </div>
+            </section>
+
+            <section class="card cat-utilidades">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="card-header-left">
+                        <h2>🗣️ Lector de Voz con Control de Velocidad</h2>
+                        <p class="desc-corta">Reproduce en audio tus guías de estudio controlando la velocidad del dictado.</p>
+                    </div>
+                    <span class="arrow-icon">▼</span>
+                </div>
+                <div class="card-body">
+                    <textarea id="voice-text" rows="2" placeholder="Escribe el texto a reproducir..."></textarea>
+                    <div style="margin-bottom:12px;">
+                        <label>Velocidad de Lectura:</label>
+                        <select id="voice-speed" style="width:140px; margin-bottom:0;">
+                            <option value="0.8">0.8x (Lento)</option>
+                            <option value="1.0" selected>1.0x (Normal)</option>
+                            <option value="1.3">1.3x (Rápido)</option>
+                            <option value="1.6">1.6x (Veloz)</option>
+                        </select>
+                    </div>
+                    <button onclick="hablar()" class="btn-accent" style="background:var(--neon-utilidades); color:white;">▶️ Activar Audio</button>
+                </div>
+            </section>
+
+            <section class="card cat-utilidades">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="card-header-left">
+                        <h2>💰 Calculadora de Descuentos Directos</h2>
+                        <p class="desc-corta">Deduce deducciones porcentuales rápidamente de un precio base.</p>
+                    </div>
+                    <span class="arrow-icon">▼</span>
+                </div>
+                <div class="card-body">
+                    <div class="grid-2">
+                        <input type="number" id="precio-original" placeholder="Precio Base">
+                        <input type="number" id="porcentaje-descuento" placeholder="Descuento (%)">
+                    </div>
+                    <button onclick="calcularDescuento()">Calcular Precio Neto</button>
+                    <p id="resultado-descuento" style="margin-top: 10px; color: var(--neon-utilidades); font-weight: bold;"></p>
+                </div>
+            </section>
+
+            <section class="card cat-utilidades">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="card-header-left">
+                        <h2>⚖️ Conversor de Medidas Métricas</h2>
+                        <p class="desc-corta">Pasajes directos para Peso (KG a LB) y Temperatura (°C a °F).</p>
+                    </div>
+                    <span class="arrow-icon">▼</span>
+                </div>
+                <div class="card-body">
+                    <div class="grid-2">
+                        <div>
+                            <label>Kilogramos a Libras:</label>
+                            <input type="number" id="kg-input" placeholder="KG" oninput="convertirPeso()">
+                            <div id="peso-output" class="output-box" style="height:38px; padding:8px;">0.00 Libras</div>
+                        </div>
+                        <div>
+                            <label>Celsius a Fahrenheit:</label>
+                            <input type="number" id="celsius-input" placeholder="°C" oninput="convertirTemp()">
+                            <div id="temp-output" class="output-box" style="height:38px; padding:8px;">32.00 °F</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </main>
     </div>
 
@@ -734,59 +971,117 @@
     <div id="modal-donacion" class="modal-overlay" onclick="cerrarModalFondo(event, 'modal-donacion')">
         <div class="modal-card">
             <button class="modal-close" onclick="cerrarModal('modal-donacion')">✕</button>
-            <h3>☕ Apoyar mis Estudios</h3>
-            <p style="margin-bottom: 15px; font-size: 13.5px;">Este portal es totalmente gratuito, libre de anuncios publicitarios y de código abierto. Si te resulta de utilidad, puedes apoyarme con un aporte voluntario único de <b>$1 USD ($4.000 COP)</b> para financiar mis estudios.</p>
-            <div style="background: rgba(255,255,255,0.03); padding: 15px; border-radius: 10px; border: 1px solid var(--border-color); margin-bottom: 15px; font-size: 13.5px; line-height: 1.6;">
-                <p style="color: var(--color-estudiante); font-weight: bold; margin-bottom: 5px;">MÉTODOS DE TRANSFERENCIA:</p>
+            <h3>☕ Ser Fundador de ÚtilWeb</h3>
+            <p style="margin-bottom: 12px; font-size: 13.5px;">Este portal es gratuito, libre de anuncios y de código abierto. Si te resulta útil, puedes convertirte oficialmente en <b>Fundador</b> con un aporte voluntario único de <b>$1 USD ($4.000 COP)</b> para apoyar mis estudios técnicos.</p>
+            
+            <div style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: 10px; border: 1px solid var(--border-color); margin-bottom: 12px; font-size: 13.5px; line-height: 1.6;">
+                <p style="color: var(--neon-productividad); font-weight: bold; margin-bottom: 3px;">MÉTODOS DE TRANSFERENCIA:</p>
                 <p>🇨🇴 <b>Nequi:</b> 30461501915</p>
-                <p>🌎 <b>PayPal ID:</b> comou67@gmail.com</p>
+                <p>🌎 <b>PayPal:</b> comou67@gmail.com</p>
             </div>
-            <button onclick="cerrarModal('modal-donacion')" style="width: 100%; background: var(--color-neon); color: #000;">Entendido / Cerrar</button>
-        </div>
-    </div>
 
-    <div id="modal-login" class="modal-overlay" onclick="cerrarModalFondo(event, 'modal-login')">
-        <div class="modal-card" style="max-width: 400px; text-align: center;">
-            <button class="modal-close" onclick="cerrarModal('modal-login')">✕</button>
-            <h3 style="margin-bottom: 8px;">🔐 Iniciar Sesión</h3>
-            <p style="font-size: 13px; color: var(--texto-secundario); margin-bottom: 20px;">Sincroniza tus listas y configuraciones locales.</p>
-            <button onclick="simularLogin('Google Account')" style="background: white; color: #000; width: 100%; margin-bottom: 12px; font-size: 14px; gap: 10px;">
-                <svg width="16" height="16" viewBox="0 0 24 24"><path fill="#4285F4" d="M23.7 12.3c0-.8-.1-1.7-.2-2.5H12v4.8h6.6c-.3 1.5-1.1 2.8-2.4 3.7v3.1h3.9c2.3-2.1 3.6-5.2 3.6-9.1z"/><path fill="#34A853" d="M12 24c3.2 0 6-1.1 8-2.9l-3.9-3.1c-1.1.7-2.5 1.2-4.1 1.2-3.2 0-5.9-2.1-6.8-5H1.2v3.2C3.2 21.3 7.3 24 12 24z"/><path fill="#FBBC05" d="M5.2 14.2c-.2-.7-.4-1.4-.4-2.2s.2-1.5.4-2.2V6.6H1.2C.4 8.2 0 10.1 0 12s.4 3.8 1.2 5.4l4-3.2z"/><path fill="#EA4335" d="M12 4.8c1.8 0 3.3.6 4.6 1.8l3.4-3.4C18 1.1 15.2 0 12 0 7.3 0 3.2 2.7 1.2 6.6l4 3.2c.9-2.9 3.6-5H12z"/></svg>
-                Continuar con Google
-            </button>
-            <div style="color: var(--texto-secundario); font-size: 11px; margin: 10px 0;">O CORREO ELECTRÓNICO</div>
-            <input type="email" id="login-email" placeholder="correo@ejemplo.com" style="margin-bottom: 10px;">
-            <button onclick="simularLogin(document.getElementById('login-email').value || 'Usuario')" class="btn-alt" style="width: 100%;">Ingresar</button>
+            <p style="font-size: 12px; color: var(--texto-secundario); margin-bottom: 5px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px;">👑 Muro de Honor de Fundadores Oficiales:</p>
+            <ul class="founders-list">
+                <li>✨ ¡Tu nombre puede ir aquí en la próxima actualización!</li>
+                <li>✨ Colaborador Anónimo (Cali, CO)</li>
+                <li>✨ Patrocinador VIP - Proyecto Cookie Cup</li>
+            </ul>
+            
+            <button onclick="cerrarModal('modal-donacion')" style="width: 100%; background: var(--neon-utilidades); color: #000; margin-top: 15px;">Entendido / Cerrar</button>
         </div>
     </div>
 
     <script>
+        // --- 🔑 CONFIGURACIÓN REAL DE FIREBASE ---
+        const firebaseConfig = {
+            apiKey: "AIzaSyDlR_zbwalC2bpzZ5XWePMKzh1gGWo3cjI",
+            authDomain: "herramientas-6ae51.firebaseapp.com",
+            projectId: "herramientas-6ae51",
+            storageBucket: "herramientas-6ae51.firebasestorage.app",
+            messagingSenderId: "755323788523",
+            appId: "1:755323788523:web:52d9ddc4f6634163f872ae",
+            measurementId: "G-R3REN56EHX"
+        };
+
+        let dbRef = null;
+        let currentUser = null;
+
+        // Inicializar Firebase de forma automática con tus credenciales
+        firebase.initializeApp(firebaseConfig);
+        
+        firebase.auth().onAuthStateChanged(user => {
+            if (user) {
+                currentUser = user;
+                dbRef = firebase.database().ref('usuarios/' + user.uid);
+                document.getElementById('login-icon-placeholder').innerHTML = `<img src="${user.photoURL}" alt="Perfil">`;
+                document.getElementById('login-text').innerText = user.displayName.split(' ')[0];
+                descargarDatosNube();
+            } else {
+                currentUser = null; dbRef = null;
+                document.getElementById('login-icon-placeholder').innerText = "🔑";
+                document.getElementById('login-text').innerText = "Ingresar con Google";
+            }
+        });
+
+        function manejarAutenticacion() {
+            if (!currentUser) {
+                const provider = new firebase.auth.GoogleAuthProvider();
+                firebase.auth().signInWithPopup(provider)
+                    .then(() => alert("¡Sesión iniciada correctamente con tu cuenta de Google!"))
+                    .catch(err => console.error(err));
+            } else {
+                if (confirm("¿Quieres cerrar tu sesión actual de Google?")) {
+                    firebase.auth().signOut().then(() => {
+                        document.getElementById('cloud-notes-area').value = "";
+                        alert("Sesión cerrada con éxito.");
+                    });
+                }
+            }
+        }
+
+        let noteTimeout = null;
+        function guardarNotasNube() {
+            const notaTexto = document.getElementById('cloud-notes-area').value;
+            document.getElementById('notes-status-text').innerText = "Guardando...";
+            if (dbRef) {
+                clearTimeout(noteTimeout);
+                noteTimeout = setTimeout(() => {
+                    dbRef.child('notas').set(notaTexto)
+                        .then(() => document.getElementById('notes-status-text').innerText = "✓ Sincronizado en tiempo real con Google Cloud")
+                        .catch(() => document.getElementById('notes-status-text').innerText = "Error de sincronización");
+                }, 800);
+            } else {
+                document.getElementById('notes-status-text').innerText = "✓ Guardado localmente (Inicia sesión para subirlo a la nube)";
+                localStorage.setItem('local_notes_backup', notaTexto);
+            }
+        }
+
+        function descargarDatosNube() {
+            if (dbRef) {
+                dbRef.child('notas').once('value').then(snapshot => {
+                    if (snapshot.exists()) {
+                        document.getElementById('cloud-notes-area').value = snapshot.val();
+                        document.getElementById('notes-status-text').innerText = "✓ Notas descargadas desde tu cuenta en la nube";
+                    }
+                });
+            }
+        }
+
+        // --- MANEJO DE INTERFAZ UX ---
         function toggleCard(headerElement) {
-            const card = headerElement.parentElement;
-            card.classList.toggle('expanded');
+            headerElement.parentElement.classList.toggle('expanded');
+        }
+
+        function cambiarPestaña(tabId, buttonElement) {
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            buttonElement.classList.add('active');
         }
 
         function abrirModal(id) { event.preventDefault(); document.getElementById(id).style.display = 'flex'; }
         function cerrarModal(id) { document.getElementById(id).style.display = 'none'; }
         function cerrarModalFondo(e, id) { if(e.target === document.getElementById(id)) cerrarModal(id); }
-
-        function simularLogin(nombre) {
-            localStorage.setItem('portalUserSession', nombre);
-            document.getElementById('login-text').innerText = nombre.substring(0, 10) + (nombre.length > 10 ? '...' : '');
-            cerrarModal('modal-login');
-        }
-
-        function verificarSesionPrevia() {
-            const sesion = localStorage.getItem('portalUserSession');
-            if(sesion) document.getElementById('login-text').innerText = sesion.substring(0,10);
-        }
-
-        function cambiarPestaña(tabId) {
-            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-            document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
-            event.currentTarget.classList.add('active');
-        }
 
         function descargarPortalCompleto() {
             const codigoHtmlCompleto = document.documentElement.outerHTML;
@@ -794,70 +1089,198 @@
             const linkDescarga = document.createElement('a');
             linkDescarga.href = URL.createObjectURL(blobHtml);
             linkDescarga.download = 'UtilWeb-Ultimate-Portal.html';
-            document.body.appendChild(linkDescarga);
-            linkDescarga.click();
-            document.body.removeChild(linkDescarga);
+            document.body.appendChild(linkDescarga); linkDescarga.click(); document.body.removeChild(linkDescarga);
             alert("¡Portal descargado con éxito para usar sin internet!");
         }
 
-        // --- MOTOR LÓGICO ---
+        // --- MOTOR LÓGICO DE LAS 15 NUEVAS HERRAMIENTAS ---
+
+        // 1. Regla de Tres Simple
+        function calcularReglaDeTres() {
+            const a = parseFloat(document.getElementById('r3-a').value);
+            const b = parseFloat(document.getElementById('r3-b').value);
+            const c = parseFloat(document.getElementById('r3-c').value);
+            const out = document.getElementById('r3-output');
+            if(isNaN(a) || isNaN(b) || isNaN(c) || a === 0) { out.innerText = "Error"; return; }
+            out.innerText = ((c * b) / a).toFixed(2);
+        }
+
+        // 2. Costos de Producción y Precios de Venta
+        function calcularMargenGanancia() {
+            const baseCost = parseFloat(document.getElementById('cost-base').value) || 0;
+            const marginPercent = parseFloat(document.getElementById('cost-margin').value) || 0;
+            if(baseCost <= 0) { alert("Ingresa un costo base válido."); return; }
+            const factor = 1 - (marginPercent / 100);
+            const sellingPrice = factor > 0 ? (baseCost / factor) : (baseCost * 2);
+            document.getElementById('cost-output-box').innerText = `Precio de Venta Sugerido: $${sellingPrice.toFixed(0)} COP\nGanancia Bruta por Unidad: +$${(sellingPrice - baseCost).toFixed(0)} COP\nMargen de Utilidad Real: ${marginPercent}%`;
+        }
+
+        // 3. Fichas Flashcards Interactivas
+        let flashcardsCollection = [{frente: "Concepto de Ejemplo: ¿Qué es un Activo?", atras: "Bienes y derechos económicos controlados por la empresa."}];
+        let fcIndex = 0; let fcIsFront = true;
+        function crearFlashcard() {
+            const f = document.getElementById('fc-front').value.trim(); const b = document.getElementById('fc-back').value.trim();
+            if(!f || !b) { alert("Llena ambos lados de la ficha."); return; }
+            flashcardsCollection.push({frente: f, atras: b}); fcIndex = flashcardsCollection.length - 1;
+            fcIsFront = true; renderFichaActual();
+            document.getElementById('fc-front').value = ""; document.getElementById('fc-back').value = "";
+        }
+        function voltearFlashcard() { fcIsFront = !fcIsFront; renderFichaActual(); }
+        function renderFichaActual() {
+            const current = flashcardsCollection[fcIndex];
+            document.getElementById('fc-badge-view').innerText = fcIsFront ? "FRENTE" : "RESPUESTA";
+            document.getElementById('fc-text-view').innerText = fcIsFront ? current.frente : current.atras;
+        }
+
+        // 4. Gantt Escolar
+        function agregarFilaGantt() {
+            const title = document.getElementById('gantt-title').value.trim();
+            const progress = parseInt(document.getElementById('gantt-progress').value) || 0;
+            if(!title) return;
+            const row = document.createElement('div'); row.className = 'gantt-row';
+            row.innerHTML = `<div style="display:flex; justify-content:space-between; font-size:12.5px;"><span>📋 ${title}</span><span>${progress}%</span></div><div class="gantt-bar-bg"><div class="gantt-bar-fill" style="width:${progress}%"></div></div>`;
+            document.getElementById('gantt-render-box').appendChild(row);
+            document.getElementById('gantt-title').value = "";
+        }
+
+        // 5. Metas de Ahorro
+        function calcularMetaAhorro() {
+            const target = parseFloat(document.getElementById('save-target-value').value) || 0;
+            const weekly = parseFloat(document.getElementById('save-weekly').value) || 0;
+            if(target <= 0 || weekly <= 0) return;
+            const weeks = Math.ceil(target / weekly);
+            document.getElementById('save-output-box').innerText = `🎯 Cumplirás tu meta en: ${weeks} semanas (${(weeks/4).toFixed(1)} meses aprox).`;
+        }
+
+        // 6. Engagement Rate (TikTok/Instagram)
+        function calcularEngagement() {
+            const views = parseFloat(document.getElementById('eng-views').value) || 0;
+            const actions = parseFloat(document.getElementById('eng-actions').value) || 0;
+            if(views <= 0) return;
+            const rate = ((actions / views) * 100).toFixed(2);
+            let status = "Bajo"; if(rate > 5) status = "Excelente 🔥"; else if(rate > 2) status = "Promedio 👍";
+            document.getElementById('engagement-output').innerText = `Tasa de Interacción: ${rate}%\nRendimiento estimado: ${status}`;
+        }
+
+        // 7. Ganchos de Títulos Virales
+        function generarTítulosHooks() {
+            const k = document.getElementById('hook-keyword').value.trim() || "mi tema";
+            const templates = [
+                `El secreto oculto que nadie te cuenta sobre ${k}`,
+                `3 Errores críticos que estás cometiendo al intentar ${k}`,
+                `Hice esto para ${k} y cambió todo por completo`,
+                `Deja de hacer esto si quieres mejorar en ${k}`,
+                `La guía definitiva de 60 segundos para dominar ${k}`
+            ];
+            document.getElementById('hook-output').value = templates.join('\n\n');
+        }
+
+        // 8. Cuentas de Cobro Express a PDF
+        function generarCuentaCobroPDF() {
+            const n = document.getElementById('bill-name').value || "Emprendedor";
+            const c = document.getElementById('bill-concept').value || "Servicios Prestados";
+            const v = document.getElementById('bill-value').value || "0";
+            const win = window.open("", "_blank");
+            win.document.write(`<html><head><title>Cuenta de Cobro</title><style>body{font-family:sans-serif; padding:40px; color:#333;} .header{text-align:center; margin-bottom:40px;} .total{font-size:18px; font-weight:bold; margin-top:30px; border-top:1px solid #eee; padding-top:15px;}</style></head><body><div class="header"><h2>CUENTA DE COBRO</h2></div><p><b>Prestador:</b> ${n}</p><p><b>Por concepto de:</b> ${c}</p><div class="total">VALOR TOTAL A PAGAR: $${v} COP</div></body></html>`);
+            win.document.close(); win.print();
+        }
+
+        // 9. Recibos de Caja
+        function generarReciboCaja() {
+            const cl = document.getElementById('rec-client').value || "Cliente General";
+            const dt = document.getElementById('rec-detail').value || "Artículos comerciales";
+            const pr = document.getElementById('rec-price').value || "0";
+            const win = window.open("", "_blank");
+            win.document.write(`<html><head><title>Recibo de Caja</title></head><body style="padding:40px; font-family:sans-serif;"><h2>COMPROBANTE DE RECIBO DE CAJA</h2><hr><p><b>Recibido de:</b> ${cl}</p><p><b>Detalle:</b> ${dt}</p><h3>TOTAL RECIBIDO EN EFECTIVO: $${pr} COP</h3></body></html>`);
+            win.document.close(); win.print();
+        }
+
+        // 10. Fragmentador de Duración de Videos
+        function calcularCortesVideo() {
+            const totalSec = parseInt(document.getElementById('split-video-seconds').value) || 0;
+            const block = parseInt(document.getElementById('split-platform-time').value);
+            const pieces = Math.ceil(totalSec / block);
+            document.getElementById('video-split-output').innerText = `🎬 Deberás cortar tu video en: ${pieces} bloques de máximo ${block}s para evitar recortes forzados.`;
+        }
+
+        // 11. Balance de RAM en APU (Gráficos Integrados)
+        function calcularApuRamBalance() {
+            const total = parseFloat(document.getElementById('apu-total-ram').value) || 0;
+            const vram = parseFloat(document.getElementById('apu-vram').value) || 0;
+            const rem = total - vram;
+            document.getElementById('apu-ram-output').innerText = `🖥️ Le quedan ${rem} GB de RAM libres al Sistema Operativo.\nSugerencia: Si te quedan menos de 6 GB, cierra navegadores pesados antes de abrir juegos exigentes.`;
+        }
+
+        // 12. Mbps a MB/s Reales de Descarga
+        function calcularVelocidadDescargaReal() {
+            const mbps = parseFloat(document.getElementById('net-mbps-input').value) || 0;
+            const mbytes = (mbps / 8).toFixed(2);
+            document.getElementById('net-download-output').innerText = `🚀 Velocidad Real: Tus launchers e internet descargarán a un tope máximo de ${mbytes} MB/s (Megabytes por segundo).`;
+        }
+
+        // 13. GiB a MB Exactos para Particiones
+        function convertirGibAMbExacto() {
+            const gib = parseFloat(document.getElementById('gib-input-value').value) || 0;
+            document.getElementById('gib-convert-output').innerText = `💾 En tu gestor de discos o BIOS asigna exactamente: ${(gib * 1024).toFixed(0)} MB.`;
+        }
+
+        // 14. Alertas de Límites de Texto de Redes
+        function contarTextoConLimite() {
+            const txt = document.getElementById('counter-text').value;
+            const limit = parseInt(document.getElementById('text-limit-platform').value);
+            document.getElementById('caracteres').innerText = txt.length;
+            document.getElementById('palabras').innerText = txt.trim().split(/\s+/).filter(i => i).length;
+            const badge = document.getElementById('char-badge-limit');
+            if (txt.length > limit) {
+                badge.style.background = "rgba(239, 68, 68, 0.15)"; badge.style.color = "var(--color-alerta)";
+            } else {
+                badge.style.background = "rgba(16, 185, 129, 0.08)"; badge.style.color = "var(--neon-utilidades)";
+            }
+        }
+
+        // 15. Limpiador de Duplicados Administrativos y Filtro A-Z
+        function limpiarYOrdenarListaDuplicados() {
+            const area = document.getElementById('duplicate-input-area');
+            const lines = area.value.split('\n').map(l => l.trim()).filter(l => l !== "");
+            const uniqueLines = [...new Set(lines)].sort((a, b) => a.localeCompare(b));
+            area.value = uniqueLines.join('\n');
+            alert(`✓ Proceso completado. Se depuraron todas las líneas duplicadas y se ordenó la lista de la A a la Z.`);
+        }
+
+        // --- MÉTODOS ORIGINALES COMPACTADOS ---
         function calcularRamServidor() {
             const players = parseInt(document.getElementById('ram-players').value) || 0;
             const mods = parseInt(document.getElementById('ram-mods').value) || 0;
-            let baseRam = 2.0; baseRam += (players * 0.15); baseRam += (mods * 0.04); 
-            const finalRam = Math.ceil(baseRam);
-            document.getElementById('ram-output-box').innerText = `💻 Hardware Óptimo Sugerido: Asignar mínimo ${finalRam} GB de RAM dedicados (-Xmx${finalRam}G) y al menos ${finalRam >= 6 ? 4 : 2} hilos vCPU.`;
+            let baseRam = 2.0; baseRam += (players * 0.15); baseRam += (mods * 0.04); const finalRam = Math.ceil(baseRam);
+            document.getElementById('ram-output-box').innerText = `💻 Sugerencia: Asignar mínimo ${finalRam} GB de RAM dedicados (-Xmx${finalRam}G).`;
         }
-
         function calcularIvaExpress() {
-            const base = parseFloat(document.getElementById('iva-base').value);
-            const percentage = parseFloat(document.getElementById('iva-percentage').value);
-            if(isNaN(base) || base <= 0) { alert("Ingresa un monto base válido."); return; }
-            const ivaValue = base * (percentage / 100); const total = base + ivaValue; const retencionUrbana = base * 0.04;
-            document.getElementById('iva-output-box').innerText = `Subtotal Base: $${base.toFixed(2)}\nIVA (${percentage}%): +$${ivaValue.toFixed(2)}\nRetención Sugerida (4%): -$${retencionUrbana.toFixed(2)}\nTotal Neto Comercial: $${(total - retencionUrbana).toFixed(2)}`;
+            const base = parseFloat(document.getElementById('iva-base').value); const percentage = parseFloat(document.getElementById('iva-percentage').value);
+            if(isNaN(base) || base <= 0) return; const ivaValue = base * (percentage / 100); const total = base + ivaValue; const ret = base * 0.04;
+            document.getElementById('iva-output-box').innerText = `Subtotal Base: $${base.toFixed(2)}\nIVA (${percentage}%): +$${ivaValue.toFixed(2)}\nRetención (4%): -$${ret.toFixed(2)}\nTotal Neto Comercial: $${(total - ret).toFixed(2)}`;
         }
-
         function convertirImagenLocalWebp() {
-            const input = document.getElementById('image-convert-input');
-            const previewContainer = document.getElementById('image-convert-preview');
-            if(!input.files[0]) return;
-            const reader = new FileReader();
+            const input = document.getElementById('image-convert-input'); const previewContainer = document.getElementById('image-convert-preview');
+            if(!input.files[0]) return; const reader = new FileReader();
             reader.onload = function(event) {
-                const img = new Image();
-                img.onload = function() {
+                const img = new Image(); img.onload = function() {
                     const canvasImg = document.createElement('canvas'); canvasImg.width = img.width; canvasImg.height = img.height;
                     const ctxImg = canvasImg.getContext('2d'); ctxImg.drawImage(img, 0, 0);
                     canvasImg.toBlob(function(blob) {
-                        const webpUrl = URL.createObjectURL(blob);
-                        previewContainer.innerHTML = `<p style="color:var(--color-exito); font-size:12px; margin-bottom:8px;">✓ Conversión local exitosa.</p><a href="${webpUrl}" download="imagen-optimizada.webp" class="tab-button" style="display:inline-block; text-align:center; text-decoration:none; color:white; background:var(--color-exito);">💾 Descargar .WebP Liviano</a>`;
+                        previewContainer.innerHTML = `<p style="color:var(--neon-utilidades); font-size:12px; margin-bottom:5px;">✓ Conversión local exitosa.</p><a href="${URL.createObjectURL(blob)}" download="imagen-optimizada.webp" class="btn-nav-action btn-download-app" style="display:inline-block; text-align:center;">💾 Descargar .WebP</a>`;
                     }, 'image/webp', 0.8);
-                };
-                img.src = event.target.result;
-            };
-            reader.readAsDataURL(input.files[0]);
+                }; img.src = event.target.result;
+            }; reader.readAsDataURL(input.files[0]);
         }
-
-        function formatearTextoRedes() {
-            const textInput = document.getElementById('social-desc-input').value;
-            const textoFormateado = textInput.split('\n').join('\n⠀\n');
-            const out = document.getElementById('social-desc-output'); out.value = textoFormateado; out.select();
-            alert("¡Texto formateado con espacios invisibles! Ya se encuentra seleccionado para copiar.");
-        }
-
         let user = "user_" + Math.floor(Math.random()*899 + 100);
         function generarNuevoEmail() {
-            user = "user_" + Math.floor(Math.random()*899 + 100);
-            document.getElementById('email-value').innerText = `${user}@mailtemporal.com`;
-            document.getElementById('inbox-list').innerHTML = '<p style="color: var(--texto-secundario); font-style: italic;">Esperando mensajes de verificación...</p>';
+            user = "user_" + Math.floor(Math.random()*899 + 100); document.getElementById('email-value').innerText = `${user}@mailtemporal.com`;
+            document.getElementById('inbox-list').innerHTML = '<p style="color: var(--texto-secundario); font-style: italic;">Esperando mensajes...</p>';
         }
         function copiarEmail() { navigator.clipboard.writeText(document.getElementById('email-value').innerText); alert("Copiado."); }
-        function revisarBandeja() {
-            document.getElementById('inbox-list').innerHTML = `<div style="padding:8px 0;"><p style="color:var(--color-neon); font-weight:bold;">De: noreply@sistema.com</p><p>Asunto: Código de activación express: <b>773-102</b></p></div>`;
-        }
-
+        function revisarBandeja() { document.getElementById('inbox-list').innerHTML = `<div style="padding:4px 0;"><p style="color:var(--neon-seguridad); font-weight:bold;">De: noreply@sistema.com</p><p>Asunto: Código express: <b>773-102</b></p></div>`; }
         function generarPassword() {
-            const c = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$"; let p = "";
-            for(let i=0; i<14; i++) p += c.charAt(Math.floor(Math.random()*c.length));
+            const c = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$"; let p = ""; for(let i=0; i<14; i++) p += c.charAt(Math.floor(Math.random()*c.length));
             document.getElementById('password-output').value = p;
         }
         function copiarPassword() { navigator.clipboard.writeText(document.getElementById('password-output').value); alert("Copiado."); }
@@ -868,166 +1291,65 @@
             else if(v.length < 10){ fill.style.width="60%"; fill.style.backgroundColor="#eab308"; txt.innerText="Fuerza: Media"; txt.style.color="#eab308"; }
             else { fill.style.width="100%"; fill.style.backgroundColor="#10b981"; txt.innerText="Fuerza: Ultra Segura"; txt.style.color="#10b981"; }
         }
-
         function generarHashes() {
-            const txt = document.getElementById('hash-input').value;
-            if(!txt) { document.getElementById('hash-md5').innerText = ""; document.getElementById('hash-sha256').innerText = ""; return; }
-            let mockMd5 = ""; const chars = "0123456789abcdef";
-            for(let i=0; i<32; i++) { mockMd5 += chars.charAt((txt.charCodeAt(i % txt.length) || i) % 16); }
+            const txt = document.getElementById('hash-input').value; if(!txt) return;
+            let mockMd5 = ""; const chars = "0123456789abcdef"; for(let i=0; i<32; i++) { mockMd5 += chars.charAt((txt.charCodeAt(i % txt.length) || i) % 16); }
             document.getElementById('hash-md5').innerText = mockMd5;
-            const msgUint8 = new TextEncoder().encode(txt);
-            crypto.subtle.digest('SHA-256', msgUint8).then(hashBuffer => {
-                const hashArray = Array.from(new Uint8Array(hashBuffer));
-                const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-                document.getElementById('hash-sha256').innerText = hashHex;
+            crypto.subtle.digest('SHA-256', new TextEncoder().encode(txt)).then(hb => {
+                document.getElementById('hash-sha256').innerText = Array.from(new Uint8Array(hb)).map(b => b.toString(16).padStart(2, '0')).join('');
             });
         }
-
-        function procesarCifrado(encode) {
-            const area = document.getElementById('crypto-input');
-            try { area.value = encode ? btoa(area.value) : atob(area.value); } catch(e) { alert("Invalido."); }
-        }
-
+        function procesarCifrado(encode) { const area = document.getElementById('crypto-input'); try { area.value = encode ? btoa(area.value) : atob(area.value); } catch(e) { alert("Inválido."); } }
         let tm = 25, ts = 0, ip = null, cr = false;
         function controlarPomodoro() {
             const btn = document.getElementById('btn-pomodoro');
-            if(!cr) { 
-                cr = true; btn.innerText = "⏸️ Pausar"; 
-                ip = setInterval(() => {
-                    if(ts===0) { if(tm===0) { clearInterval(ip); alert("Ciclo concluido."); reiniciarPomodoro(); return; } tm--; ts=59; } else { ts--; }
-                    document.getElementById('timer-display').innerText = `${tm<10?"0"+tm:tm}:${ts<10?"0"+ts:ts}`;
-                }, 1000); 
-            } else { cr = false; btn.innerText = "▶️ Reanudar"; clearInterval(ip); }
+            if(!cr) { cr = true; btn.innerText = "⏸️ Pausar"; ip = setInterval(() => { if(ts===0) { if(tm===0) { clearInterval(ip); alert("Concluido."); reiniciarPomodoro(); return; } tm--; ts=59; } else { ts--; } document.getElementById('timer-display').innerText = `${tm<10?"0"+tm:tm}:${ts<10?"0"+ts:ts}`; }, 1000); } else { cr = false; btn.innerText = "▶️ Reanudar"; clearInterval(ip); }
         }
-        function reiniciarPomodoro() { 
-            clearInterval(ip); cr = false; tm = 25; ts = 0; 
-            document.getElementById('btn-pomodoro').innerText = "▶️ Empezar"; 
-            document.getElementById('timer-display').innerText = "25:00";
-        }
-
+        function reiniciarPomodoro() { clearInterval(ip); cr = false; tm = 25; ts = 0; document.getElementById('btn-pomodoro').innerText = "▶️ Empezar"; document.getElementById('timer-display').innerText = "25:00"; }
         let ctxAudio = null; let nodoRuido = null;
         function toggleSonido(tipo) {
-            const btn = document.getElementById(`sound-${tipo}`);
-            if(btn.classList.contains('playing')) { btn.classList.remove('playing'); if(ctxAudio) { ctxAudio.close(); ctxAudio = null; } return; }
-            document.querySelectorAll('.sound-btn').forEach(b => b.classList.remove('playing'));
-            if(ctxAudio) ctxAudio.close();
-            btn.classList.add('playing');
-            ctxAudio = new (window.AudioContext || window.webkitAudioContext)();
-            let tam = ctxAudio.sampleRate * 2, buf = ctxAudio.createBuffer(1, tam, ctxAudio.sampleRate), sal = buf.getChannelData(0);
-            for (let i = 0; i < tam; i++) sal[i] = Math.random() * 2 - 1;
-            nodoRuido = ctxAudio.createBufferSource(); nodoRuido.buffer = buf; nodoRuido.loop = true;
-            let fil = ctxAudio.createBiquadFilter(); fil.type = tipo === 'rain' ? 'lowpass' : 'bandpass'; fil.frequency.value = tipo === 'rain' ? 400 : 800;
-            nodoRuido.connect(fil); fil.connect(ctxAudio.destination); nodoRuido.start();
+            const btn = document.getElementById(`sound-${tipo}`); if(btn.classList.contains('playing')) { btn.classList.remove('playing'); if(ctxAudio) { ctxAudio.close(); ctxAudio = null; } return; }
+            document.querySelectorAll('.sound-btn').forEach(b => b.classList.remove('playing')); if(ctxAudio) ctxAudio.close(); btn.classList.add('playing');
+            ctxAudio = new (window.AudioContext || window.webkitAudioContext)(); let tam = ctxAudio.sampleRate * 2, buf = ctxAudio.createBuffer(1, tam, ctxAudio.sampleRate), sal = buf.getChannelData(0); for (let i = 0; i < tam; i++) sal[i] = Math.random() * 2 - 1;
+            nodoRuido = ctxAudio.createBufferSource(); nodoRuido.buffer = buf; nodoRuido.loop = true; let fil = ctxAudio.createBiquadFilter(); fil.type = tipo === 'rain' ? 'lowpass' : 'bandpass'; fil.frequency.value = tipo === 'rain' ? 400 : 800; nodoRuido.connect(fil); fil.connect(ctxAudio.destination); nodoRuido.start();
         }
-
         function agregarTarea() {
-            const i = document.getElementById('todo-input'); if(!i.value.trim()) return;
-            const li = document.createElement('li'); li.className = 'todo-item';
-            li.innerHTML = `<span>${i.value}</span><button onclick="this.parentElement.remove()" style="background:#ef4444; color:white; padding:4px 8px; font-size:11px; border:none; border-radius:4px;">X</button>`;
-            document.getElementById('todo-container').appendChild(li); i.value = "";
+            const i = document.getElementById('todo-input'); if(!i.value.trim()) return; const li = document.createElement('li'); li.className = 'todo-item';
+            li.innerHTML = `<span>${i.value}</span><button onclick="this.parentElement.remove()" style="background:#ef4444; color:white; padding:2px 6px; font-size:10px; border:none; border-radius:4px;">X</button>`; document.getElementById('todo-container').appendChild(li); i.value = "";
         }
-
         let chronoTime = 0, chronoInterval = null, chronoRunning = false;
         function controlarCronometro() {
-            const btn = document.getElementById('btn-chrono');
-            if(!chronoRunning) {
-                chronoRunning = true; btn.innerText = "⏸️ Pausar"; btn.style.background = "var(--color-estudiante)";
-                let startTime = Date.now() - chronoTime;
-                chronoInterval = setInterval(() => { chronoTime = Date.now() - startTime; document.getElementById('chrono-display').innerText = formatChrono(chronoTime); }, 10);
-            } else { chronoRunning = false; btn.innerText = "▶️ Reanudar"; btn.style.background = "var(--color-neon)"; clearInterval(chronoInterval); }
+            const btn = document.getElementById('btn-chrono'); if(!chronoRunning) { chronoRunning = true; btn.innerText = "⏸️ Pausar"; let startTime = Date.now() - chronoTime; chronoInterval = setInterval(() => { chronoTime = Date.now() - startTime; document.getElementById('chrono-display').innerText = formatChrono(chronoTime); }, 10); } else { chronoRunning = false; btn.innerText = "▶️ Reanudar"; clearInterval(chronoInterval); }
         }
-        function reiniciarCronometro() {
-            clearInterval(chronoInterval); chronoRunning = false; chronoTime = 0;
-            document.getElementById('btn-chrono').style.background = "var(--color-neon)";
-            document.getElementById('chrono-display').innerText = "00:00:00.00";
-            document.getElementById('chrono-laps').innerHTML = "";
-        }
-        function vueltaCronometro() {
-            if(chronoTime === 0) return;
-            const container = document.getElementById('chrono-laps');
-            const lapDiv = document.createElement('div'); lapDiv.innerText = `⏱️ Lap ${container.children.length + 1}: ${formatChrono(chronoTime)}`;
-            container.appendChild(lapDiv);
-        }
-        function formatChrono(ms) {
-            let hrs = Math.floor(ms / 3600000), min = Math.floor((ms % 3600000) / 60000), sec = Math.floor((ms % 60000) / 1000), msec = Math.floor((ms % 1000) / 10);
-            return `${hrs<10?"0"+hrs:hrs}:${min<10?"0"+min:min}:${sec<10?"0"+sec:sec}.${msec<10?"0"+msec:msec}`;
-        }
-
-        function girarRuleta() {
-            const opciones = document.getElementById('ruleta-options').value.split(',');
-            document.getElementById('ruleta-output').innerText = "Girando...";
-            setTimeout(() => { document.getElementById('ruleta-output').innerText = `🎯 Prioridad: ${opciones[Math.floor(Math.random() * opciones.length)].trim()}`; }, 600);
-        }
-
-        function calcularPromedio() {
-            const notas = document.getElementById('promedio-input').value.split(/\s+/).map(Number).filter(n => !isNaN(n) && n > 0);
-            if(notas.length === 0) return;
-            document.getElementById('promedio-output').innerText = `Nota Promedio: ${(notas.reduce((a,b)=>a+b, 0) / notas.length).toFixed(2)}`;
-        }
-
-        function generarCV() {
-            const b = document.getElementById('cv-block'); b.style.display="block";
-            b.innerHTML = `<h3>👤 ${document.getElementById('cv-nombre').value}</h3><p><b>Perfil:</b> ${document.getElementById('cv-perfil').value}</p><p><b>Estudios:</b> ${document.getElementById('cv-exp').value}</p>`;
-        }
-
-        function generarQR() { document.getElementById('qrcode').innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=130x130&data=${encodeURIComponent(document.getElementById('qr-text').value)}">`; }
-        function escanearArchivoQR() { document.getElementById('qr-file-result').innerText = "Redirección detectada: https://cookiecup2026-2027.github.io/cookie-cup-mj/"; }
-
-        function generarLinkWA() {
-            const n = document.getElementById('wa-num').value.replace(/\s+/g,''); const m = encodeURIComponent(document.getElementById('wa-msg').value);
-            document.getElementById('wa-output').value = `https://wa.me/${n}?text=${m}`;
-        }
-
-        const canvas = document.getElementById('canvas-firma'); const ctx = canvas.getContext('2d'); let dibujando = false;
-        ctx.strokeStyle = '#38bdf8'; ctx.lineWidth = 3; ctx.lineCap = 'round';
+        function reiniciarCronometro() { clearInterval(chronoInterval); chronoRunning = false; chronoTime = 0; document.getElementById('chrono-display').innerText = "00:00:00.00"; document.getElementById('chrono-laps').innerHTML = ""; }
+        function vueltaCronometro() { if(chronoTime === 0) return; const container = document.getElementById('chrono-laps'); const lapDiv = document.createElement('div'); lapDiv.innerText = `⏱️ Lap ${container.children.length + 1}: ${formatChrono(chronoTime)}`; container.appendChild(lapDiv); }
+        function formatChrono(ms) { let hrs = Math.floor(ms / 3600000), min = Math.floor((ms % 3600000) / 60000), sec = Math.floor((ms % 60000) / 1000), msec = Math.floor((ms % 1000) / 10); return `${hrs<10?"0"+hrs:hrs}:${min<10?"0"+min:min}:${sec<10?"0"+sec:sec}.${msec<10?"0"+msec:msec}`; }
+        function girarRuleta() { const opciones = document.getElementById('ruleta-options').value.split(','); document.getElementById('ruleta-output').innerText = "Girando..."; setTimeout(() => { document.getElementById('ruleta-output').innerText = `🎯 Prioridad: ${opciones[Math.floor(Math.random() * opciones.length)].trim()}`; }, 500); }
+        function calcularPromedio() { const notas = document.getElementById('promedio-input').value.split(/\s+/).map(Number).filter(n => !isNaN(n) && n > 0); if(notas.length === 0) return; document.getElementById('promedio-output').innerText = `Nota Promedio: ${(notas.reduce((a,b)=>a+b, 0) / notas.length).toFixed(2)}`; }
+        function generarCV() { const b = document.getElementById('cv-block'); b.style.display="block"; b.innerHTML = `<h3>👤 ${document.getElementById('cv-nombre').value}</h3><p><b>Perfil:</b> ${document.getElementById('cv-perfil').value}</p><p><b>Estudios:</b> ${document.getElementById('cv-exp').value}</p>`; }
+        function generarLinkWA() { const n = document.getElementById('wa-num').value.replace(/\s+/g,''); const m = encodeURIComponent(document.getElementById('wa-msg').value); document.getElementById('wa-output').value = `https://wa.me/${n}?text=${m}`; }
+        const canvas = document.getElementById('canvas-firma'); const ctx = canvas.getContext('2d'); let dibujando = false; ctx.strokeStyle = '#38bdf8'; ctx.lineWidth = 2.5; ctx.lineCap = 'round';
         function obtenerPosicion(e) { const rect = canvas.getBoundingClientRect(); const cx = e.touches ? e.touches[0].clientX : e.clientX; const cy = e.touches ? e.touches[0].clientY : e.clientY; return { x: cx - rect.left, y: cy - rect.top }; }
         canvas.addEventListener('mousedown', (e) => { dibujando = true; const pos = obtenerPosicion(e); ctx.beginPath(); ctx.moveTo(pos.x, pos.y); });
-        canvas.addEventListener('mousemove', (e) => { if(!dibujando) return; e.preventDefault(); const pos = obtenerPosicion(e); ctx.lineTo(pos.x, pos.y); ctx.stroke(); });
-        window.addEventListener('mouseup', () => dibujando = false);
+        canvas.addEventListener('mousemove', (e) => { if(!dibujando) return; e.preventDefault(); const pos = obtenerPosicion(e); ctx.lineTo(pos.x, pos.y); ctx.stroke(); }); window.addEventListener('mouseup', () => dibujando = false);
         canvas.addEventListener('touchstart', (e) => { dibujando = true; const pos = obtenerPosicion(e); ctx.beginPath(); ctx.moveTo(pos.x, pos.y); });
         canvas.addEventListener('touchmove', (e) => { if(!dibujando) return; e.preventDefault(); const pos = obtenerPosicion(e); ctx.lineTo(pos.x, pos.y); ctx.stroke(); });
-
         function limpiarFirma() { ctx.clearRect(0, 0, canvas.width, canvas.height); }
         function descargarFirma() { const link = document.createElement('a'); link.download = 'firma.png'; link.href = canvas.toDataURL(); link.click(); }
-
-        function generarHashtags() {
-            const k = document.getElementById('tag-keyword').value.trim().toLowerCase();
-            document.getElementById('tag-output').value = `#${k} #${k}viral #foryou #parati #crecimiento #fyp #tendencia2026`;
-        }
-
-        function construirTarjetaDigital() {
-            const preview = document.getElementById('card-preview'); preview.style.display = "block";
-            preview.innerHTML = `<h3 style="color:var(--color-neon);">${document.getElementById('card-name').value}</h3><p style="font-size:13px; color:var(--texto-secundario);">${document.getElementById('card-role').value}</p>`;
-        }
-
-        function contar() {
-            const t = document.getElementById('counter-text').value;
-            document.getElementById('caracteres').innerText = t.length;
-            document.getElementById('palabras').innerText = t.trim().split(/\s+/).filter(i => i).length;
-        }
-        function reemplazarPalabras() {
-            const area = document.getElementById('search-text-area'); const s = document.getElementById('word-search').value; const r = document.getElementById('word-replace').value;
-            area.value = area.value.split(s).join(r);
-        }
-        function actualizarColor() {
-            const color = document.getElementById('color-picker').value; document.getElementById('color-hex').value = color.toUpperCase();
-            let r = parseInt(color.slice(1, 3), 16), g = parseInt(color.slice(3, 5), 16), b = parseInt(color.slice(5, 7), 16);
-            document.getElementById('color-rgb').value = `rgb(${r}, ${g}, ${b})`;
-        }
-        function limpiarTexto() { const t = document.getElementById('cleaner-text'); t.value = t.value.replace(/\s+/g, ' ').trim(); }
-        function convertirCase(toUpper) { const t = document.getElementById('case-text'); t.value = toUpper ? t.value.toUpperCase() : t.value.toLowerCase(); }
-        function hablar() { const m = new SpeechSynthesisUtterance(document.getElementById('voice-text').value); m.lang='es-ES'; window.speechSynthesis.speak(m); }
-        function calcularDescuento() {
-            const p = parseFloat(document.getElementById('precio-original').value); const d = parseFloat(document.getElementById('porcentaje-descuento').value);
-            if(!isNaN(p) && !isNaN(d)) document.getElementById('resultado-descuento').innerText = `Total Neto: $${(p - (p*d/100)).toFixed(2)}`;
-        }
+        function generarHashtags() { const k = document.getElementById('tag-keyword').value.trim().toLowerCase(); document.getElementById('tag-output').value = `#${k} #${k}viral #foryou #parati #fyp #tendencia`; }
+        function construirTarjetaDigital() { const preview = document.getElementById('card-preview'); preview.style.display = "block"; preview.innerHTML = `<h3>${document.getElementById('card-name').value}</h3><p style="font-size:12px; color:var(--texto-secundario);">${document.getElementById('card-role').value}</p>`; }
+        function reemplazarPalabras() { const area = document.getElementById('search-text-area'); const s = document.getElementById('word-search').value; const r = document.getElementById('word-replace').value; area.value = area.value.split(s).join(r); }
+        function actualizarColor() { const color = document.getElementById('color-picker').value; document.getElementById('color-hex').value = color.toUpperCase(); let r = parseInt(color.slice(1, 3), 16), g = parseInt(color.slice(3, 5), 16), b = parseInt(color.slice(5, 7), 16); document.getElementById('color-rgb').value = `rgb(${r}, ${g}, ${b})`; }
+        function hablar() { const speed = parseFloat(document.getElementById('voice-speed').value) || 1.0; const m = new SpeechSynthesisUtterance(document.getElementById('voice-text').value); m.lang='es-ES'; m.rate = speed; window.speechSynthesis.speak(m); }
+        function calcularDescuento() { const p = parseFloat(document.getElementById('precio-original').value); const d = parseFloat(document.getElementById('porcentaje-descuento').value); if(!isNaN(p) && !isNaN(d)) document.getElementById('resultado-descuento').innerText = `Total Neto: $${(p - (p*d/100)).toFixed(2)}`; }
         function convertirPeso() { const kg = parseFloat(document.getElementById('kg-input').value); document.getElementById('peso-output').innerText = !isNaN(kg) ? `${(kg * 2.20462).toFixed(2)} Libras` : "0.00 Libras"; }
         function convertirTemp() { const c = parseFloat(document.getElementById('celsius-input').value); document.getElementById('temp-output').innerText = !isNaN(c) ? `${((c * 9/5) + 32).toFixed(2)} °F` : "32.00 °F"; }
-        function generarLorem() { document.getElementById('lorem-output').value = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin elementum sed ex at pretium."; }
 
-        // Inicialización
-        actualizarColor();
-        verificarSesionPrevia();
+        window.onload = function() {
+            actualizarColor(); generarNuevoEmail();
+            const backup = localStorage.getItem('local_notes_backup');
+            if(backup && !currentUser) document.getElementById('cloud-notes-area').value = backup;
+        };
     </script>
 </body>
 </html>
