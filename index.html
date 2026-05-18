@@ -77,7 +77,7 @@
         }
 
         /* Estructura Rejilla de Tarjetas Grid Premium */
-        .wrapper { max-width: 1400px; width: 100%; margin: 15px auto; padding: 0 20px; }
+        .wrapper { max-width: 1400px; width: 100%; margin: 15px auto; padding: 0 20px; padding-bottom: 80px; }
         .tab-content { display: none; grid-template-columns: repeat(auto-fill, minmax(430px, 1fr)); gap: 20px; width: 100%; }
         @media (max-width: 500px) { .tab-content { grid-template-columns: 1fr; } }
         .tab-content.active { display: grid; }
@@ -151,7 +151,7 @@
         .btn-danger { background: var(--color-alerta); color: white; border: none; }
         .btn-danger:hover { background: #b91c1c; }
 
-        /* Estilos de Componentes */
+        /* Componentes Adicionales */
         .stats { font-size: 12px; color: var(--neon-utilidades); background: rgba(16, 185, 129, 0.08); display: inline-block; padding: 4px 10px; border-radius: 6px; margin-right: 10px; margin-bottom: 5px; font-weight: 600; }
         .todo-item { display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.2); padding: 8px 12px; border-radius: 8px; margin-bottom: 8px; border: 1px solid rgba(255,255,255,0.03); }
         .email-box { background: rgba(192, 132, 252, 0.05); border: 1px solid rgba(192, 132, 252, 0.2); padding: 12px; border-radius: 10px; display: flex; gap: 10px; align-items: center; margin-bottom: 12px; }
@@ -187,84 +187,120 @@
         #code-result-msg.ok { color: var(--neon-utilidades); }
         #code-result-msg.err { color: var(--color-alerta); }
 
-        /* === FUNDADOR: MASCOTA VIRTUAL === */
-        #founder-pet-section { display: none; margin-top: 16px; padding: 16px; background: rgba(16, 185, 129, 0.05); border: 1px solid rgba(16, 185, 129, 0.2); border-radius: 14px; }
-        #founder-pet-section h4 { font-size: 14px; color: var(--neon-utilidades); font-weight: bold; margin-bottom: 10px; text-align: center; }
+        /* ============================================================ */
+        /* === 🐾 NUEVOS ESTILOS: WIDGET DE MASCOTA COMPLEMENTARIA === */
+        /* ============================================================ */
+        #founder-pet-section { 
+            position: fixed; 
+            bottom: 20px; 
+            left: 20px; 
+            width: 310px; 
+            background: rgba(15, 23, 42, 0.85); 
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-color); 
+            border-radius: 16px; 
+            padding: 14px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+            z-index: 999;
+            display: none; 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        #founder-pet-section.minimized {
+            width: 72px;
+            height: 72px;
+            padding: 4px;
+            border-radius: 50%;
+            overflow: hidden;
+            background: var(--bg-principal);
+            border-color: var(--neon-seguridad);
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.3);
+        }
+        #founder-pet-section.minimized .pet-display-wrapper {
+            display: none;
+        }
+        #founder-pet-section.minimized .pet-sprite-container {
+            margin: 0 auto;
+            display: block;
+            text-align: center;
+            top: 4px;
+        }
+        #founder-pet-section.minimized .pet-sprite {
+            font-size: 42px;
+        }
+        #founder-pet-section h4 { font-size: 13px; color: var(--neon-utilidades); font-weight: bold; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
         .pet-display { text-align: center; }
-        .pet-sprite { font-size: 52px; line-height: 1; display: block; margin: 0 auto 6px; transition: transform 0.3s ease; cursor: default; user-select: none; }
-        .pet-sprite:hover { transform: scale(1.15) rotate(-5deg); }
+        .pet-sprite { font-size: 52px; line-height: 1; display: block; margin: 0 auto 4px; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer; user-select: none; }
         .pet-name { font-size: 13px; color: var(--texto-principal); font-weight: bold; }
-        .pet-stage-badge { display: inline-block; font-size: 10px; color: var(--neon-productividad); background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.2); border-radius: 10px; padding: 2px 8px; margin: 4px 0; font-weight: bold; letter-spacing: 0.5px; }
-        .pet-xp-bar-bg { background: rgba(255,255,255,0.06); height: 10px; border-radius: 5px; margin: 8px 0 4px; overflow: hidden; }
-        .pet-xp-bar-fill { height: 100%; background: linear-gradient(90deg, var(--neon-utilidades), var(--neon-seguridad)); border-radius: 5px; transition: width 0.5s cubic-bezier(0.4,0,0.2,1); }
-        .pet-xp-label { font-size: 11px; color: var(--texto-secundario); text-align: right; }
-        .pet-stats { display: flex; gap: 8px; justify-content: center; margin: 8px 0; flex-wrap: wrap; }
-        .pet-stat-chip { font-size: 11px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); border-radius: 8px; padding: 3px 9px; color: var(--texto-secundario); }
-        .pet-task-area { margin-top: 10px; }
-        .pet-task-area label { font-size: 12px; color: var(--texto-secundario); margin-bottom: 4px; }
-        .pet-task-row { display: flex; gap: 8px; }
-        .pet-task-row input { margin-bottom: 0; font-size: 12px; }
-        .pet-task-row button { background: var(--neon-utilidades); color: #05070f; border: none; font-weight: bold; font-size: 12px; white-space: nowrap; }
-        .pet-task-row button:hover { background: #059669; color: white; }
-        .pet-completed-tasks { margin-top: 8px; max-height: 80px; overflow-y: auto; font-size: 11.5px; }
-        .pet-task-done-item { padding: 3px 6px; border-bottom: 1px solid rgba(255,255,255,0.03); color: var(--texto-secundario); display: flex; align-items: center; gap: 6px; }
-        .pet-msg-bubble { text-align: center; font-size: 12px; color: var(--neon-seguridad); background: rgba(56,189,248,0.06); border-radius: 8px; padding: 5px 10px; margin-top: 8px; font-style: italic; min-height: 26px; }
+        .pet-stage-badge { display: inline-block; font-size: 10px; color: var(--neon-productividad); background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.2); border-radius: 10px; padding: 1px 7px; margin: 3px 0; font-weight: bold; }
+        .pet-xp-bar-bg { background: rgba(255,255,255,0.06); height: 8px; border-radius: 4px; margin: 6px 0 3px; overflow: hidden; }
+        .pet-xp-bar-fill { height: 100%; background: linear-gradient(90deg, var(--neon-utilidades), var(--neon-seguridad)); border-radius: 4px; width: 0%; transition: width 0.5s ease; }
+        .pet-xp-label { font-size: 10px; color: var(--texto-secundario); text-align: right; }
+        .pet-stats { display: flex; gap: 5px; justify-content: center; margin: 6px 0; flex-wrap: wrap; }
+        .pet-stat-chip { font-size: 10.5px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); border-radius: 6px; padding: 2px 6px; color: var(--texto-secundario); }
+        .pet-task-area { margin-top: 8px; }
+        .pet-task-area label { font-size: 11px; color: var(--texto-secundario); margin-bottom: 3px; display: block; text-align: left; }
+        .pet-task-row { display: flex; gap: 6px; }
+        .pet-task-row input { margin-bottom: 0; font-size: 11.5px; padding: 6px 10px; }
+        .pet-task-row button { background: var(--neon-utilidades); color: #05070f; border: none; font-weight: bold; font-size: 11.5px; padding: 0 10px; }
+        .pet-msg-bubble { text-align: center; font-size: 11.5px; color: var(--neon-seguridad); background: rgba(56,189,248,0.06); border-radius: 8px; padding: 4px 8px; margin-top: 6px; font-style: italic; min-height: 24px; }
 
-        /* --- NUEVOS ESTILOS: BURBUJA INTERACTIVA Y MISIONES DIARIAS --- */
         .pet-sprite-container { position: relative; display: inline-block; margin: 0 auto; }
         .pet-bubble-speech {
             position: absolute;
-            top: -42px;
+            top: -46px;
             left: 50%;
             transform: translateX(-50%);
             background: #0f172a;
             border: 1.5px solid var(--neon-seguridad);
             color: var(--texto-principal);
-            padding: 6px 12px;
-            border-radius: 14px;
-            font-size: 11.5px;
+            padding: 5px 10px;
+            border-radius: 12px;
+            font-size: 11px;
             box-shadow: 0 0 12px rgba(56, 189, 248, 0.25);
             white-space: nowrap;
-            z-index: 100;
+            z-index: 1000;
             pointer-events: none;
             animation: floatingPetBubble 2s ease-in-out infinite;
         }
         @keyframes floatingPetBubble {
             0%, 100% { transform: translate(-50%, 0px); }
-            50% { transform: translate(-50%, -5px); }
+            50% { transform: translate(-50%, -4px); }
         }
         .mission-box-daily {
-            margin: 15px 0;
-            padding: 12px;
+            margin: 8px 0;
+            padding: 8px;
             background: rgba(6, 8, 20, 0.5);
             border: 1px solid var(--border-color);
-            border-radius: 10px;
+            border-radius: 8px;
             text-align: left;
         }
         .mission-box-title {
-            font-size: 12px;
+            font-size: 11px;
             color: var(--neon-productividad);
             font-weight: bold;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 8px;
+            margin-bottom: 5px;
         }
         .mission-item-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 6px 10px;
-            border-radius: 6px;
-            font-size: 11.5px;
-            margin-bottom: 6px;
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            padding: 4px 8px;
+            border-radius: 5px;
+            font-size: 11px;
+            margin-bottom: 4px;
         }
         .mission-item-row.completed {
             border-color: var(--neon-utilidades);
             opacity: 0.75;
         }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+        .flex-group { display: flex; gap: 8px; align-items: center; }
     </style>
 </head>
 <body>
@@ -343,7 +379,7 @@
                 </div>
                 <div class="card-body">
                     <input type="text" id="strength-input" placeholder="Escribe tu clave aquí..." oninput="chequearFuerza()">
-                    <div class="strength-bar"><div id="strength-fill" class="strength-fill"></div></div>
+                    <div style="background:rgba(255,255,255,0.05); height:6px; border-radius:3px; margin-bottom:8px; overflow:hidden;"><div id="strength-fill" style="width:0%; height:100%; transition:0.3s;"></div></div>
                     <p id="strength-text" style="font-size:12px; font-weight:bold;"></p>
                 </div>
             </section>
@@ -482,7 +518,7 @@
                         <input type="text" id="todo-input" placeholder="Escribe un pendiente...">
                         <button onclick="agregarTarea()" class="btn-accent" style="background:var(--neon-productividad)">Añadir</button>
                     </div>
-                    <ul class="todo-list" id="todo-container" style="margin-top:10px;"></ul>
+                    <ul class="todo-list" id="todo-container" style="margin-top:10px; list-style:none;"></ul>
                 </div>
             </section>
 
@@ -516,7 +552,7 @@
                 <div class="card-body">
                     <input type="text" id="ruleta-options" value="Estudiar Técnico, Avanzar Tareas, Configurar Linux, Jugar Sandbox">
                     <button onclick="girarRuleta()" style="width:100%;">🎰 Elegir al Azar</button>
-                    <div class="ruleta-result" id="ruleta-output" style="text-align:center; font-weight:bold;"></div>
+                    <div class="ruleta-result" id="ruleta-output" style="text-align:center; font-weight:bold; margin-top:8px;"></div>
                 </div>
             </section>
 
@@ -534,7 +570,7 @@
                     <label>¿Cuánto puedes guardar a la semana? ($):</label>
                     <input type="number" id="save-weekly" value="15000">
                     <button onclick="calcularMetaAhorro()" style="width:100%;">📅 Calcular Semanas Necesarias</button>
-                    <div id="save-output-box" class="output-box" style="color:var(--neon-productividad)">Ingresa los montos para simular el tiempo...</div>
+                    <div id="save-output-box" style="color:var(--neon-productividad); margin-top:8px; font-weight:600;">Ingresa los montos para simular el tiempo...</div>
                 </div>
             </section>
 
@@ -566,7 +602,7 @@
                     <input type="text" id="cv-perfil" placeholder="Perfil ocupacional o técnico">
                     <textarea id="cv-exp" rows="2" placeholder="Experiencia o estudios académicos..."></textarea>
                     <button onclick="generarCV()">Compilar Currículum</button>
-                    <div class="cv-preview" id="cv-block"></div>
+                    <div class="cv-preview" id="cv-block" style="display:none; margin-top:12px; background:rgba(0,0,0,0.3); padding:10px; border-radius:8px;"></div>
                 </div>
             </section>
         </main>
@@ -592,7 +628,7 @@
                         </div>
                     </div>
                     <button onclick="calcularMargenGanancia()" class="btn-accent" style="background:var(--neon-negocios); color:white; width:100%;">📊 Estructurar Balance de Venta</button>
-                    <div id="cost-output-box" class="output-box" style="color:var(--neon-negocios); white-space: pre-line;"></div>
+                    <div id="cost-output-box" style="color:var(--neon-negocios); white-space: pre-line; margin-top:8px; font-weight:600;"></div>
                 </div>
             </section>
 
@@ -616,7 +652,7 @@
                         </div>
                     </div>
                     <button onclick="calcularEngagement()" style="width:100%;">📊 Calcular Porcentaje de Engagement</button>
-                    <div id="engagement-output" class="output-box" style="color:var(--neon-negocios)">Ingresa los datos analíticos...</div>
+                    <div id="engagement-output" style="color:var(--neon-negocios); margin-top:8px; white-space:pre-line; font-weight:600;">Ingresa los datos analíticos...</div>
                 </div>
             </section>
 
@@ -654,7 +690,7 @@
             <section class="card cat-negocios">
                 <div class="card-header" onclick="toggleCard(this)">
                     <div class="card-header-left">
-                        <h2>¼ Generador de Comprobantes de Recibo de Caja</h2>
+                        <h2>🧾 Generador de Comprobantes de Recibo de Caja</h2>
                         <p class="desc-corta">Crea un recibo de pago rápido para tus clientes en pantalla.</p>
                     </div>
                     <span class="arrow-icon">▼</span>
@@ -685,7 +721,7 @@
                         <option value="60">60 Segundos (TikTok Standard)</option>
                     </select>
                     <button onclick="calcularCortesVideo()" style="width:100%;">🎬 Calcular Fragmentos</button>
-                    <div id="video-split-output" class="output-box" style="color:var(--neon-negocios)"></div>
+                    <div id="video-split-output" style="color:var(--neon-negocios); margin-top:8px; font-weight:600;"></div>
                 </div>
             </section>
 
@@ -699,8 +735,8 @@
                 </div>
                 <div class="card-body">
                     <input type="text" id="qr-text" placeholder="Pega el link del proyecto aquí...">
-                    <button onclick="generarQR()" class="btn-accent" style="background:var(--neon-negocios); color:white;">Generar Código QR</button>
-                    <div id="qrcode" style="text-align:center;"></div>
+                    <button onclick="generarQR()" class="btn-accent" style="background:var(--neon-negocios); color:white; width:100%;">Generar Código QR</button>
+                    <div id="qrcode" style="text-align:center; margin-top:10px;"></div>
                 </div>
             </section>
 
@@ -729,7 +765,7 @@
                     <span class="arrow-icon">▼</span>
                 </div>
                 <div class="card-body">
-                    <canvas id="canvas-firma" class="canvas-draw" height="130"></canvas>
+                    <canvas id="canvas-firma" style="background: rgba(6, 8, 20, 0.8); border: 1px dashed rgba(255,255,255,0.1); width:100%; border-radius:9px; box-sizing:border-box;" height="130"></canvas>
                     <div style="display: flex; gap: 8px; margin-top: 10px;">
                         <button onclick="limpiarFirma()" class="btn-alt">🧹 Limpiar</button>
                         <button onclick="descargarFirma()" class="btn-accent" style="background:var(--neon-negocios); color:white;">💾 Guardar PNG</button>
@@ -787,7 +823,7 @@
                     <div style="display: flex; gap: 8px; align-items: center; justify-content: center; margin-top: 8px; flex-wrap: wrap;">
                         <div style="width:110px; text-align:center;">Entonces <input type="number" id="r3-c" placeholder="C" style="margin-top:4px;"></div>
                         <div style="color:var(--neon-utilidades);">➔</div>
-                        <div style="width:110px; text-align:center;">X = <div id="r3-output" class="output-box" style="margin-top:4px; height:38px; padding:8px;">?</div></div>
+                        <div style="width:110px; text-align:center;">X = <div id="r3-output" style="margin-top:4px; height:38px; padding:8px; background:rgba(0,0,0,0.5); border-radius:8px; font-weight:bold; color:var(--neon-utilidades)">?</div></div>
                     </div>
                     <button onclick="calcularReglaDeTres()" style="margin-top:12px; width:100%;" class="btn-accent" style="background:var(--neon-utilidades); color:white;">🧮 Resolver Proporción</button>
                 </div>
@@ -813,7 +849,7 @@
                         </div>
                     </div>
                     <button onclick="calcularRamServidor()" style="width:100%;">⚙️ Calcular Asignación de Hardware</button>
-                    <div id="ram-output-box" class="output-box" style="color:var(--neon-productividad)"></div>
+                    <div id="ram-output-box" style="color:var(--neon-productividad); margin-top:8px; font-weight:600;"></div>
                 </div>
             </section>
 
@@ -837,7 +873,7 @@
                         </div>
                     </div>
                     <button onclick="calcularApuRamBalance()" style="width:100%;">⚙️ Calcular RAM Restante para el Sistema</button>
-                    <div id="apu-ram-output" class="output-box" style="color:var(--neon-utilidades)"></div>
+                    <div id="apu-ram-output" style="color:var(--neon-utilidades); margin-top:8px; white-space:pre-line; font-weight:600;"></div>
                 </div>
             </section>
 
@@ -853,7 +889,7 @@
                     <label>Megas de tu plan contratado (Mbps):</label>
                     <input type="number" id="net-mbps-input" value="200">
                     <button onclick="calcularVelocidadDescargaReal()" style="width:100%;">🌐 Calcular Velocidad de Bajada Real</button>
-                    <div id="net-download-output" class="output-box" style="color:var(--neon-seguridad)"></div>
+                    <div id="net-download-output" style="color:var(--neon-seguridad); margin-top:8px; font-weight:600;"></div>
                 </div>
             </section>
 
@@ -869,7 +905,7 @@
                     <label>Cantidad de Gigabytes (GiB) a asignar:</label>
                     <input type="number" id="gib-input-value" value="50">
                     <button onclick="convertirGibAMbExacto()" style="width:100%;">💾 Calcular MB Exactos</button>
-                    <div id="gib-convert-output" class="output-box" style="color:var(--neon-utilidades)"></div>
+                    <div id="gib-convert-output" style="color:var(--neon-utilidades); margin-top:8px; font-weight:600;"></div>
                 </div>
             </section>
 
@@ -897,7 +933,7 @@
                         </div>
                     </div>
                     <button onclick="calcularIvaExpress()" style="width:100%;">📊 Calcular Balances Contables</button>
-                    <div id="iva-output-box" class="output-box" style="white-space:pre-line; line-height:1.4;"></div>
+                    <div id="iva-output-box" style="white-space:pre-line; line-height:1.4; margin-top:8px; font-weight:600; color:var(--neon-utilidades);"></div>
                 </div>
             </section>
 
@@ -1041,17 +1077,65 @@
                         <div>
                             <label>Kilogramos a Libras:</label>
                             <input type="number" id="kg-input" placeholder="KG" oninput="convertirPeso()">
-                            <div id="peso-output" class="output-box" style="height:38px; padding:8px;">0.00 Libras</div>
+                            <div id="peso-output" style="height:38px; padding:8px; background:rgba(0,0,0,0.4); border-radius:8px; font-weight:bold; color:var(--texto-principal)">0.00 Libras</div>
                         </div>
                         <div>
                             <label>Celsius a Fahrenheit:</label>
                             <input type="number" id="celsius-input" placeholder="°C" oninput="convertirTemp()">
-                            <div id="temp-output" class="output-box" style="height:38px; padding:8px;">32.00 °F</div>
+                            <div id="temp-output" style="height:38px; padding:8px; background:rgba(0,0,0,0.4); border-radius:8px; font-weight:bold; color:var(--texto-principal)">32.00 °F</div>
                         </div>
                     </div>
                 </div>
             </section>
         </main>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 🐾 WIDGET FLOTANTE DE LA MASCOTA PRINCIPAL (ESTILO WIDGETABLE)-->
+    <!-- ============================================================ -->
+    <div id="founder-pet-section">
+        <h4>
+            <span>🐾 Tu Compañero Virtual</span>
+            <button onclick="toggleMinimizarMascota()" style="background: transparent; border: none; color: var(--texto-secundario); font-size: 11px; cursor: pointer; padding: 0 4px;">➖</button>
+        </h4>
+        
+        <div class="pet-display">
+            <div class="pet-sprite-container">
+                <div id="pet-speech-bubble" class="pet-bubble-speech" style="display: none;"></div>
+                <span class="pet-sprite" id="pet-sprite" onclick="acariciarMascota()">🥚</span>
+            </div>
+            
+            <div class="pet-display-wrapper">
+                <div class="pet-name" id="pet-name">Huevo Misterioso</div>
+                <div class="pet-stage-badge" id="pet-stage-badge">ETAPA: HUEVO</div>
+                <div class="pet-xp-bar-bg"><div class="pet-xp-bar-fill" id="pet-xp-fill" style="width:0%"></div></div>
+                <div class="pet-xp-label" id="pet-xp-label">0 / 15 XP</div>
+                
+                <div class="pet-stats">
+                    <!-- Los chips se actualizan dinámicamente -->
+                </div>
+                <div class="pet-msg-bubble" id="pet-msg-bubble">¡Haz misiones diarias para que pueda nacer! 🌱</div>
+
+                <div class="mission-box-daily">
+                    <div class="mission-box-title">
+                        <span>📅 Desafíos Diarios</span>
+                        <span id="missions-date" style="font-size: 9px; color: var(--texto-secundario);"></span>
+                    </div>
+                    <div id="daily-missions-list"></div>
+                </div>
+
+                <div class="pet-task-area">
+                    <div id="pet-care-actions" style="display: flex; gap: 6px; margin-bottom: 8px; justify-content: center;">
+                        <button onclick="alimentarMascota()" style="background:#f59e0b; font-size:11px; padding:4px 8px;">🍎 Alimentar</button>
+                        <button onclick="hacerDormirMascota()" style="background:#c084fc; font-size:11px; padding:4px 8px;">💤 Dormir</button>
+                    </div>
+                    <div class="pet-task-row">
+                        <input type="text" id="pet-task-input" placeholder="Escribe bitácora corta...">
+                        <button onclick="completartareaMascota()">📝</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <a href="#" class="btn-float-donate" id="donate-float-trigger" onclick="abrirModal('modal-donacion')">
@@ -1085,51 +1169,13 @@
                 </div>
                 <p id="code-result-msg"></p>
             </div>
-
-            <div id="founder-pet-section">
-                <h4>🐾 Tu Mascota Fundador</h4>
-                <div class="pet-display">
-                    <div class="pet-sprite-container">
-                        <div id="pet-speech-bubble" class="pet-bubble-speech" style="display: none;"></div>
-                        <span class="pet-sprite" id="pet-sprite" onclick="acariciarMascota()" style="cursor: pointer;">🥚</span>
-                    </div>
-                    <div class="pet-name" id="pet-name">Huevo Misterioso</div>
-                    <div class="pet-stage-badge" id="pet-stage-badge">ETAPA: HUEVO</div>
-                    <div class="pet-xp-bar-bg"><div class="pet-xp-bar-fill" id="pet-xp-fill" style="width:0%"></div></div>
-                    <div class="pet-xp-label" id="pet-xp-label">0 / 5 XP para evolucionar</div>
-                    <div class="pet-stats">
-                        <span class="pet-stat-chip">⭐ Nivel <span id="pet-level">1</span></span>
-                        <span class="pet-stat-chip">✅ Tareas: <span id="pet-tasks-done">0</span></span>
-                        <span class="pet-stat-chip">🏆 Etapa: <span id="pet-stage-label">Huevo</span></span>
-                    </div>
-                    <div class="pet-msg-bubble" id="pet-msg-bubble">¡Haz tareas para que yo crezca! 🌱</div>
-                </div>
-
-                <div class="mission-box-daily">
-                    <div class="mission-box-title">
-                        <span>📅 Misiones Diarias</span>
-                        <span id="missions-date" style="font-size: 10px; color: var(--texto-secundario); font-weight: normal;"></span>
-                    </div>
-                    <div id="daily-missions-list">
-                        </div>
-                </div>
-
-                <div class="pet-task-area">
-                    <label>Completar una tarea para ganar XP:</label>
-                    <div class="pet-task-row">
-                        <input type="text" id="pet-task-input" placeholder="Ej: Estudié 1 hora, hice ejercicio...">
-                        <button onclick="completarTareaMascota()">+XP ¡Listo!</button>
-                    </div>
-                    <div class="pet-completed-tasks" id="pet-done-list"></div>
-                </div>
-            </div>
             
-            <button onclick="cerrarModal('modal-donacion')" style="width: 100%; background: var(--neon-utilidades); color: #000; margin-top: 15px;">Entendido / Cerrar</button>
+            <button onclick="cerrarModal('modal-donacion')" style="width: 100%; background: var(--neon-utilidades); color: #000; margin-top: 15px; font-weight:bold;">Entendido / Cerrar</button>
         </div>
     </div>
 
     <script>
-        // --- 🔑 CONFIGURACIÓN REAL DE FIREBASE ---
+        // --- 🔑 CONFIGURACIÓN DE FIREBASE ---
         const firebaseConfig = {
             apiKey: "AIzaSyDlR_zbwalC2bpzZ5XWePMKzh1gGWo3cjI",
             authDomain: "herramientas-6ae51.firebaseapp.com",
@@ -1143,7 +1189,6 @@
         let dbRef = null;
         let currentUser = null;
 
-        // Inicializar Firebase con guard por si los scripts CDN no cargan
         try {
             if (typeof firebase !== 'undefined') {
                 firebase.initializeApp(firebaseConfig);
@@ -1161,19 +1206,18 @@
                     }
                 });
             } else {
-                console.warn("Firebase no disponible (sin conexión o CDN bloqueado). Funciones en la nube desactivadas.");
+                console.warn("Firebase no disponible. Funciones en la nube desactivadas.");
             }
         } catch(e) {
-            stream = null;
             console.warn("Error al inicializar Firebase:", e.message);
         }
 
         function manejarAutenticacion() {
-            if (typeof firebase === 'undefined') { alert("Firebase no disponible. Verifica tu conexión a internet."); return; }
+            if (typeof firebase === 'undefined') { alert("Firebase no disponible."); return; }
             if (!currentUser) {
                 const provider = new firebase.auth.GoogleAuthProvider();
                 firebase.auth().signInWithPopup(provider)
-                    .then(() => alert("¡Sesión iniciada correctamente con tu cuenta de Google!"))
+                    .then(() => alert("¡Sesión iniciada correctamente!"))
                     .catch(err => console.error(err));
             } else {
                 if (confirm("¿Quieres cerrar tu sesión actual de Google?")) {
@@ -1197,7 +1241,7 @@
                         .catch(() => document.getElementById('notes-status-text').innerText = "Error de sincronización");
                 }, 800);
             } else {
-                document.getElementById('notes-status-text').innerText = "✓ Guardado localmente (Inicia sesión para subirlo a la nube)";
+                document.getElementById('notes-status-text').innerText = "✓ Guardado localmente (Inicia sesión para la nube)";
                 localStorage.setItem('local_notes_backup', notaTexto);
             }
         }
@@ -1207,17 +1251,13 @@
                 dbRef.child('notas').once('value').then(snapshot => {
                     if (snapshot.exists()) {
                         document.getElementById('cloud-notes-area').value = snapshot.val();
-                        document.getElementById('notes-status-text').innerText = "✓ Notas descargadas desde tu cuenta en la nube";
+                        document.getElementById('notes-status-text').innerText = "✓ Notas descargadas desde la nube";
                     }
                 });
             }
         }
 
-        // --- MANEJO DE INTERFAZ UX ---
-        function toggleCard(headerElement) {
-            headerElement.parentElement.classList.toggle('expanded');
-        }
-
+        function toggleCard(headerElement) { headerElement.parentElement.classList.toggle('expanded'); }
         function cambiarPestaña(tabId, buttonElement) {
             document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
             document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
@@ -1236,12 +1276,10 @@
             linkDescarga.href = URL.createObjectURL(blobHtml);
             linkDescarga.download = 'UtilWeb-Ultimate-Portal.html';
             document.body.appendChild(linkDescarga); linkDescarga.click(); document.body.removeChild(linkDescarga);
-            alert("¡Portal descargado con éxito para usar sin internet!");
+            alert("¡Portal descargado con éxito!");
         }
 
-        // --- MOTOR LÓGICO DE LAS 15 NUEVAS HERRAMIENTAS ---
-
-        // 1. Regla de Tres Simple
+        // --- MOTOR LÓGICO DE HERRAMIENTAS ---
         function calcularReglaDeTres() {
             const a = parseFloat(document.getElementById('r3-a').value);
             const b = parseFloat(document.getElementById('r3-b').value);
@@ -1251,7 +1289,6 @@
             out.innerText = ((c * b) / a).toFixed(2);
         }
 
-        // 2. Costos de Producción y Precios de Venta
         function calcularMargenGanancia() {
             const baseCost = parseFloat(document.getElementById('cost-base').value) || 0;
             const marginPercent = parseFloat(document.getElementById('cost-margin').value) || 0;
@@ -1261,12 +1298,11 @@
             document.getElementById('cost-output-box').innerText = `Precio de Venta Sugerido: $${sellingPrice.toFixed(0)} COP\nGanancia Bruta por Unidad: +$${(sellingPrice - baseCost).toFixed(0)} COP\nMargen de Utilidad Real: ${marginPercent}%`;
         }
 
-        // 3. Fichas Flashcards Interactivas
         let flashcardsCollection = [{frente: "Concepto de Ejemplo: ¿Qué es un Activo?", atras: "Bienes y derechos económicos controlados por la empresa."}];
         let fcIndex = 0; let fcIsFront = true;
         function crearFlashcard() {
             const f = document.getElementById('fc-front').value.trim(); const b = document.getElementById('fc-back').value.trim();
-            if(!f || !b) { alert("Llena ambos lados de la ficha."); return; }
+            if(!f || !b) { alert("Llena ambos lados."); return; }
             flashcardsCollection.push({frente: f, atras: b}); fcIndex = flashcardsCollection.length - 1;
             fcIsFront = true; renderFichaActual();
             document.getElementById('fc-front').value = ""; document.getElementById('fc-back').value = "";
@@ -1278,7 +1314,6 @@
             document.getElementById('fc-text-view').innerText = fcIsFront ? current.frente : current.atras;
         }
 
-        // 4. Gantt Escolar
         function agregarFilaGantt() {
             const title = document.getElementById('gantt-title').value.trim();
             const progress = parseInt(document.getElementById('gantt-progress').value) || 0;
@@ -1289,7 +1324,6 @@
             document.getElementById('gantt-title').value = "";
         }
 
-        // 5. Metas de Ahorro
         function calcularMetaAhorro() {
             const target = parseFloat(document.getElementById('save-target-value').value) || 0;
             const weekly = parseFloat(document.getElementById('save-weekly').value) || 0;
@@ -1298,7 +1332,6 @@
             document.getElementById('save-output-box').innerText = `🎯 Cumplirás tu meta en: ${weeks} semanas (${(weeks/4).toFixed(1)} meses aprox).`;
         }
 
-        // 6. Engagement Rate (TikTok/Instagram)
         function calcularEngagement() {
             const views = parseFloat(document.getElementById('eng-views').value) || 0;
             const actions = parseFloat(document.getElementById('eng-actions').value) || 0;
@@ -1308,7 +1341,6 @@
             document.getElementById('engagement-output').innerText = `Tasa de Interacción: ${rate}%\nRendimiento estimado: ${status}`;
         }
 
-        // 7. Ganchos de Títulos Virales
         function generarTítulosHooks() {
             const k = document.getElementById('hook-keyword').value.trim() || "mi tema";
             const templates = [
@@ -1321,7 +1353,6 @@
             document.getElementById('hook-output').value = templates.join('\n\n');
         }
 
-        // 8. Cuentas de Cobro Express a PDF
         function generarCuentaCobroPDF() {
             const n = document.getElementById('bill-name').value || "Emprendedor";
             const c = document.getElementById('bill-concept').value || "Servicios Prestados";
@@ -1331,7 +1362,6 @@
             win.document.close(); win.print();
         }
 
-        // 9. Recibos de Caja
         function generarReciboCaja() {
             const cl = document.getElementById('rec-client').value || "Cliente General";
             const dt = document.getElementById('rec-detail').value || "Artículos comerciales";
@@ -1341,7 +1371,6 @@
             win.document.close(); win.print();
         }
 
-        // 10. Fragmentador de Duración de Videos
         function calcularCortesVideo() {
             const totalSec = parseInt(document.getElementById('split-video-seconds').value) || 0;
             const block = parseInt(document.getElementById('split-platform-time').value);
@@ -1349,62 +1378,53 @@
             document.getElementById('video-split-output').innerText = `🎬 Deberás cortar tu video en: ${pieces} bloques de máximo ${block}s para evitar recortes forzados.`;
         }
 
-        // 11. Balance de RAM en APU (Gráficos Integrados)
         function calcularApuRamBalance() {
             const total = parseFloat(document.getElementById('apu-total-ram').value) || 0;
             const vram = parseFloat(document.getElementById('apu-vram').value) || 0;
-            const rem = total - vram;
-            document.getElementById('apu-ram-output').innerText = `🖥️ Le quedan ${rem} GB de RAM libres al Sistema Operativo.\nSugerencia: Si te quedan menos de 6 GB, cierra navegadores pesados antes de abrir juegos exigentes.`;
+            document.getElementById('apu-ram-output').innerText = `🖥️ Le quedan ${total - vram} GB de RAM libres al Sistema Operativo.\nSugerencia: Si te quedan menos de 6 GB, cierra navegadores antes de abrir juegos exigentes.`;
         }
 
-        // 12. Mbps a MB/s Reales de Descarga
         function calcularVelocidadDescargaReal() {
             const mbps = parseFloat(document.getElementById('net-mbps-input').value) || 0;
-            const mbytes = (mbps / 8).toFixed(2);
-            document.getElementById('net-download-output').innerText = `🚀 Velocidad Real: Tus launchers e internet descargarán a un tope máximo de ${mbytes} MB/s (Megabytes por segundo).`;
+            document.getElementById('net-download-output').innerText = `🚀 Velocidad Real: Tus launchers e internet descargarán a un tope máximo de ${(mbps / 8).toFixed(2)} MB/s (Megabytes por segundo).`;
         }
 
-        // 13. GiB a MB Exactos para Particiones
         function convertirGibAMbExacto() {
             const gib = parseFloat(document.getElementById('gib-input-value').value) || 0;
-            document.getElementById('gib-convert-output').innerText = `💾 En tu gestor de discos o BIOS asigna exactamente: ${(gib * 1024).toFixed(0)} MB.`;
+            document.getElementById('gib-convert-output').innerText = `💾 En tu gestor de discos asigna exactamente: ${(gib * 1024).toFixed(0)} MB.`;
         }
 
-        // 14. Alertas de Límites de Texto de Redes
         function contarTextoConLimite() {
             const txt = document.getElementById('counter-text').value;
             const limit = parseInt(document.getElementById('text-limit-platform').value);
             document.getElementById('caracteres').innerText = txt.length;
             document.getElementById('palabras').innerText = txt.trim().split(/\s+/).filter(i => i).length;
             const badge = document.getElementById('char-badge-limit');
-            if (txt.length > limit) {
-                badge.style.background = "rgba(239, 68, 68, 0.15)"; badge.style.color = "var(--color-alerta)";
-            } else {
-                badge.style.background = "rgba(16, 185, 129, 0.08)"; badge.style.color = "var(--neon-utilidades)";
-            }
+            if (txt.length > limit) { badge.style.background = "rgba(239, 68, 68, 0.15)"; badge.style.color = "var(--color-alerta)"; }
+            else { badge.style.background = "rgba(16, 185, 129, 0.08)"; badge.style.color = "var(--neon-utilidades)"; }
         }
 
-        // 15. Limpiador de Duplicados Administrativos y Filtro A-Z
         function limpiarYOrdenarListaDuplicados() {
             const area = document.getElementById('duplicate-input-area');
             const lines = area.value.split('\n').map(l => l.trim()).filter(l => l !== "");
             const uniqueLines = [...new Set(lines)].sort((a, b) => a.localeCompare(b));
             area.value = uniqueLines.join('\n');
-            alert(`✓ Proceso completado. Se depuraron todas las líneas duplicadas y se ordenó la lista de la A a la Z.`);
+            alert(`✓ Proceso completado. Duplicados eliminados y lista ordenada A-Z.`);
         }
 
-        // --- MÉTODOS ORIGINALES COMPACTADOS ---
         function calcularRamServidor() {
             const players = parseInt(document.getElementById('ram-players').value) || 0;
             const mods = parseInt(document.getElementById('ram-mods').value) || 0;
-            let baseRam = 2.0; baseRam += (players * 0.15); baseRam += (mods * 0.04); const finalRam = Math.ceil(baseRam);
+            let baseRam = 2.0 + (players * 0.15) + (mods * 0.04); const finalRam = Math.ceil(baseRam);
             document.getElementById('ram-output-box').innerText = `💻 Sugerencia: Asignar mínimo ${finalRam} GB de RAM dedicados (-Xmx${finalRam}G).`;
         }
+
         function calcularIvaExpress() {
             const base = parseFloat(document.getElementById('iva-base').value); const percentage = parseFloat(document.getElementById('iva-percentage').value);
             if(isNaN(base) || base <= 0) return; const ivaValue = base * (percentage / 100); const total = base + ivaValue; const ret = base * 0.04;
             document.getElementById('iva-output-box').innerText = `Subtotal Base: $${base.toFixed(2)}\nIVA (${percentage}%): +$${ivaValue.toFixed(2)}\nRetención (4%): -$${ret.toFixed(2)}\nTotal Neto Comercial: $${(total - ret).toFixed(2)}`;
         }
+
         function convertirImagenLocalWebp() {
             const input = document.getElementById('image-convert-input'); const previewContainer = document.getElementById('image-convert-preview');
             if(!input.files[0]) return; const reader = new FileReader();
@@ -1418,6 +1438,7 @@
                 }; img.src = event.target.result;
             }; reader.readAsDataURL(input.files[0]);
         }
+
         let user = "user_" + Math.floor(Math.random()*899 + 100);
         function generarNuevoEmail() {
             user = "user_" + Math.floor(Math.random()*899 + 100); document.getElementById('email-value').innerText = `${user}@mailtemporal.com`;
@@ -1446,12 +1467,14 @@
             });
         }
         function procesarCifrado(encode) { const area = document.getElementById('crypto-input'); try { area.value = encode ? btoa(area.value) : atob(area.value); } catch(e) { alert("Inválido."); } }
+        
         let tm = 25, ts = 0, ip = null, cr = false;
         function controlarPomodoro() {
             const btn = document.getElementById('btn-pomodoro');
             if(!cr) { cr = true; btn.innerText = "⏸️ Pausar"; ip = setInterval(() => { if(ts===0) { if(tm===0) { clearInterval(ip); alert("Concluido."); reiniciarPomodoro(); return; } tm--; ts=59; } else { ts--; } document.getElementById('timer-display').innerText = `${tm<10?"0"+tm:tm}:${ts<10?"0"+ts:ts}`; }, 1000); } else { cr = false; btn.innerText = "▶️ Reanudar"; clearInterval(ip); }
         }
         function reiniciarPomodoro() { clearInterval(ip); cr = false; tm = 25; ts = 0; document.getElementById('btn-pomodoro').innerText = "▶️ Empezar"; document.getElementById('timer-display').innerText = "25:00"; }
+        
         let ctxAudio = null; let nodoRuido = null;
         function toggleSonido(tipo) {
             const btn = document.getElementById(`sound-${tipo}`); if(btn.classList.contains('playing')) { btn.classList.remove('playing'); if(ctxAudio) { ctxAudio.close(); ctxAudio = null; } return; }
@@ -1463,6 +1486,7 @@
             const i = document.getElementById('todo-input'); if(!i.value.trim()) return; const li = document.createElement('li'); li.className = 'todo-item';
             li.innerHTML = `<span>${i.value}</span><button onclick="this.parentElement.remove()" style="background:#ef4444; color:white; padding:2px 6px; font-size:10px; border:none; border-radius:4px;">X</button>`; document.getElementById('todo-container').appendChild(li); i.value = "";
         }
+        
         let chronoTime = 0, chronoInterval = null, chronoRunning = false;
         function controlarCronometro() {
             const btn = document.getElementById('btn-chrono'); if(!chronoRunning) { chronoRunning = true; btn.innerText = "⏸️ Pausar"; let startTime = Date.now() - chronoTime; chronoInterval = setInterval(() => { chronoTime = Date.now() - startTime; document.getElementById('chrono-display').innerText = formatChrono(chronoTime); }, 10); } else { chronoRunning = false; btn.innerText = "▶️ Reanudar"; clearInterval(chronoInterval); }
@@ -1474,6 +1498,7 @@
         function calcularPromedio() { const notas = document.getElementById('promedio-input').value.split(/\s+/).map(Number).filter(n => !isNaN(n) && n > 0); if(notas.length === 0) return; document.getElementById('promedio-output').innerText = `Nota Promedio: ${(notas.reduce((a,b)=>a+b, 0) / notas.length).toFixed(2)}`; }
         function generarCV() { const b = document.getElementById('cv-block'); b.style.display="block"; b.innerHTML = `<h3>👤 ${document.getElementById('cv-nombre').value}</h3><p><b>Perfil:</b> ${document.getElementById('cv-perfil').value}</p><p><b>Estudios:</b> ${document.getElementById('cv-exp').value}</p>`; }
         function generarLinkWA() { const n = document.getElementById('wa-num').value.replace(/\s+/g,''); const m = encodeURIComponent(document.getElementById('wa-msg').value); document.getElementById('wa-output').value = `https://wa.me/${n}?text=${m}`; }
+        
         const canvas = document.getElementById('canvas-firma'); const ctx = canvas.getContext('2d'); let dibujando = false; ctx.strokeStyle = '#38bdf8'; ctx.lineWidth = 2.5; ctx.lineCap = 'round';
         function obtenerPosicion(e) { const rect = canvas.getBoundingClientRect(); const cx = e.touches ? e.touches[0].clientX : e.clientX; const cy = e.touches ? e.touches[0].clientY : e.clientY; return { x: cx - rect.left, y: cy - rect.top }; }
         canvas.addEventListener('mousedown', (e) => { dibujando = true; const pos = obtenerPosicion(e); ctx.beginPath(); ctx.moveTo(pos.x, pos.y); });
@@ -1495,16 +1520,19 @@
             actualizarColor(); generarNuevoEmail();
             const backup = localStorage.getItem('local_notes_backup');
             if(backup && !currentUser) document.getElementById('cloud-notes-area').value = backup;
-            // Restaurar estado fundador si ya canjeó antes
+            
+            // Forzar activación del Widget flotante de forma global para pruebas o si ya es activo
             if(localStorage.getItem('utilweb_founder_active') === '1') {
+                mostrarSeccionFundador();
+                cargarEstadoMascota();
+            } else {
+                // Modo demostración: Se muestra desde el inicio para que no requiera el código de inmediato
                 mostrarSeccionFundador();
                 cargarEstadoMascota();
             }
         };
 
-        // ============================================================
-        // SISTEMA DE CÓDIGOS DE UN SOLO USO - FUNDADORES
-        // ============================================================
+        // --- CANJE DE CÓDIGOS - FUNDADORES ---
         const CODIGOS_FUNDADOR = [
             'FUNDADOR-A19X','FUNDADOR-B28M','FUNDADOR-C37K','FUNDADOR-D46W',
             'FUNDADOR-E55V','FUNDADOR-F64Z','FUNDADOR-G73P','FUNDADOR-H82Q',
@@ -1518,29 +1546,24 @@
             const msg = document.getElementById('code-result-msg');
             const codigo = input.value.trim().toUpperCase();
 
-            // Verificar si ya está activo en este dispositivo
             if(localStorage.getItem('utilweb_founder_active') === '1') {
-                msg.className = 'ok'; msg.innerText = '✅ ¡Ya eres Fundador en este dispositivo!';
+                msg.className = 'ok'; msg.innerText = '✅ ¡Ya eres Fundador!';
                 mostrarSeccionFundador(); return;
             }
-
-            // Obtener lista de códigos ya usados
             let usados = JSON.parse(localStorage.getItem('utilweb_codigos_usados') || '[]');
-
             if(!CODIGOS_FUNDADOR.includes(codigo)) {
-                msg.className = 'err'; msg.innerText = '❌ Código inválido. Verifica que lo escribiste correctamente.'; return;
+                msg.className = 'err'; msg.innerText = '❌ Código inválido.'; return;
             }
             if(usados.includes(codigo)) {
-                msg.className = 'err'; msg.innerText = '⛔ Este código ya fue canjeado anteriormente.'; return;
+                msg.className = 'err'; msg.innerText = '⛔ Ya canjeado.'; return;
             }
 
-            // Marcar código como usado y activar fundador
             usados.push(codigo);
             localStorage.setItem('utilweb_codigos_usados', JSON.stringify(usados));
             localStorage.setItem('utilweb_founder_active', '1');
             localStorage.setItem('utilweb_founder_code', codigo);
 
-            msg.className = 'ok'; msg.innerText = '🎉 ¡Código válido! Bienvenido/a, Fundador/a oficial de ÚtilWeb.';
+            msg.className = 'ok'; msg.innerText = '🎉 ¡Bienvenido/a, Fundador/a oficial!';
             input.value = '';
             setTimeout(() => { mostrarSeccionFundador(); cargarEstadoMascota(); }, 600);
         }
@@ -1550,38 +1573,71 @@
         }
 
         // ============================================================
-        // MASCOTA VIRTUAL - SISTEMA DE CRECIMIENTO POR TAREAS Y POOLS
+        // MASCOTA VIRTUAL - SISTEMA WIDGETABLE FLOTANTE DESKTOP
         // ============================================================
         const PET_STAGES = [
-            { min: 0,  sprite: '🥚',  name: 'Huevo Misterioso',   stage: 'HUEVO',       xpNext: 5,  msgs: ['¡Haz tareas para que yo crezca! 🌱', '¡Estoy esperando dentro del huevo! 🥚', 'Un poco más de esfuerzo...'] },
-            { min: 5,  sprite: '🐣',  name: 'Pollito Curioso',      stage: 'BEBÉ',        xpNext: 15, msgs: ['¡Salí del cascarón gracias a ti! 🐣', '¡Sigue así, estoy creciendo!', '¡Cada tarea me hace más fuerte! 💪'] },
-            { min: 20, sprite: '🐥',  name: 'Pichón Travieso',      stage: 'NIÑO',        xpNext: 30, msgs: ['¡Ya puedo caminar solito! 🐥', '¡Me encanta cuando cumples tus metas!', '¡Eres increíble, no pares! ✨'] },
-            { min: 50, sprite: '🦅',  name: 'Águila Determinada',  stage: 'ADOLESCENTE',xpNext: 50, msgs: ['¡Mis alas están creciendo! 🦅', '¡Juntos podemos volar muy alto!', '¡Soy casi un adulto gracias a ti!'] },
-            { min: 100,sprite: '🐉',  name: 'Dragón Legendario',   stage: 'ADULTO',      xpNext: 80, msgs: ['¡Me convertí en Dragón! 🐉 ¡Eres un héroe!', '¡Nuestro poder es ilimitado!', '¡Leyenda viva de ÚtilWeb! 🔥'] },
-            { min: 180,sprite: '🌟',  name: 'Ser de Luz Supremo',  stage: 'LEGENDARIO', xpNext: 999,msgs: ['¡Alcanzamos la forma definitiva! 🌟', '¡Eres un Fundador verdaderamente legendario!', '¡No hay límites para ti! ⚡'] },
+            { min: 0,   sprite: '🥚',  name: 'Huevo Misterioso',   stage: 'HUEVO',       xpNext: 15,  msgs: ['¡Haz misiones diarias para nacer! 🌱', '¡Siento vibraciones de estudio! 🥚', 'Un poco más de esfuerzo...'] },
+            { min: 15,  sprite: '🐣',  name: 'Pollito Curioso',      stage: 'BEBÉ',        xpNext: 35,  msgs: ['¡Salí del cascarón! 🐣', '¡Tengo un poco de hambre!', '¡Verte trabajar me hace feliz! 💪'] },
+            { min: 50,  sprite: '🐥',  name: 'Pichón Travieso',      stage: 'NIÑO',        xpNext: 70,  msgs: ['¡Ya sé usar el bloc de notas! 🐥', '¿Hacemos un Pomodoro juntos?', '¡Eres increíble, no pares! ✨'] },
+            { min: 120, sprite: '🦅',  name: 'Águila Determinada',  stage: 'ADOLESCENTE', xpNext: 120, msgs: ['¡Mis alas son enormes! 🦅', '¡Listo para revisar balances contables!', '¡Casi forma definitiva!'] },
+            { min: 240, sprite: '🐉',  name: 'Dragón Legendario',   stage: 'ADULTO',      xpNext: 200, msgs: ['¡Forma Dragón Desbloqueada! 🐉', '¡Nuestro poder es ilimitado!', '¡Leyenda de ÚtilWeb! 🔥'] },
+            { min: 440, sprite: '🌟',  name: 'Ser de Luz Supremo',  stage: 'LEGENDARIO',  xpNext: 999, msgs: ['¡Forma Cósmica Definitiva! 🌟', '¡Un verdadero Fundador Legendario!', '¡Gracias por apoyarme! ⚡'] },
         ];
 
-        // POOLS GLOBALES DE MISIONES Y FRASES INTERACTIVAS
         const POOL_MISIONES = [
-            { id: 'click_pet', desc: 'Acaricia a tu mascota 3 veces', target: 3, xp: 6, tipo: 'click' },
-            { id: 'completar_2', desc: 'Completa 2 tareas en esta sección', target: 2, xp: 12, tipo: 'tarea' },
-            { id: 'tarea_larga', desc: 'Registra una tarea de más de 15 letras', target: 1, xp: 8, tipo: 'texto' },
-            { id: 'motivado', desc: 'Interactúa con tu mascota 5 veces', target: 5, xp: 10, tipo: 'click' }
+            { id: 'click_pet', desc: 'Acaricia a tu mascota 5 veces', target: 5, xp: 8, tipo: 'click' },
+            { id: 'completar_2', desc: 'Darle de comer 3 veces (Subir Hambre)', target: 3, xp: 12, tipo: 'alimentar' },
+            { id: 'poner_dormir', desc: 'Mandarlo a dormir 1 vez (Subir Energía)', target: 1, xp: 10, tipo: 'dormir' },
+            { id: 'tarea_larga', desc: 'Registrar 2 bitácoras de estudio en su caja', target: 2, xp: 15, tipo: 'tarea' }
         ];
 
-        const FRASES_MASCOTA = [
-            "¡Eso se siente genial! ¡Sigue trabajando duro! 🚀",
-            "¿Sabías que cada tarea completada nos hace más fuertes? ⚡",
-            "¡No dejes para mañana lo que puedes automatizar hoy! 💻",
-            "¡Me encanta ver cómo progresas en tus proyectos! 🌟",
-            "¡Un paso más cerca de dominar el desarrollo web! 🌍"
+        const FRASES_INTERACTIVAS = [
+            "¡Eso hace cosquillas! 🚀",
+            "¿Sabías que tu dedicación me hace crecer? ⚡",
+            "¡Me encanta este portal! 💻",
+            "¡Recuerda estirarte un poco! 🌍",
+            "¡Vamos por ese promedio excelente! 🌟"
         ];
 
-        let petState = { totalXP: 0, tasksCompleted: 0, completedList: [], misionesDiarias: [], ultimaFechaMisiones: "" };
+        let petState = { 
+            totalXP: 0, 
+            tasksCompleted: 0, 
+            completedList: [], 
+            misionesDiarias: [], 
+            ultimaFechaMisiones: "",
+            hambre: 80,
+            sueno: 85,
+            felicidad: 75
+        };
+
+        let isPetMinimized = false;
+
+        function toggleMinimizarMascota() {
+            const widget = document.getElementById('founder-pet-section');
+            const btn = widget.querySelector('h4 button');
+            isPetMinimized = !isPetMinimized;
+            
+            if (isPetMinimized) {
+                widget.classList.add('minimized');
+                btn.innerText = '🔳';
+            } else {
+                widget.classList.remove('minimized');
+                btn.innerText = '➖';
+            }
+        }
 
         function cargarEstadoMascota() {
             const saved = localStorage.getItem('utilweb_pet_state');
-            if(saved) { try { petState = JSON.parse(saved); } catch(e) {} }
+            if(saved) { 
+                try { 
+                    const parsed = JSON.parse(saved);
+                    petState = { ...petState, ...parsed };
+                } catch(e) {} 
+            }
+            
+            if(!window.petLifeCycleInterval) {
+                window.petLifeCycleInterval = setInterval(cicloVidaMascota, 40000); 
+            }
             renderMascota();
         }
 
@@ -1599,8 +1655,6 @@
 
         function getXPInStage() {
             const stage = getStageData();
-            const idx = PET_STAGES.indexOf(stage);
-            const prev = idx > 0 ? PET_STAGES[idx - 1].min : 0;
             const xpInStage = petState.totalXP - stage.min;
             const xpNeeded = stage.xpNext;
             return { xpInStage, xpNeeded };
@@ -1610,70 +1664,88 @@
             const stage = getStageData();
             const { xpInStage, xpNeeded } = getXPInStage();
             const pct = Math.min(100, (xpInStage / xpNeeded) * 100).toFixed(0);
-            const nivel = Math.floor(petState.totalXP / 5) + 1;
-            const msg = stage.msgs[petState.tasksCompleted % stage.msgs.length];
+            const nivel = Math.floor(petState.totalXP / 10) + 1;
+            
+            let msg = stage.msgs[petState.tasksCompleted % stage.msgs.length];
+            if (petState.hambre < 30) msg = "¡Tengo mucha hambre! Presiona 🍎. 😢";
+            else if (petState.sueno < 30) msg = "Estoy muy cansado... déjame 💤. 🥱";
+            else if (petState.felicidad < 30) msg = "Me siento solito, ¡acaríciame! 🐾";
 
             document.getElementById('pet-sprite').innerText = stage.sprite;
             document.getElementById('pet-name').innerText = stage.name;
             document.getElementById('pet-stage-badge').innerText = 'ETAPA: ' + stage.stage;
             document.getElementById('pet-stage-label').innerText = stage.stage;
             document.getElementById('pet-xp-fill').style.width = pct + '%';
-            document.getElementById('pet-xp-label').innerText = `${xpInStage} / ${xpNeeded} XP para evolucionar`;
+            document.getElementById('pet-xp-label').innerText = `${xpInStage} / ${xpNeeded} XP (Nivel ${nivel})`;
             document.getElementById('pet-level').innerText = nivel;
             document.getElementById('pet-tasks-done').innerText = petState.tasksCompleted;
             document.getElementById('pet-msg-bubble').innerText = msg;
 
-            // Actualizar lista de tareas completadas
-            const list = document.getElementById('pet-done-list');
-            list.innerHTML = '';
-            if(petState.completedList) {
-                petState.completedList.slice(-8).reverse().forEach(t => {
-                    const d = document.createElement('div');
-                    d.className = 'pet-task-done-item';
-                    d.innerHTML = `<span style="color:var(--neon-utilidades);">✅</span> <span>${t}</span>`;
-                    list.appendChild(d);
-                });
-            }
-
-            // Sincronizar el cargador dinámico de misiones diarias del usuario
+            actualizarChipsEstadoVisual();
             verificarMisionesDiarias();
         }
 
-        function completarTareaMascota() {
+        function actualizarChipsEstadoVisual() {
+            let statsContainer = document.querySelector('.pet-stats');
+            if (statsContainer) {
+                statsContainer.innerHTML = `
+                    <span class="pet-stat-chip">🍎 ${petState.hambre}%</span>
+                    <span class="pet-stat-chip">⚡ ${petState.sueno}%</span>
+                    <span class="pet-stat-chip">❤️ ${petState.felicidad}%</span>
+                `;
+            }
+        }
+
+        function cicloVidaMascota() {
+            petState.hambre = Math.max(0, petState.hambre - 2);
+            petState.sueno = Math.max(0, petState.sueno - 1);
+            petState.felicidad = Math.max(0, petState.felicidad - 2);
+            guardarEstadoMascota();
+            actualizarChipsEstadoVisual();
+        }
+
+        function alimentarMascota() {
+            if(petState.hambre >= 100) { mostrarBurbujaFlotante("¡Estoy llenito! 🍎"); return; }
+            petState.hambre = Math.min(100, petState.hambre + 25);
+            petState.felicidad = Math.min(100, petState.felicidad + 5);
+            mostrarBurbujaFlotante("¡Nom nom! Qué delicia... 🥞");
+            progresarMision('alimentar', 1);
+            animarMascotaExito('scale(1.25) rotate(-10deg)');
+        }
+
+        function hacerDormirMascota() {
+            if(petState.sueno >= 100) { mostrarBurbujaFlotante("¡Tengo energía! ⚡"); return; }
+            petState.sueno = Math.min(100, petState.sueno + 40);
+            mostrarBurbujaFlotante("Zzz... recuperando energía... 😴");
+            progresarMision('dormir', 1);
+            animarMascotaExito('translateY(5px) scaleY(0.85)');
+        }
+
+        function acariciarMascota() {
+            petState.felicidad = Math.min(100, petState.felicidad + 15);
+            const frase = FRASES_INTERACTIVAS[Math.floor(Math.random() * FRASES_INTERACTIVAS.length)];
+            mostrarBurbujaFlotante(frase);
+            progresarMision('click', 1);
+            animarMascotaExito('scale(1.3) translateY(-6px)');
+        }
+
+        function completartareaMascota() {
             const input = document.getElementById('pet-task-input');
             const tarea = input.value.trim();
-            if(!tarea) { alert('Escribe la tarea que completaste para ganar XP.'); return; }
+            if(!tarea) { alert('Escribe una nota rápida.'); return; }
 
-            const prevStage = getStageData().stage;
-            petState.totalXP += 3;
             petState.tasksCompleted += 1;
             if(!petState.completedList) petState.completedList = [];
             petState.completedList.push(tarea);
             
-            // --- GANCHOS (HOOKS) DE MISIONES DIARIAS ---
             progresarMision('tarea', 1);
-            if (tarea.length > 15) {
-                progresarMision('texto', 1);
-            }
-            // -------------------------------------------
-
+            
             input.value = '';
-
-            const newStage = getStageData().stage;
+            mostrarBurbujaFlotante("¡Logro registrado! 📝");
             guardarEstadoMascota();
             renderMascota();
-
-            // Animar la mascota al ganar XP
-            const sprite = document.getElementById('pet-sprite');
-            sprite.style.transform = 'scale(1.4) rotate(10deg)';
-            setTimeout(() => { sprite.style.transform = 'scale(1)'; }, 400);
-
-            if(newStage !== prevStage) {
-                setTimeout(() => alert(`🎉 ¡Tu mascota evolucionó a ${newStage}! 🎊`), 500);
-            }
         }
 
-        // --- NUEVAS FUNCIONES DE INTERACTIVIDAD Y RETOS DIARIOS ---
         function verificarMisionesDiarias() {
             if (!petState.misionesDiarias) petState.misionesDiarias = [];
             if (!petState.ultimaFechaMisiones) petState.ultimaFechaMisiones = "";
@@ -1682,17 +1754,14 @@
             const dateEl = document.getElementById('missions-date');
             if (dateEl) dateEl.innerText = hoy;
 
-            // Si es un nuevo día en Colombia o la lista está limpia, se regenera el pool
             if (petState.ultimaFechaMisiones !== hoy || petState.misionesDiarias.length === 0) {
                 petState.ultimaFechaMisiones = hoy;
-                
                 const misionesMezcladas = [...POOL_MISIONES].sort(() => 0.5 - Math.random());
                 petState.misionesDiarias = misionesMezcladas.slice(0, 2).map(m => ({
                     ...m,
                     current: 0,
                     completada: false
                 }));
-                
                 guardarEstadoMascota();
             }
             renderMisionesDiarias();
@@ -1706,14 +1775,13 @@
             petState.misionesDiarias.forEach(mision => {
                 const row = document.createElement('div');
                 row.className = `mission-item-row ${mision.completada ? 'completed' : ''}`;
-                
                 row.innerHTML = `
-                    <div style="display:flex; align-items:center; gap:6px;">
+                    <div style="display:flex; align-items:center; gap:4px; max-width: 190px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                         <span>${mision.completada ? '✅' : '🎯'}</span>
-                        <span style="color:var(--texto-principal); font-size:11.5px;">${mision.desc}</span>
+                        <span style="color:var(--texto-principal); font-size:10.5px;">${mision.desc}</span>
                     </div>
-                    <div style="font-weight:bold; color:var(--neon-productividad); font-size:11px;">
-                        ${mision.completada ? '¡Hecho!' : `${mision.current}/${mision.target}`} <span style="font-size:10px; color:var(--texto-secundario); font-weight:normal;">(+${mision.xp} XP)</span>
+                    <div style="font-weight:bold; color:var(--neon-productividad); font-size:10px; white-space: nowrap;">
+                        ${mision.completada ? 'Ok' : `${mision.current}/${mision.target}`} <span style="font-size:9px; color:var(--texto-secundario); font-weight:normal;">(+${mision.xp}X)</span>
                     </div>
                 `;
                 listContainer.appendChild(row);
@@ -1730,8 +1798,16 @@
                     if (mision.current >= mision.target) {
                         mision.current = mision.target;
                         mision.completada = true;
+                        
+                        const prevStage = getStageData().stage;
                         petState.totalXP += mision.xp;
-                        mostrarBurbujaFlotante(`🎉 ¡Misión cumplida! +${mision.xp} XP`);
+                        const newStage = getStageData().stage;
+                        
+                        mostrarBurbujaFlotante(`🎉 Misión cumplida +${mision.xp} XP`);
+                        
+                        if(newStage !== prevStage) {
+                            setTimeout(() => alert(`🎉 ¡Tu mascota evolucionó a: ${newStage}! 🎊`), 600);
+                        }
                     }
                     huboCambios = true;
                 }
@@ -1743,16 +1819,12 @@
             }
         }
 
-        function acariciarMascota() {
+        function animarMascotaExito(transformStyle) {
             const sprite = document.getElementById('pet-sprite');
             if (sprite) {
-                sprite.style.transform = 'scale(1.3) translateY(-8px)';
-                setTimeout(() => { sprite.style.transform = 'scale(1)'; }, 200);
+                sprite.style.transform = transformStyle;
+                setTimeout(() => { sprite.style.transform = 'scale(1)'; }, 300);
             }
-
-            const fraseAleatoria = FRASES_MASCOTA[Math.floor(Math.random() * FRASES_MASCOTA.length)];
-            mostrarBurbujaFlotante(fraseAleatoria);
-            progresarMision('click', 1);
         }
 
         function mostrarBurbujaFlotante(texto) {
@@ -1764,7 +1836,7 @@
             clearTimeout(window.petBubbleTimeout);
             window.petBubbleTimeout = setTimeout(() => {
                 bubble.style.display = 'none';
-            }, 4000);
+            }, 3500);
         }
     </script>
 </body>
