@@ -55,7 +55,7 @@
         .btn-download-app:hover { background: rgba(56, 189, 248, 0.2); border-color: var(--neon-seguridad); }
 
         /* Barra de Pestañas Animada */
-        .tabs-container { max-width: 1400px; width: 100%; margin: 25px auto 0; padding: 0 20px; display: flex; gap: 10px; flex-wrap: wrap; }
+        .tabs-container { max-width: 1400px; width: 100%; margin: 20px auto 0; padding: 0 20px; display: flex; gap: 10px; flex-wrap: wrap; }
         .tab-button { 
             background: #0f172a; 
             color: var(--texto-secundario); 
@@ -77,7 +77,7 @@
         }
 
         /* Estructura Rejilla de Tarjetas Grid Premium */
-        .wrapper { max-width: 1400px; width: 100%; margin: 25px auto; padding: 0 20px; }
+        .wrapper { max-width: 1400px; width: 100%; margin: 15px auto; padding: 0 20px; }
         .tab-content { display: none; grid-template-columns: repeat(auto-fill, minmax(430px, 1fr)); gap: 20px; width: 100%; }
         @media (max-width: 500px) { .tab-content { grid-template-columns: 1fr; } }
         .tab-content.active { display: grid; }
@@ -175,6 +175,40 @@
         .founders-list li { padding: 4px 0; border-bottom: 1px solid rgba(255,255,255,0.02); color: #e2e8f0; }
         
         @keyframes abrirFlipped { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* === FUNDADOR: CANJE DE CÓDIGO === */
+        .founder-code-section { margin-top: 14px; padding: 14px; background: rgba(192, 132, 252, 0.05); border: 1px solid rgba(192, 132, 252, 0.2); border-radius: 12px; }
+        .founder-code-section h4 { font-size: 13px; color: var(--neon-negocios); font-weight: bold; margin-bottom: 8px; }
+        .founder-code-input-row { display: flex; gap: 8px; }
+        .founder-code-input-row input { margin-bottom: 0; font-family: monospace; letter-spacing: 1px; text-transform: uppercase; }
+        .founder-code-input-row button { white-space: nowrap; background: var(--neon-negocios); color: #05070f; border: none; font-weight: bold; }
+        .founder-code-input-row button:hover { background: #a855f7; color: white; }
+        #code-result-msg { font-size: 12px; margin-top: 8px; min-height: 18px; font-weight: 600; }
+        #code-result-msg.ok { color: var(--neon-utilidades); }
+        #code-result-msg.err { color: var(--color-alerta); }
+
+        /* === FUNDADOR: MASCOTA VIRTUAL === */
+        #founder-pet-section { display: none; margin-top: 16px; padding: 16px; background: rgba(16, 185, 129, 0.05); border: 1px solid rgba(16, 185, 129, 0.2); border-radius: 14px; }
+        #founder-pet-section h4 { font-size: 14px; color: var(--neon-utilidades); font-weight: bold; margin-bottom: 10px; text-align: center; }
+        .pet-display { text-align: center; }
+        .pet-sprite { font-size: 52px; line-height: 1; display: block; margin: 0 auto 6px; transition: transform 0.3s ease; cursor: default; user-select: none; }
+        .pet-sprite:hover { transform: scale(1.15) rotate(-5deg); }
+        .pet-name { font-size: 13px; color: var(--texto-principal); font-weight: bold; }
+        .pet-stage-badge { display: inline-block; font-size: 10px; color: var(--neon-productividad); background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.2); border-radius: 10px; padding: 2px 8px; margin: 4px 0; font-weight: bold; letter-spacing: 0.5px; }
+        .pet-xp-bar-bg { background: rgba(255,255,255,0.06); height: 10px; border-radius: 5px; margin: 8px 0 4px; overflow: hidden; }
+        .pet-xp-bar-fill { height: 100%; background: linear-gradient(90deg, var(--neon-utilidades), var(--neon-seguridad)); border-radius: 5px; transition: width 0.5s cubic-bezier(0.4,0,0.2,1); }
+        .pet-xp-label { font-size: 11px; color: var(--texto-secundario); text-align: right; }
+        .pet-stats { display: flex; gap: 8px; justify-content: center; margin: 8px 0; flex-wrap: wrap; }
+        .pet-stat-chip { font-size: 11px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); border-radius: 8px; padding: 3px 9px; color: var(--texto-secundario); }
+        .pet-task-area { margin-top: 10px; }
+        .pet-task-area label { font-size: 12px; color: var(--texto-secundario); margin-bottom: 4px; }
+        .pet-task-row { display: flex; gap: 8px; }
+        .pet-task-row input { margin-bottom: 0; font-size: 12px; }
+        .pet-task-row button { background: var(--neon-utilidades); color: #05070f; border: none; font-weight: bold; font-size: 12px; white-space: nowrap; }
+        .pet-task-row button:hover { background: #059669; color: white; }
+        .pet-completed-tasks { margin-top: 8px; max-height: 80px; overflow-y: auto; font-size: 11.5px; }
+        .pet-task-done-item { padding: 3px 6px; border-bottom: 1px solid rgba(255,255,255,0.03); color: var(--texto-secundario); display: flex; align-items: center; gap: 6px; }
+        .pet-msg-bubble { text-align: center; font-size: 12px; color: var(--neon-seguridad); background: rgba(56,189,248,0.06); border-radius: 8px; padding: 5px 10px; margin-top: 8px; font-style: italic; min-height: 26px; }
     </style>
 </head>
 <body>
@@ -367,7 +401,7 @@
                 <div class="card-header" onclick="toggleCard(this)">
                     <div class="card-header-left">
                         <h2>🌧️ Audio de Enfoque Relajante</h2>
-                        <p class="desc-corta">Bloquea distractions externas con sonido ambiental sintético.</p>
+                        <p class="desc-corta">Bloquea distracciones externas con sonido ambiental sintético.</p>
                     </div>
                     <span class="arrow-icon">▼</span>
                 </div>
@@ -589,7 +623,11 @@
                     <label>Duración total del video (en segundos):</label>
                     <input type="number" id="split-video-seconds" value="145">
                     <label>Dividir en bloques de (segundos):</label>
-                    <input type="number" id="split-platform-time" value="30">
+                    <select id="split-platform-time">
+                        <option value="15">15 Segundos (Historias Cortas)</option>
+                        <option value="30">30 Segundos (WhatsApp/Reels)</option>
+                        <option value="60">60 Segundos (TikTok Standard)</option>
+                    </select>
                     <button onclick="calcularCortesVideo()" style="width:100%;">🎬 Calcular Fragmentos</button>
                     <div id="video-split-output" class="output-box" style="color:var(--neon-negocios)"></div>
                 </div>
@@ -824,7 +862,7 @@
             <section class="card cat-utilidades">
                 <div class="card-header" onclick="toggleCard(this)">
                     <div class="card-header-left">
-                        <h2><h2>📱 Alerta de Límites y Contador de Texto</h2>
+                        <h2>📱 Alerta de Límites y Contador de Texto</h2>
                         <p class="desc-corta">Redacta descripciones cuidando no exceder el tope de TikTok o Instagram.</p>
                     </div>
                     <span class="arrow-icon">▼</span>
@@ -920,7 +958,7 @@
                 <div class="card-header" onclick="toggleCard(this)">
                     <div class="card-header-left">
                         <h2>💰 Calculadora de Descuentos Directos</h2>
-                        <p class="desc-corta">Deduce deductions porcentuales rápidamente de un precio base.</p>
+                        <p class="desc-corta">Deduce deducciones porcentuales rápidamente de un precio base.</p>
                     </div>
                     <span class="arrow-icon">▼</span>
                 </div>
@@ -961,7 +999,7 @@
     </div>
 
     <a href="#" class="btn-float-donate" id="donate-float-trigger" onclick="abrirModal('modal-donacion')">
-        <span>☕ Apoyar Portal ($1 USD)</span>
+        ☕ Apoyar Portal ($1 USD)
     </a>
 
     <div id="modal-donacion" class="modal-overlay" onclick="cerrarModalFondo(event, 'modal-donacion')">
@@ -980,7 +1018,44 @@
             <ul class="founders-list">
                 <li>✨ ¡Tu nombre puede ir aquí en la próxima actualización!</li>
                 <li>✨ Colaborador Anónimo (Cali, CO)</li>
+                <li>✨ Patrocinador VIP - Proyecto Cookie Cup</li>
             </ul>
+
+            <!-- SECCIÓN: CANJE DE CÓDIGO FUNDADOR -->
+            <div class="founder-code-section">
+                <h4>🔑 ¿Ya hiciste tu aporte? Canjea tu código de Fundador:</h4>
+                <div class="founder-code-input-row">
+                    <input type="text" id="founder-code-input" placeholder="FUNDADOR-XXXX" maxlength="14">
+                    <button onclick="canjearCodigoFundador()">✅ Canjear</button>
+                </div>
+                <p id="code-result-msg"></p>
+            </div>
+
+            <!-- SECCIÓN: MASCOTA FUNDADOR (se muestra tras canjear) -->
+            <div id="founder-pet-section">
+                <h4>🐾 Tu Mascota Fundador</h4>
+                <div class="pet-display">
+                    <span class="pet-sprite" id="pet-sprite">🥚</span>
+                    <div class="pet-name" id="pet-name">Huevo Misterioso</div>
+                    <div class="pet-stage-badge" id="pet-stage-badge">ETAPA: HUEVO</div>
+                    <div class="pet-xp-bar-bg"><div class="pet-xp-bar-fill" id="pet-xp-fill" style="width:0%"></div></div>
+                    <div class="pet-xp-label" id="pet-xp-label">0 / 5 XP para evolucionar</div>
+                    <div class="pet-stats">
+                        <span class="pet-stat-chip">⭐ Nivel <span id="pet-level">1</span></span>
+                        <span class="pet-stat-chip">✅ Tareas: <span id="pet-tasks-done">0</span></span>
+                        <span class="pet-stat-chip">🏆 Etapa: <span id="pet-stage-label">Huevo</span></span>
+                    </div>
+                    <div class="pet-msg-bubble" id="pet-msg-bubble">¡Haz tareas para que yo crezca! 🌱</div>
+                </div>
+                <div class="pet-task-area">
+                    <label>Completar una tarea para ganar XP:</label>
+                    <div class="pet-task-row">
+                        <input type="text" id="pet-task-input" placeholder="Ej: Estudié 1 hora, hice ejercicio...">
+                        <button onclick="completarTareaMascota()">+XP ¡Listo!</button>
+                    </div>
+                    <div class="pet-completed-tasks" id="pet-done-list"></div>
+                </div>
+            </div>
             
             <button onclick="cerrarModal('modal-donacion')" style="width: 100%; background: var(--neon-utilidades); color: #000; margin-top: 15px;">Entendido / Cerrar</button>
         </div>
@@ -991,7 +1066,6 @@
         const firebaseConfig = {
             apiKey: "AIzaSyDlR_zbwalC2bpzZ5XWePMKzh1gGWo3cjI",
             authDomain: "herramientas-6ae51.firebaseapp.com",
-            databaseURL: "https://herramientas-6ae51-default-rtdb.firebaseio.com",
             projectId: "herramientas-6ae51",
             storageBucket: "herramientas-6ae51.firebasestorage.app",
             messagingSenderId: "755323788523",
@@ -1002,24 +1076,32 @@
         let dbRef = null;
         let currentUser = null;
 
-        // Inicializar Firebase de forma automática con tus credenciales
-        firebase.initializeApp(firebaseConfig);
-        
-        firebase.auth().onAuthStateChanged(user => {
-            if (user) {
-                currentUser = user;
-                dbRef = firebase.database().ref('usuarios/' + user.uid);
-                document.getElementById('login-icon-placeholder').innerHTML = `<img src="${user.photoURL}" alt="Perfil">`;
-                document.getElementById('login-text').innerText = user.displayName.split(' ')[0];
-                descargarDatosNube();
+        // Inicializar Firebase con guard por si los scripts CDN no cargan
+        try {
+            if (typeof firebase !== 'undefined') {
+                firebase.initializeApp(firebaseConfig);
+                firebase.auth().onAuthStateChanged(user => {
+                    if (user) {
+                        currentUser = user;
+                        dbRef = firebase.database().ref('usuarios/' + user.uid);
+                        document.getElementById('login-icon-placeholder').innerHTML = `<img src="${user.photoURL}" alt="Perfil">`;
+                        document.getElementById('login-text').innerText = user.displayName.split(' ')[0];
+                        descargarDatosNube();
+                    } else {
+                        currentUser = null; dbRef = null;
+                        document.getElementById('login-icon-placeholder').innerText = "🔑";
+                        document.getElementById('login-text').innerText = "Ingresar con Google";
+                    }
+                });
             } else {
-                currentUser = null; dbRef = null;
-                document.getElementById('login-icon-placeholder').innerText = "🔑";
-                document.getElementById('login-text').innerText = "Ingresar con Google";
+                console.warn("Firebase no disponible (sin conexión o CDN bloqueado). Funciones en la nube desactivadas.");
             }
-        });
+        } catch(e) {
+            console.warn("Error al inicializar Firebase:", e.message);
+        }
 
         function manejarAutenticacion() {
+            if (typeof firebase === 'undefined') { alert("Firebase no disponible. Verifica tu conexión a internet."); return; }
             if (!currentUser) {
                 const provider = new firebase.auth.GoogleAuthProvider();
                 firebase.auth().signInWithPopup(provider)
@@ -1345,225 +1427,153 @@
             actualizarColor(); generarNuevoEmail();
             const backup = localStorage.getItem('local_notes_backup');
             if(backup && !currentUser) document.getElementById('cloud-notes-area').value = backup;
+            // Restaurar estado fundador si ya canjeó antes
+            if(localStorage.getItem('utilweb_founder_active') === '1') {
+                mostrarSeccionFundador();
+                cargarEstadoMascota();
+            }
         };
-   <style>
-/* Contenedor flotante de la mascota (abajo a la derecha) */
-#contenedor-mascota-fundador {
-    display: none; /* Oculto por defecto hasta que se canjee un código */
-    position: fixed;
-    bottom: 85px;
-    right: 20px;
-    background: rgba(15, 23, 42, 0.95);
-    border: 2px solid var(--neon-productividad);
-    border-radius: 16px;
-    padding: 12px 18px;
-    text-align: center;
-    box-shadow: 0 0 20px rgba(245, 158, 11, 0.25);
-    z-index: 1000;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    width: 140px;
-    user-select: none;
-    animation: aparecerMascota 0.4s ease-out;
-}
 
-@keyframes aparecerMascota {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
+        // ============================================================
+        // SISTEMA DE CÓDIGOS DE UN SOLO USO - FUNDADORES
+        // ============================================================
+        const CODIGOS_FUNDADOR = [
+            'FUNDADOR-A19X','FUNDADOR-B28M','FUNDADOR-C37K','FUNDADOR-D46W',
+            'FUNDADOR-E55V','FUNDADOR-F64Z','FUNDADOR-G73P','FUNDADOR-H82Q',
+            'FUNDADOR-J91R','FUNDADOR-K10S','FUNDADOR-L21T','FUNDADOR-M32N',
+            'FUNDADOR-N43H','FUNDADOR-P54J','FUNDADOR-Q65F','FUNDADOR-R76D',
+            'FUNDADOR-S87C','FUNDADOR-T98B','FUNDADOR-U09A','FUNDADOR-V11Y'
+        ];
 
-.mascota-animada {
-    font-size: 42px;
-    margin: 6px 0;
-    transition: transform 0.2s ease;
-    cursor: pointer;
-}
+        function canjearCodigoFundador() {
+            const input = document.getElementById('founder-code-input');
+            const msg = document.getElementById('code-result-msg');
+            const codigo = input.value.trim().toUpperCase();
 
-.mascota-animada:hover {
-    transform: scale(1.2) rotate(10deg);
-}
+            // Verificar si ya está activo en este dispositivo
+            if(localStorage.getItem('utilweb_founder_active') === '1') {
+                msg.className = 'ok'; msg.innerText = '✅ ¡Ya eres Fundador en este dispositivo!';
+                mostrarSeccionFundador(); return;
+            }
 
-.barra-xp-bg {
-    width: 100%;
-    height: 6px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 3px;
-    margin: 8px 0 4px 0;
-    overflow: hidden;
-}
+            // Obtener lista de códigos ya usados
+            let usados = JSON.parse(localStorage.getItem('utilweb_codigos_usados') || '[]');
 
-.barra-xp-llenado {
-    height: 100%;
-    background: linear-gradient(90deg, var(--neon-productividad), #fbbf24);
-    width: 0%;
-    transition: width 0.3s ease;
-}
+            if(!CODIGOS_FUNDADOR.includes(codigo)) {
+                msg.className = 'err'; msg.innerText = '❌ Código inválido. Verifica que lo escribiste correctamente.'; return;
+            }
+            if(usados.includes(codigo)) {
+                msg.className = 'err'; msg.innerText = '⛔ Este código ya fue canjeado anteriormente.'; return;
+            }
 
-#texto-nivel-mascota {
-    font-size: 11px;
-    color: var(--neon-productividad);
-    font-weight: bold;
-}
+            // Marcar código como usado y activar fundador
+            usados.push(codigo);
+            localStorage.setItem('utilweb_codigos_usados', JSON.stringify(usados));
+            localStorage.setItem('utilweb_founder_active', '1');
+            localStorage.setItem('utilweb_founder_code', codigo);
 
-/* Estilos de la sección de canje dentro del modal */
-.caja-canje-codigo {
-    margin-top: 15px;
-    padding: 12px;
-    background: rgba(16, 185, 129, 0.05);
-    border: 1px dashed var(--neon-utilidades);
-    border-radius: 10px;
-    text-align: left;
-}
-</style>
-
-<div id="contenedor-mascota-fundador">
-    <div style="font-size: 9px; color: var(--texto-secundario); font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px;">Mascota Fundador</div>
-    <div id="emoji-mascota" class="mascota-animada">🥚</div>
-    <div class="barra-xp-bg">
-        <div id="llenado-xp-mascota" class="barra-xp-llenado"></div>
-    </div>
-    <div id="texto-nivel-mascota">Nivel 1</div>
-</div>
-
-<script>
-(function() {
-    // Lista estricta de códigos de un solo uso proporcionada por ti
-    const codigosValidos = [
-        "FUNDADOR-A19X", "FUNDADOR-B28M", "FUNDADOR-C37K", "FUNDADOR-D46W", "FUNDADOR-E55V",
-        "FUNDADOR-F64Z", "FUNDADOR-G73P", "FUNDADOR-H82Q", "FUNDADOR-J91R", "FUNDADOR-K10S",
-        "FUNDADOR-L21T", "FUNDADOR-M32N", "FUNDADOR-N43H", "FUNDADOR-P54J", "FUNDADOR-Q65F",
-        "FUNDADOR-R76D", "FUNDADOR-S87C", "FUNDADOR-T98B", "FUNDADOR-U09A", "FUNDADOR-V11Y"
-    ];
-
-    // Fases de evolución de la mascota según su nivel
-    const fasesEvolucion = {
-        1: '🥚', // Huevo
-        2: '🐣', // Saliendo del cascarón
-        3: '🐥', // Pollito bebé
-        4: '🐤', // Pollito creciendo
-        5: '🐓', // Gallo Guardián
-        6: '🦅', // Águila de Fundador
-        7: '🐉'  // Dragón Legendario Supremo
-    };
-
-    // Cargar datos persistentes de localStorage
-    let esFundadorActivo = localStorage.getItem('esFundador') === 'true';
-    let xpActualMascota = parseInt(localStorage.getItem('xpMascota') || '0');
-    let nivelActualMascota = parseInt(localStorage.getItem('nivelMascota') || '1');
-
-    // Inyectar dinámicamente la interfaz de canje en el Muro de Fundadores
-    window.addEventListener('load', function() {
-        const listaFundadores = document.querySelector('.founders-list');
-        if (listaFundadores) {
-            const contenedorCanje = document.createElement('div');
-            contenedorCanje.className = 'caja-canje-codigo';
-            contenedorCanje.innerHTML = `
-                <label style="color: var(--neon-utilidades); font-weight: bold; margin-bottom: 6px;">💎 Canjear Código de Fundador:</label>
-                <div style="display: flex; gap: 8px;">
-                    <input type="text" id="txt-codigo-fundador" placeholder="FUNDADOR-XXXX" style="margin-bottom: 0; text-transform: uppercase; font-family: monospace;">
-                    <button id="btn-validar-fundador" style="background: var(--neon-utilidades); color: #000; padding: 0 14px; white-space: nowrap; font-weight: bold;">Canjear</button>
-                </div>
-                <p id="feedback-canje" style="font-size: 11px; margin-top: 6px; display: none; font-weight: bold;"></p>
-            `;
-            // Colocarlo justo debajo de la lista de fundadores sin alterarla
-            listaFundadores.parentNode.insertBefore(contenedorCanje, listaFundadores.nextSibling);
-
-            // Escuchar el evento de clic del botón de canje
-            document.getElementById('btn-validar-fundador').addEventListener('click', procesarCanjeCodigo);
+            msg.className = 'ok'; msg.innerText = '🎉 ¡Código válido! Bienvenido/a, Fundador/a oficial de ÚtilWeb.';
+            input.value = '';
+            setTimeout(() => { mostrarSeccionFundador(); cargarEstadoMascota(); }, 600);
         }
 
-        // Inicializar el estado visual de la mascota si ya es fundador
-        actualizarMascotaVisual();
+        function mostrarSeccionFundador() {
+            document.getElementById('founder-pet-section').style.display = 'block';
+        }
 
-        // Detectar de forma segura cuando se elimina una tarea del contenedor
-        const contenedorTareas = document.getElementById('todo-container');
-        if (contenedorTareas) {
-            contenedorTareas.addEventListener('click', function(evento) {
-                // Si hacen clic en el botón "X" para remover/completar la tarea
-                if (evento.target && evento.target.tagName === 'BUTTON' && evento.target.innerText === 'X') {
-                    if (esFundadorActivo) {
-                        agregarXPMascota();
-                    }
-                }
+        // ============================================================
+        // MASCOTA VIRTUAL - SISTEMA DE CRECIMIENTO POR TAREAS
+        // ============================================================
+        const PET_STAGES = [
+            { min: 0,  sprite: '🥚',  name: 'Huevo Misterioso',   stage: 'HUEVO',      xpNext: 5,  msgs: ['¡Haz tareas para que yo crezca! 🌱', '¡Estoy esperando dentro del huevo! 🥚', 'Un poco más de esfuerzo...'] },
+            { min: 5,  sprite: '🐣',  name: 'Pollito Curioso',     stage: 'BEBÉ',       xpNext: 15, msgs: ['¡Salí del cascarón gracias a ti! 🐣', '¡Sigue así, estoy creciendo!', '¡Cada tarea me hace más fuerte! 💪'] },
+            { min: 20, sprite: '🐥',  name: 'Pichón Travieso',     stage: 'NIÑO',       xpNext: 30, msgs: ['¡Ya puedo caminar solito! 🐥', '¡Me encanta cuando cumples tus metas!', '¡Eres increíble, no pares! ✨'] },
+            { min: 50, sprite: '🦅',  name: 'Águila Determinada',  stage: 'ADOLESCENTE',xpNext: 50, msgs: ['¡Mis alas están creciendo! 🦅', '¡Juntos podemos volar muy alto!', '¡Soy casi un adulto gracias a ti!'] },
+            { min: 100,sprite: '🐉',  name: 'Dragón Legendario',   stage: 'ADULTO',     xpNext: 80, msgs: ['¡Me convertí en Dragón! 🐉 ¡Eres un héroe!', '¡Nuestro poder es ilimitado!', '¡Leyenda viva de ÚtilWeb! 🔥'] },
+            { min: 180,sprite: '🌟',  name: 'Ser de Luz Supremo',  stage: 'LEGENDARIO', xpNext: 999,msgs: ['¡Alcanzamos la forma definitiva! 🌟', '¡Eres un Fundador verdaderamente legendario!', '¡No hay límites para ti! ⚡'] },
+        ];
+
+        let petState = { totalXP: 0, tasksCompleted: 0, completedList: [] };
+
+        function cargarEstadoMascota() {
+            const saved = localStorage.getItem('utilweb_pet_state');
+            if(saved) { try { petState = JSON.parse(saved); } catch(e) {} }
+            renderMascota();
+        }
+
+        function guardarEstadoMascota() {
+            localStorage.setItem('utilweb_pet_state', JSON.stringify(petState));
+        }
+
+        function getStageData() {
+            let stage = PET_STAGES[0];
+            for(let i = PET_STAGES.length - 1; i >= 0; i--) {
+                if(petState.totalXP >= PET_STAGES[i].min) { stage = PET_STAGES[i]; break; }
+            }
+            return stage;
+        }
+
+        function getXPInStage() {
+            const stage = getStageData();
+            const idx = PET_STAGES.indexOf(stage);
+            const prev = idx > 0 ? PET_STAGES[idx - 1].min : 0;
+            const xpInStage = petState.totalXP - stage.min;
+            const xpNeeded = stage.xpNext;
+            return { xpInStage, xpNeeded };
+        }
+
+        function renderMascota() {
+            const stage = getStageData();
+            const { xpInStage, xpNeeded } = getXPInStage();
+            const pct = Math.min(100, (xpInStage / xpNeeded) * 100).toFixed(0);
+            const nivel = Math.floor(petState.totalXP / 5) + 1;
+            const msg = stage.msgs[petState.tasksCompleted % stage.msgs.length];
+
+            document.getElementById('pet-sprite').innerText = stage.sprite;
+            document.getElementById('pet-name').innerText = stage.name;
+            document.getElementById('pet-stage-badge').innerText = 'ETAPA: ' + stage.stage;
+            document.getElementById('pet-stage-label').innerText = stage.stage;
+            document.getElementById('pet-xp-fill').style.width = pct + '%';
+            document.getElementById('pet-xp-label').innerText = `${xpInStage} / ${xpNeeded} XP para evolucionar`;
+            document.getElementById('pet-level').innerText = nivel;
+            document.getElementById('pet-tasks-done').innerText = petState.tasksCompleted;
+            document.getElementById('pet-msg-bubble').innerText = msg;
+
+            // Actualizar lista de tareas completadas
+            const list = document.getElementById('pet-done-list');
+            list.innerHTML = '';
+            petState.completedList.slice(-8).reverse().forEach(t => {
+                const d = document.createElement('div');
+                d.className = 'pet-task-done-item';
+                d.innerHTML = `<span style="color:var(--neon-utilidades);">✅</span> <span>${t}</span>`;
+                list.appendChild(d);
             });
         }
-    });
 
-    // Función para validar y quemar el código de un solo uso en el navegador
-    function procesarCanjeCodigo() {
-        const inputCodigo = document.getElementById('txt-codigo-fundador').value.trim().toUpperCase();
-        const feedback = document.getElementById('feedback-canje');
-        feedback.style.display = 'block';
+        function completarTareaMascota() {
+            const input = document.getElementById('pet-task-input');
+            const tarea = input.value.trim();
+            if(!tarea) { alert('Escribe la tarea que completaste para ganar XP.'); return; }
 
-        if (esFundadorActivo) {
-            feedback.style.color = 'var(--neon-productividad)';
-            feedback.innerText = '¡Ya eres miembro Fundador! Revisa tu mascota abajo a la derecha.';
-            return;
-        }
+            const prevStage = getStageData().stage;
+            petState.totalXP += 3;
+            petState.tasksCompleted += 1;
+            petState.completedList.push(tarea);
+            input.value = '';
 
-        if (codigosValidos.includes(inputCodigo)) {
-            // Verificar si este código específico ya fue usado localmente
-            let codigosQuemados = JSON.parse(localStorage.getItem('codigosQuemados') || '[]');
-            if (codigosQuemados.includes(inputCodigo)) {
-                feedback.style.color = 'var(--color-alerta)';
-                feedback.innerText = 'Este código de un solo uso ya ha sido canjeado.';
-                return;
+            const newStage = getStageData().stage;
+            guardarEstadoMascota();
+            renderMascota();
+
+            // Animar la mascota al ganar XP
+            const sprite = document.getElementById('pet-sprite');
+            sprite.style.transform = 'scale(1.4) rotate(10deg)';
+            setTimeout(() => { sprite.style.transform = 'scale(1)'; }, 400);
+
+            if(newStage !== prevStage) {
+                setTimeout(() => alert(`🎉 ¡Tu mascota evolucionó a ${newStage}! 🎊`), 500);
             }
-
-            // Activar membresía de fundador y guardar el código quemado
-            esFundadorActivo = true;
-            codigosQuemados.push(inputCodigo);
-            localStorage.setItem('esFundador', 'true');
-            localStorage.setItem('codigosQuemados', JSON.stringify(codigosQuemados));
-
-            feedback.style.color = 'var(--neon-utilidades)';
-            feedback.innerText = '¡Felicidades! Código aceptado. Beneficios de fundador activados.';
-            
-            actualizarMascotaVisual();
-        } else {
-            feedback.style.color = 'var(--color-alerta)';
-            feedback.innerText = 'Código inválido. Asegúrate de escribirlo correctamente.';
         }
-    }
-
-    // Incrementar la experiencia al realizar las tareas del bloc de notas
-    function agregarXPMascota() {
-        if (nivelActualMascota >= 7) return; // Máximo nivel alcanzado (Dragón)
-
-        xpActualMascota += 25; // Sube un 25% por cada tarea completada (4 tareas para subir de nivel)
-        if (xpActualMascota >= 100) {
-            xpActualMascota = 0;
-            nivelActualMascota++;
-            alert(`✨ ¡Increíble! Tu mascota de fundador ha evolucionado. Ahora está en el Nivel ${nivelActualMascota}.`);
-        }
-
-        localStorage.setItem('xpMascota', xpActualMascota);
-        localStorage.setItem('nivelMascota', nivelActualMascota);
-        actualizarMascotaVisual();
-    }
-
-    // Actualizar la interfaz gráfica de la mascota
-    function actualizarMascotaVisual() {
-        const widgetMascota = document.getElementById('contenedor-mascota-fundador');
-        if (esFundadorActivo) {
-            widgetMascota.style.display = 'block';
-            
-            const emojiActual = fasesEvolucion[nivelActualMascota] || '🐉';
-            document.getElementById('emoji-mascota').innerText = emojiActual;
-
-            if (nivelActualMascota >= 7) {
-                document.getElementById('texto-nivel-mascota').innerText = 'Nivel MÁX 🐉';
-                document.getElementById('llenado-xp-mascota').style.width = '100%';
-                document.getElementById('llenado-xp-mascota').style.background = 'var(--neon-seguridad)';
-            } else {
-                document.getElementById('texto-nivel-mascota').innerText = `Nivel ${nivelActualMascota}`;
-                document.getElementById('llenado-xp-mascota').style.width = `${xpActualMascota}%`;
-            }
-        } else {
-            widgetMascota.style.display = 'none';
-        }
-    }
-})();
-</script> </script>
+    </script>
 </body>
 </html>
